@@ -54,11 +54,16 @@ class LoginRequest extends FormRequest
             throw ValidationException::withMessages([
                 'login' => __('auth.failed'),
             ]);
-        }*/
+        }
+         RateLimiter::clear($this->throttleKey());
+
+        
+        */
 
         $user = User::where('email', $this->login)
             ->orWhere('name', $this->login)
             ->orWhere('phone', $this->login)
+            ->orWhere('username', $this->login)
             ->first();
 
         if (!$user || !Hash::check($this->password, $user->password)) {

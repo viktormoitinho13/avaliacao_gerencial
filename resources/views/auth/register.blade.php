@@ -14,14 +14,23 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="name" :value="__('Nome Completo')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                     autofocus />
             </div>
 
+              <!-- Phone -->
+              <div class="mt-4">
+                <x-label for="username" :value="__('Usuário')" />
+
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
+                    required />
+            </div>
+
+               <!-- Phone -->
             <div class="mt-4">
-                <x-label for="phone" :value="__('Phone no')" />
+                <x-label for="phone" :value="__('Telefone')" />
 
                 <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"
                     required />
@@ -37,7 +46,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('Senha')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                     autocomplete="new-password" />
@@ -45,7 +54,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('Confirmação da senha')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                     name="password_confirmation" required />
