@@ -20,7 +20,7 @@
                     autofocus />
             </div>
 
-              <!-- Phone -->
+              <!-- Username -->
               <div class="mt-4">
                 <x-label for="username" :value="__('Usuário')" />
 
@@ -28,11 +28,11 @@
                     required />
             </div>
 
-               <!-- Phone -->
+               <!-- registration -->
             <div class="mt-4">
-                <x-label for="phone" :value="__('Telefone')" />
+                <x-label for="registration" :value="__('Matrícula')" />
 
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"
+                <x-input id="registration" class="block mt-1 w-full" type="text" name="registration" :value="old('registration')"
                     required />
             </div>
 
