@@ -1,12 +1,15 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
-        <!-- Session Status -->
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+     
+       <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
@@ -17,26 +20,32 @@
 
             <!-- Email Address -->
             <div>
-                <x-label for="login" :value="__('Email / Nome Completo / Usuário / Matrícula')" />
+               
 
-                <x-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required
-                    autofocus />
+                   <label for="login">Email / Nome Completo / Usuário / Matrícula</label>
+
+                  <input type="text" id="login" name="login"><br><br>
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                <x-input id="password" class="form-label" type="password" name="password" required
                     autocomplete="current-password" />
             </div>
           
             <div class="flex items-center justify-left mt-6">
                
-                <x-button class="ml-3">
+                <x-button class="btn btn-primary btn-floating mx-1">
                     {{ __('Login') }}
                 </x-button>
             </div>
         </form>
+      </div>
+    </div>
+  </div>
+ 
+</section>
     </x-auth-card>
 </x-guest-layout>
