@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', function () {
+    return view('index');
+})->middleware(['auth']);
 
-Route::get('/form', function () {
-    return view('form');
-})->middleware(['auth'])->name('form');
+
+Route::get('/form/{id}',[QuestionsController::class, 'index']
+)->middleware(['auth'])->whereNumber('id')->name('form');
+
+
+
 
 require __DIR__.'/auth.php';
