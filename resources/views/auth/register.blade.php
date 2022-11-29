@@ -1,12 +1,16 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+  <section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-        <!-- Validation Errors -->
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+               <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register') }}">
@@ -14,35 +18,21 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Nome Completo')" />
+               <label class="form-label" for="name" :value="__('Nome Completo')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                <x-input id="name" class="d-flex flex-row align-items-center mb-4" type="text" name="name" :value="old('name')" required
                     autofocus />
             </div>
 
-              <!-- Username -->
-              <div class="mt-4">
-                <x-label for="username" :value="__('Usuário')" />
-
-                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
-                    required />
-            </div>
-
-               <!-- registration -->
+             <!-- registration -->
             <div class="mt-4">
                 <x-label for="registration" :value="__('Matrícula')" />
 
-                <x-input id="registration" class="block mt-1 w-full" type="text" name="registration" :value="old('registration')"
+                <x-input id="registration" class="form-outline flex-fill mb-0" type="text" name="registration" :value="old('registration')"
                     required />
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                    required />
-            </div>
+         
 
             <!-- Password -->
             <div class="mt-4">
@@ -70,5 +60,22 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
 </x-guest-layout>

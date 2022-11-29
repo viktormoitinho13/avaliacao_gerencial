@@ -22,7 +22,7 @@
             <div>
                  <!-- Email input -->
          <div class="col-md-6 ">
-                  <label class="form-label" for="login">Email / Nome Completo / Usuário / Matrícula</label>
+                  <label class="form-label" for="login">Nome Completo ou  Matrícula</label>
                   <input class="form-control form-control-lg" type="text" id="login" name="login"><br><br>
             </div>
 
