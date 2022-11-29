@@ -15,30 +15,30 @@
                     <div class="col-md-12 mb-3 mt-3">
                         @foreach ($questao->respostas as $resposta)
                             @if ($length = Str::length($resposta->RESPOSTA) < 10)
-                                <input class="form-check-input" style="margin-left:10%;position:relative;"
+                                <input class="form-check-input" style="margin-left:11%;position:relative;"
                                     type="radio" name="inlineRadioOptions" id="{{ $resposta->AG_RESPOSTA }}"
                                     value="{{ $resposta->AG_RESPOSTA }}">
-                                <label class="form-check-label ms-4"
+                                <label class="form-check-label ms-3"
                                     for="inlineRadio1">{{ $resposta->RESPOSTA }}</label>
                             @elseif (($length = Str::length($resposta->RESPOSTA) > 10) && ($length = Str::length($resposta->RESPOSTA) < 15) )
                                 <input class="form-check-input" style="margin-left:20%;position:relative;"
                                     type="radio" name="inlineRadioOptions" id="{{ $resposta->AG_RESPOSTA }}"
                                     value="{{ $resposta->AG_RESPOSTA }}">
-                                <label class="form-check-label ms-4"
+                                <label class="form-check-label ms-3"
                                     for="inlineRadio1">{{ $resposta->RESPOSTA }}</label>
                             @else
-                                <input class="form-check-input " style="margin-left:28%;position:relative;"
+                                <input class="form-check-input " style="margin-left:30%;position:relative;"
                                     type="radio" name="flexRadioDefault" id="{{ $resposta->AG_RESPOSTA }}">
-                                <label class="form-check-label ms-4" for="flexRadioDefault1"> {{ $resposta->RESPOSTA }}
+                                <label class="form-check-label ms-3" for="flexRadioDefault1"> {{ $resposta->RESPOSTA }}
                                 </label> <br />
+                            
                             @endif
                         @endforeach
                     </div>
-                </div>
     </div>
     @if ($loop->last)
         <div class="d-grid gap-2 col-6 mx-auto mt-3 ">
-            <button type="button" class="btn btn-primary">Enviar</button>
+          <input class="btn btn-primary" type="submit" value="enviar">
         </div>
     @endif
     </form>
