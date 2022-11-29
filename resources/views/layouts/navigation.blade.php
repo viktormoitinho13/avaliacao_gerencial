@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }" class="navbar navbar-expand-sm bg-primary navbar-dark">
-     <a class="navbar-brand mx-3" href="#">Logo</a> 
+     <a class="navbar-brand mx-3">Avaliação Gerencial</a> 
   
  <div class="collapse navbar-collapse justify-content-end mx-3" id="navbarSupportedContent">
 		  <ul class="navbar-nav ">

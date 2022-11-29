@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container-fluid ">
         @foreach ($questoes as $questao)
-            <form action="#" method="POST">
+            <form action="/form2" method="PUT">
                 <div class="card w-50 mx-auto mb-1 mt-5 ">
                     <div class="form-group row">
                         <div class="col-sm-12">
