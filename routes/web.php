@@ -26,7 +26,9 @@ Route::get('/', function () {
 Route::get('/form/{id}',[QuestionsController::class, 'index']
 )->middleware(['auth'])->whereNumber('id')->name('form');
 
-
+Route::get('/form2', function () {
+    return view('form2');
+});
 
 
 require __DIR__.'/auth.php';
