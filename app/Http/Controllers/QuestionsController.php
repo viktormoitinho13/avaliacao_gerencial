@@ -10,7 +10,7 @@ class QuestionsController extends Controller
 {
     public function index($id)
     {   
-        $questoes = AgQuestoes::query()->where('ag_questao',$id)->orderBy('ag_questao')->get();
+        $questoes = AgQuestoes::query()->where('ag_classificacao',$id)->orderBy('ag_questao')->get();
       // $questoes = AgQuestoes::all();
       
 
