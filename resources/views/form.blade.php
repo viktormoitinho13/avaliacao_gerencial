@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container-fluid ">
         @foreach ($questoes as $questao)
-            <form action="/form2" method="PUT">
+            <form action="/form2" method="GET">
                 <div class="card w-50 mx-auto mb-1 mt-5 ">
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -17,19 +17,19 @@
                             @if ($length = Str::length($resposta->RESPOSTA) < 10)
                                 <input class="form-check-input" style="margin-left:11%;position:relative;"
                                     type="radio" name="inlineRadioOptions" id="{{ $resposta->AG_RESPOSTA }}"
-                                    value="{{ $resposta->AG_RESPOSTA }}">
+                                    value="{{ $resposta->AG_RESPOSTA }}" required>
                                 <label class="form-check-label ms-3"
                                     for="inlineRadio1">{{ $resposta->RESPOSTA }}</label>
                             @elseif (($length = Str::length($resposta->RESPOSTA) > 10) && ($length = Str::length($resposta->RESPOSTA) < 15) )
                                 <input class="form-check-input" style="margin-left:20%;position:relative;"
                                     type="radio" name="inlineRadioOptions" id="{{ $resposta->AG_RESPOSTA }}"
-                                    value="{{ $resposta->AG_RESPOSTA }}">
+                                    value="{{ $resposta->AG_RESPOSTA }}" required>
                                 <label class="form-check-label ms-3"
                                     for="inlineRadio1">{{ $resposta->RESPOSTA }}</label>
                             @else
                                 <input class="form-check-input " style="margin-left:30%;position:relative;"
-                                    type="radio" name="flexRadioDefault" id="{{ $resposta->AG_RESPOSTA }}">
-                                <label class="form-check-label ms-3" for="flexRadioDefault1"> {{ $resposta->RESPOSTA }}
+                                    type="radio" name="flexRadioDefault" id="{{ $resposta->AG_RESPOSTA }}" required>
+                                <label class="form-check-label ms-3" for="flexRadioDefault1"> {{ $resposta->RESPOSTA }} 
                                 </label> <br />
                             
                             @endif

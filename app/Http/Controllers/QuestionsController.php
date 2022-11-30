@@ -13,7 +13,7 @@ class QuestionsController extends Controller
     {   
        $questoes = AgQuestoes::query()->with('respostas')->where('ag_classificacao',$id)->orderBy('ag_questao')->get();
    
-       // dd($questoes);
+        dd($questoes);
     
        return view('form', compact('questoes'));
     }

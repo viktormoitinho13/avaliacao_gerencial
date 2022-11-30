@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\ClassificacoesControllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/', function () {
-    return view('index');
-})->middleware(['auth']);
 
 
 Route::get('/form/{id}',[QuestionsController::class, 'index']
 )->middleware(['auth'])->whereNumber('id')->name('form');
 
-Route::get('/form2', function () {
-    return view('form2');
-});
+Route::get('/',[ClassificacoesControllers::class, 'index']
+)->middleware(['auth'])->name('home');
 
 
 require __DIR__.'/auth.php';
