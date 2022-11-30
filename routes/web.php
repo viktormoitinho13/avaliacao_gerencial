@@ -19,13 +19,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-
 Route::get('/form/{id}',[QuestionsController::class, 'index']
 )->middleware(['auth'])->whereNumber('id')->name('form');
 
 Route::get('/',[ClassificacoesControllers::class, 'index']
 )->middleware(['auth'])->name('home');
 
+Route::post('/create/{id}',[QuestionsController::class, 'store']
+)->middleware(['auth'])->whereNumber('id')->name('create');
+
+route::post('/teste', function(){
+        return 'teste';
+        
+})->name('teste');
 
 require __DIR__.'/auth.php';

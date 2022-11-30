@@ -15,11 +15,17 @@ class QuestionsController extends Controller
    
         //dd($questoes);
     
-       return view('form', compact('questoes'));
+       return view('form', [ 'questoes' => $questoes, 'id' => $id
+        ]);
     }
 
     public function show()
     {
 
     }
+
+        public function store ($id) 
+        {
+            dd(request()->all(), $id);
+        }
 }
