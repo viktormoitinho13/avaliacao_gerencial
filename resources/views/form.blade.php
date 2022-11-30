@@ -5,8 +5,8 @@
                 <div class="card w-50 mx-auto mb-1 mt-5 ">
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <div class="card-header ">
-                                <input type="text" style="text-align:center;font-weight:light;" readonly
+                            <div class="card-header text-white" style="background-color: #6B9DD8;">
+                                <input type="text " style="text-align:center;font-weight:light;color:white;" readonly
                                     class="form-control-plaintext" id="{{ $questao->AG_QUESTAO }}"
                                     value="{{ $questao->QUESTAO }} ">
                             </div>
@@ -38,7 +38,7 @@
     </div>
     @if ($loop->last)
         <div class="d-grid gap-2 col-6 mx-auto mt-3 ">
-          <input class="btn btn-primary" type="submit" value="enviar">
+          <input class="btn " type="submit" value="Enviar" style="background-color: #6B9DD8; color:white;">
         </div>
     @endif
     </form>
