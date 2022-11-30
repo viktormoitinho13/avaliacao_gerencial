@@ -1,36 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionsController;
-use App\Http\Controllers\ClassificacoesControllers;
+use App\Http\Controllers\{QuestionsController, ClassificacoesControllers};
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
+Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/form/{id}',[QuestionsController::class, 'index']
-)->middleware(['auth'])->whereNumber('id')->name('form');
+Route::get('/home', [ClassificacoesControllers::class, 'index'])
+    ->middleware('auth')
+    ->name('home');
 
-Route::get('/',[ClassificacoesControllers::class, 'index']
-)->middleware(['auth'])->name('home');
+Route::middleware('auth')
+    ->prefix('form')
+    ->group(function () {
+        Route::get('/{id}', [QuestionsController::class, 'index'])
+            ->whereNumber('id')
+            ->name('questions.index');
 
-Route::post('/create/{id}',[QuestionsController::class, 'store']
-)->middleware(['auth'])->whereNumber('id')->name('create');
+        Route::post('/create/{id}', [QuestionsController::class, 'store'])
+            ->whereNumber('id')
+            ->name('questions.store');
+    });
 
-route::post('/teste', function(){
-        return 'teste';
-        
-})->name('teste');
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

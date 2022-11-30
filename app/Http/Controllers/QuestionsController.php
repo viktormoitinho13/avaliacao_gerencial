@@ -1,31 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\AgQuestoes;
-use App\Models\AgResposta;
-use Illuminate\Support\Facades\DB;
 
+use App\Models\AgQuestoes;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class QuestionsController extends Controller
 {
-    public function index($id)
-    {   
-       $questoes = AgQuestoes::query()->with('respostas')->where('ag_classificacao',$id)->orderBy('ag_questao')->get();
-   
-        //dd($questoes);
-    
-       return view('form', [ 'questoes' => $questoes, 'id' => $id
+    /**
+     * @param int $id
+     * @return View|Factory
+     */
+    public function index(int $id): View|Factory
+    {
+        $questoes = AgQuestoes::query()
+            ->with('respostas')
+            ->where('ag_classificacao', $id)
+            ->orderBy('ag_questao')
+            ->get();
+
+        return view('form', [
+            'id' => $id,
+            'questoes' => $questoes,
         ]);
     }
 
-    public function show()
+    /**
+     * @return void
+     */
+    public function show(): void
     {
-
     }
 
-        public function store ($id) 
-        {
-            dd(request()->all(), $id);
-        }
+    /**
+     * @return void
+     */
+    public function store(int $id): void
+    {
+        //dd(request()->all());
+    }
 }
