@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{QuestionsController, ClassificacoesControllers};
+use App\Http\Controllers\{QuestionsController, ClassificacoesControllers, RespostasQuestoes};
 
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
@@ -18,9 +18,9 @@ Route::middleware('auth')
             ->whereNumber('id')
             ->name('questions.index');
 
-        Route::post('/create/{id}', [QuestionsController::class, 'store'])
+        Route::post('/create/{id}', [RespostasQuestoes::class, 'store'])
             ->whereNumber('id')
-            ->name('questions.store');
+            ->name('respostas.store');
     });
 
 require __DIR__ . '/auth.php';
