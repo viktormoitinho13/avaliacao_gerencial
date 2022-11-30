@@ -38,6 +38,8 @@ class QuestionsController extends Controller
      */
     public function store(int $id): void
     {
-        //dd(request()->all());
+        foreach (request()->input('questao') as $questao => $resposta) {
+            dump('Questão: ' . $questao, ' Resposta:' . $resposta);
+        }
     }
 }
