@@ -3,13 +3,12 @@
         <form action="{{ route('respostas.store', ['id' => $id]) }}" method="POST">
             @csrf
             @foreach ($questoes as $key => $questao)
-                <div class="card w-75 mx-auto mb-1 mt-5 ">
+                <div class="card w-75 mx-auto mb-1 mt-4 ">
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <div class="card-header text-white text-center fs-5 fw-light "
-                                style="background-color: #6B9DD8;">
-                                {{ $questao->QUESTAO }}
-                            </div>
+                            <div class="card-header text-white fs-6"  style="background-color: #6B9DD8; overflow-wrap:break-word;">
+                               {{ $questao->QUESTAO }}
+                           </div>
                         </div>
                     </div>
                     <div class="row bd-highlight">
@@ -27,7 +26,8 @@
                                     </div>
                                 </div>
                             @else
-                            <div class=" mx-auto ml-auto">
+                            <div class="h-100 d-flex align-items-center justify-content-center">
+                            <div class=" p-2 col-6 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  d-flex  h-100" >
                                 <div>
                                     <input type="radio" name="questao[{{ $questao->AG_QUESTAO }}]"
                                         id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}"
@@ -38,6 +38,7 @@
                                     </label>
                                 </div>
                              </div>
+                            </div>
                             @endif
                         @endforeach
                     </div>
