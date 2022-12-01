@@ -1,49 +1,52 @@
 <x-guest-layout>
-    <x-auth-card>
-<section class="vh-100 mt-5">
-  <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5 ml-5">
-       <img src="{{URL::asset('/imgs/capa.jpg')}}" alt="profile Pic"   class="img-fluid" alt="Sample image" >
-      </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-     
-       <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+    <section class="vh-75 my-5">
+        <div class="container h-50">
+            <div class="row d-flex justify-content-center align-items-center ">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black my-4" style="border-radius: 25px;">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 mx-auto">
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+                                 <form class="mx-1 mx-md-4 my-auto" method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <!-- Name -->
+                                    <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
+                                        <label class="form-label" for="login">Nome Completo ou
+                                                    Matrícula</label>
+                                        <input class="form-control form-control-lg" type="text"
+                                                    id="login" name="login">
+                                    </div>
+                                  
+                                    <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
+                                        <x-label for="password" :value="__('Sua Senha')" class="form-label" />
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                 <!-- Email input -->
-         <div class="col-md-6 ">
-                  <label class="form-label" for="login">Seu Nome Completo ou Sua Matrícula</label>
-                  <input class="form-control form-control-lg" type="text" id="login" name="login"><br><br>
+                                                <x-input id="password" class="form-label" type="password"
+                                                    name="password" required autocomplete="current-password"
+                                                    class="form-control form-control-lg" />
+                                    </div>
+                                  
+                                    <div class="flex items-center justify-end mt-4">
+                                      <label class="form-check-label" for="form2Example3">
+                                        Não possuí cadastro?   <a class="underline text-sm text-gray-600 hover:text-gray-900 " href="{{ route('register') }}">
+                                            {{ __('Clique aqui!') }}
+                                        </a>
+                                      </label>
+                                    </div>
+                                    <div class="flex items-center justify-end mt-4 my-4">
+                                        <x-button class="btn btn-lg btn-block btn-primary col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    {{ __('Login') }}
+                                                </x-button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-9 col-lg-6 col-xl-5 ml-5 d-flex align-items-center order-1 order-lg-2" style="width:500; height=600;">
+                                     <img src="{{ URL::asset('/imgs/otp-security.png') }}" class="img-fluid"
+                                    alt="Sample image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Password -->
-            <div class="col-md-6 mb-4 mt-2">
-                <x-label for="password" :value="__('Sua Senha')" class="form-label"/>
-
-                <x-input id="password" class="form-label" type="password" name="password" required
-                    autocomplete="current-password" class="form-control form-control-lg" />
-            </div>
-          
-            <div class="flex items-center justify-left mt-1">
-               
-                <x-button class="btn btn-lg btn-block btn-primary col-md-6 mb-6">
-                    {{ __('Login') }}
-                </x-button>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
- 
-</section>
-    </x-auth-card>
+        </div>
+    </section>
 </x-guest-layout>
