@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="flex items-center justify-end mt-4 my-4">
                                         <x-button class="btn btn-lg btn-block btn-primary col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            {{ __('Register') }}
+                                            {{ __('Cadastrar') }}
                                         </x-button>
                                     </div>
                                 </form>
