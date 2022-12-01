@@ -8,12 +8,9 @@ use App\Models\AgFormRespostas;
 
 class RespostasQuestoes extends Controller
 {
-    public function store(int $id): void
+    public function store(int $id)
     {
         foreach (request()->input('questao') as $questao => $resposta) {
-            //dump('Questão: ' . $questao, ' Resposta:' . $resposta);
-           // dd($questao, $resposta, $id);
-           
             
             $datasave = [
             'AG_QUESTAO' => $id,
@@ -22,6 +19,7 @@ class RespostasQuestoes extends Controller
             ];
             DB::table('AG_FORM_RESPOSTAS')->insert($datasave);
         }
+       return redirect('/home');
        
     }
 }
