@@ -9,25 +9,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <div class="card-header text-white" style="background-color: #6B9DD8;">
-<<<<<<< HEAD
-                          <h5 class="text-center">{{ $questao->QUESTAO }}</h5>
-                        </div>
-                    </div>
-                </div>
-               
-                    @foreach ($questao->respostas as $resposta)
-                             <div class="d-flex justify-content-center my-2" >
-                          <input  class="form-check-input   "  type="radio" 
-                                name="questao[{{ $questao->AG_QUESTAO }}]" 
-                                  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}" 
-                                  value="{{ $resposta->AG_RESPOSTA }}" 
-                                  required>
-                          <label class="form-check-label ms-3" for="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}">
-                            {{ $resposta->RESPOSTA }} </label></br>
-                            </div>                
-                     @endforeach
-                
-=======
+
                             <h5>{{ $questao->QUESTAO }}</h5>
                         </div>
                     </div>
@@ -41,8 +23,7 @@
                             name="questao[{{ $questao->AG_QUESTAO }}]" 
                             id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}" 
                             class="form-check-input" 
-                            value="{{ $resposta->AG_RESPOSTA }}" required
-                        />
+                            value="{{ $resposta->AG_RESPOSTA }}" required/>
                             <label 
                                 class="form-check-label" 
                                 for="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}"
@@ -53,7 +34,6 @@
                     @endforeach
                    </div>
                 </div>
->>>>>>> 2f3c028a47761b98bf38213a94102aa7400949c2
             </div>
             @endforeach
 <button type="submit" class="btn btn-lg btn-block col-md-6 offset-md-3 my-4" style="background-color:#6b9dd8; color:white;">Enviar</button>
