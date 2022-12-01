@@ -12,7 +12,7 @@ class ClassificacoesControllers extends Controller
     public function index()
 {       
     $classificacoes = AgClassificacao::query()->orderBy('ag_classificacao')->get();
-    //dd($classificacoes);
+    
     return view('home', compact('classificacoes'));
 }
     public function show()
