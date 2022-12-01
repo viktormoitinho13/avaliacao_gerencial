@@ -38,6 +38,6 @@ class QuestionsController extends Controller
      */
     public function store(int $id): void
     {
-        //dd(request()->all());
+        dd(request()->all());
     }
 }

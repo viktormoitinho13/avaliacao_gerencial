@@ -1,32 +1,34 @@
 <x-app-layout>
-    <div class="container-fluid my-5">
+    <div class="container-fluid my-5 col-md-6 offset-md-3">
         <form 
-            action="{{ route('questions.store', ['id' => $id]) }}" 
-            method="POST"
-        >    
+            action="{{ route('respostas.store', ['id' => $id]) }}" 
+            method="POST">    
             @csrf 
             @foreach ($questoes as $key => $questao)
             <div class="card w-50 mx-auto mb-1 mt-5 ">
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <div class="card-header text-white" style="background-color: #6B9DD8;">
-                            <input type="text " style="text-align:center;font-weight:light;color:white;" readonly
-                                class="form-control-plaintext" id="{{ $questao->AG_QUESTAO }}"
-                                value="{{ $questao->QUESTAO }} ">
+                          <h5 class="text-center">{{ $questao->QUESTAO }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mb-3 mt-3">
+               
                     @foreach ($questao->respostas as $resposta)
-                        <input class="form-check-input " style="margin-left:30%;position:relative;" type="radio"
-                            name="questao_{{ $key }}" id="questao_{{  $key }}" value="{{ $resposta->AG_RESPOSTA }}" required>
-                        <label class="form-check-label ms-3" for="questao_{{  $key }}"> {{ $resposta->RESPOSTA }}
-                        </label> <br />
-                    @endforeach
-                </div>
+                             <div class="d-flex justify-content-center my-2" >
+                          <input  class="form-check-input   "  type="radio" 
+                                name="questao[{{ $questao->AG_QUESTAO }}]" 
+                                  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}" 
+                                  value="{{ $resposta->AG_RESPOSTA }}" 
+                                  required>
+                          <label class="form-check-label ms-3" for="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}">
+                            {{ $resposta->RESPOSTA }} </label></br>
+                            </div>                
+                     @endforeach
+                
             </div>
             @endforeach
-<button type="submit">enviar</button>
+<button type="submit" class="btn btn-lg btn-block col-md-6 offset-md-3 my-4" style="background-color:#6b9dd8; color:white;">Enviar</button>
 </form>
     </div>
 </x-app-layout>
