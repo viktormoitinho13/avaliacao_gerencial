@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <button class="btn btn-lg btn-block col-4 offset-md-3 my-4 mx-auto text-center"
-                            style="background-color:#6b9dd8; color:white;">Enviar</button>
+                            style="background-color:#6b9dd8; color:white;"><i class="fas fa-hand-point-right" aria-hidden="true"> Enviar</i></button>
                     </div>
                 </div>
             </div>
