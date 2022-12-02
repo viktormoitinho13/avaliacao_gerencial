@@ -3,37 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\AgFormRespostas;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
 
 class RespostasQuestoes extends Controller
 {
-    public function store(int $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function store(Request $request, int $id): RedirectResponse
     {
+        $usuarioLogado = auth()->user();
 
         try {
-            foreach (request()->input('questao') as $questao => $resposta) {
-
-                $datasave = [
+            foreach ($request->input('questao') as $questao => $resposta) {
+                AgFormRespostas::query()->create([
                     'AG_CLASSIFICACAO' => $id,
                     'AG_RESPOSTA' => $resposta,
                     'AG_QUESTAO' => $questao,
-                    'AG_USUARIO' => auth()->id(),
-                    'AG_MATRICULA' => auth()->user()->getAttribute('registration'),
-                ];
-                DB::table('AG_FORM_RESPOSTAS')->insert($datasave);
-                return redirect('/home');
+                    'AG_USUARIO' => $usuarioLogado->id,
+                    'AG_MATRICULA' => $usuarioLogado->registration,
+                ]);
             }
 
-        } catch (\Throwable$th) {
-        ?> 
-        <script type="text/javascript">
-        alert("Você já concluiu esse formulário");
-        window.location.href = "/home";
-        </script>
-        <?php
+            return redirect()->route('home');
+        } catch (QueryException $e) {
+            return back()
+                ->withInput()
+                ->with(['err' => 'Não possível gravar as informações']);
         }
-
     }
 }
-
-//

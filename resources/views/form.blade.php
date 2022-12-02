@@ -58,5 +58,10 @@
             </div>
 
         </form>
+        @if (session()->has('err'))
+            <div class="alert alert-success">
+                {{ session('err') }}
+            </div>
+        @endif
     </div>
 </x-app-layout>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\ClassificacoesControllers;
 use App\Http\Controllers\{QuestionsController, ClassificacoesControllers, RespostasQuestoes};
 
 Route::middleware('guest')->get('/', function () {

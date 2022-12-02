@@ -10,4 +10,9 @@ class AgClassificacao extends Model
      use HasFactory;
      protected $table = 'AG_CLASSIFICACAO';
      protected $primaryKey = 'AG_CLASSIFICACAO';
+
+     public function agquestoes()
+     {
+          return $this->hasMany(AgFormRespostas::class, 'AG_CLASSIFICACAO', 'AG_CLASSIFICACAO');
+     }
 }
