@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\AgFormRespostas;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,8 @@ class RespostasQuestoes extends Controller
     public function store(Request $request, int $id): RedirectResponse
     {
         $usuarioLogado = auth()->user();
-
+        $data_atual = Carbon::now();
+       
         try {
             foreach ($request->input('questao') as $questao => $resposta) {
                 AgFormRespostas::query()->create([
@@ -26,6 +28,7 @@ class RespostasQuestoes extends Controller
                     'AG_QUESTAO' => $questao,
                     'AG_USUARIO' => $usuarioLogado->id,
                     'AG_MATRICULA' => $usuarioLogado->registration,
+                     'DATA_RESPOSTAS' => $data_atual
                 ]);
             }
 
