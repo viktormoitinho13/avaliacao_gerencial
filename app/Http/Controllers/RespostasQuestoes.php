@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\AgFormRespostas;
 use App\Models\AgStatus;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class RespostasQuestoes extends Controller
 {
@@ -19,8 +19,9 @@ class RespostasQuestoes extends Controller
     public function store(Request $request, int $id): RedirectResponse
     {
         $usuarioLogado = auth()->user();
-        $data_atual = Carbon::now();
-       
+        $data_atual = Carbon::now()->format('m/Y');
+        //dd($data_atual);
+
         try {
             foreach ($request->input('questao') as $questao => $resposta) {
                 AgFormRespostas::query()->create([
@@ -29,15 +30,25 @@ class RespostasQuestoes extends Controller
                     'AG_QUESTAO' => $questao,
                     'AG_USUARIO' => $usuarioLogado->id,
                     'AG_MATRICULA' => $usuarioLogado->registration,
-                     'DATA_RESPOSTAS' => $data_atual
+                    'DATA_RESPOSTAS' => $data_atual,
                 ]);
             }
 
-            return redirect()->route('home');
-        } catch (QueryException $e) {
-            return back()
+            AgStatus::query()->create([
+                'AG_CLASSIFICACAO' => $id,
+                'AG_USUARIO' => $usuarioLogado->id,
+                'AG_MATRICULA' => $usuarioLogado->registration,
+                'AG_DATA' => $data_atual,
+            ]);
+            return redirect()->route('home')
                 ->withInput()
-                ->with(['err' => 'Não possível gravar as informações']);
+                ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
+        } catch (QueryException $e) {
+            return redirect()->route('home')
+                ->withInput()
+                ->with(['err' => 'Este formulário já foi respondido.']);
+
         }
     }
+
 }

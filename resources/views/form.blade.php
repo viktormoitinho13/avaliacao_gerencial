@@ -1,5 +1,6 @@
 <x-app-layout>
     <div class="container-fluid col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 offset-md-3 my-4 mx-auto">
+        
         <form action="{{ route('respostas.store', ['id' => $id]) }}" method="POST">
             @csrf
             @foreach ($questoes as $key => $questao)
@@ -58,10 +59,6 @@
             </div>
 
         </form>
-        @if (session()->has('err'))
-            <div class="alert alert-success">
-                {{ session('err') }}
-            </div>
-        @endif
+       
     </div>
 </x-app-layout>
