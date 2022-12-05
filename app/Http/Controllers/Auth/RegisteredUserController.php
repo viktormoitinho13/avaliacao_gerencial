@@ -38,7 +38,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        try {
+              $user = User::create([
             'name' => $request->name,
             'registration' => $request->registration,
             'password' => Hash::make($request->password),
@@ -49,5 +50,11 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+        } catch (\Throwable $th) {
+             return redirect()->route('register')
+             ->withInput()
+             ->with(['erro' => 'Não foi possível cadastrar este usuário. Por favor verifique suas credenciais ou entre em contato com o Suporte.']);
+        }
+      
     }
 }

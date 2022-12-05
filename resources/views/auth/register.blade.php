@@ -1,5 +1,12 @@
 <x-guest-layout>
     <section class="vh-75 my-5">
+  @if (session()->has('erro'))
+                <div class="container-md mx-auto text-center">
+                    <div class=" alert alert-danger">
+                        {{ session('erro') }}
+                    </div>
+                </div>
+  @endif
         <div class="container h-50">
             <div class="row d-flex justify-content-center align-items-center ">
                 <div class="col-lg-12 col-xl-11">
