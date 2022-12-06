@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         } catch (\Throwable $th) {
              return redirect()->route('register')
              ->withInput()
-             ->with(['erro' => 'Não foi possível cadastrar este usuário. Por favor verifique suas credenciais ou entre em contato com o Suporte.']);
+             ->with(['erro' => 'Este usuário ou matrícula já estão cadastrados. Por favor verifique suas credenciais ou entre em contato com o Suporte.']);
         }
       
     }
