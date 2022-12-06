@@ -30,7 +30,7 @@
                                     </div>
                                     <!-- Password -->
                                     <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
-                                        <x-label for="password" :value="__('Senha')" />
+                                        <x-label for="password" :value="__('Senha ( Mínimo de 8 caracteres )')" />
                                         <x-input id="password" class="form-control form-control-lg" type="password"
                                             name="password" required autocomplete="new-password" />
                                     </div>
