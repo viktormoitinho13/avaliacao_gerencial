@@ -15,31 +15,26 @@ class ClassificacoesControllers extends Controller
     {
         $usuarioLogado = auth()->user();
         $data_atual = Carbon::now()->format('m/Y');
-
         $classificacoesQuestoes = AgQuestoes::query()
-        ->get()->pluck('AG_CLASSIFICACAO')->toArray();    
-
-       
+        ->get()->pluck('AG_CLASSIFICACAO')->toArray();   
 
         $classificacoes = AgClassificacao::query()
             ->with('agquestoes')
             ->orderBy('ag_classificacao')
             ->whereIn('AG_CLASSIFICACAO',   $classificacoesQuestoes)
-            ->get();
-
-   //  dd($classificacoes);
+             ->take(1)->get();
        
-        $blockBotaoForm = AgStatus::where([
-            'AG_USUARIO' => $usuarioLogado->id,
-            'AG_MATRICULA' => $usuarioLogado->registration,
-            'AG_DATA' => $data_atual,
-        ])->get()->pluck('AG_CLASSIFICACAO')->toArray();
+        //$blockBotaoForm = AgStatus::where([
+        //    'AG_USUARIO' => $usuarioLogado->id,
+         //   'AG_MATRICULA' => $usuarioLogado->registration,
+          //  'AG_DATA' => $data_atual,
+        //])->take(1)->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
-        // dd($blockBotaoForm);
+       //  dd($blockBotaoForm);
 
         return view('home', [
             'classificacoes' => $classificacoes,
-            'blockbuttonform' => $blockBotaoForm
+           // 'blockbuttonform' => $blockBotaoForm
         ]);
 
     }
