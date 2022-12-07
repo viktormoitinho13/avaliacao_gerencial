@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
               $user = User::create([
             'name' => $request->name,
             'registration' => $request->registration,
-           'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
@@ -51,9 +51,10 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
         } catch (\Throwable $th) {
-             return redirect()->route('register')
-             ->withInput()
-             ->with(['erro' => 'Este usuário ou matrícula já estão cadastrados. Por favor verifique suas credenciais ou entre em contato com o Suporte.']);
+            dd($th);
+           //  return redirect()->route('register')
+            // ->withInput()
+            // ->with(['erro' => 'Este usuário ou matrícula já estão cadastrados. Por favor verifique suas credenciais ou entre em contato com o Suporte.']);
         }
       
     }

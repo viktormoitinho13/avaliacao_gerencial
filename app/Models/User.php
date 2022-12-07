@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'ag_usuarios';
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +44,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public $timestamps = ["created_at"]; //only want to used created_at column
+    const UPDATED_AT = null; //and updated by default null set
+
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgClassificacao;
 use App\Models\AgFormRespostas;
+use App\Models\AgQuestoes;
 use App\Models\AgStatus;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
@@ -16,13 +18,25 @@ class RespostasQuestoes extends Controller
      * @param int $id
      * @return RedirectResponse
      */
-    public function store(Request $request, int $id): RedirectResponse
+    public function store(Request $request, int $id)
     {
+
         $usuarioLogado = auth()->user();
         $data_atual = Carbon::now()->format('m/Y');
-        //dd($data_atual);
+        $classificacoesQuestoes = AgQuestoes::query()
+            ->get()->pluck('AG_CLASSIFICACAO')->toArray();
+        
+        $classificacoes = AgClassificacao::query()
+            ->with('agquestoes')
+            ->orderBy('ag_classificacao')
+            ->whereIn('AG_CLASSIFICACAO', $classificacoesQuestoes)
+            ->get()
+            ->pluck('AG_CLASSIFICACAO')
+            ->toArray();
 
-        try {
+            $proximo = 0;
+                
+          try {
             foreach ($request->input('questao') as $questao => $resposta) {
                 AgFormRespostas::query()->create([
                     'AG_CLASSIFICACAO' => $id,
@@ -33,22 +47,42 @@ class RespostasQuestoes extends Controller
                     'DATA_RESPOSTAS' => $data_atual,
                 ]);
             }
-
             AgStatus::query()->create([
-                'AG_CLASSIFICACAO' => $id,
-                'AG_USUARIO' => $usuarioLogado->id,
-                'AG_MATRICULA' => $usuarioLogado->registration,
-                'AG_DATA' => $data_atual,
+                    'AG_CLASSIFICACAO' => $id,
+                    'AG_USUARIO' => $usuarioLogado->id,
+                    'AG_MATRICULA' => $usuarioLogado->registration,
+                    'AG_DATA' => $data_atual,
             ]);
-            return redirect()->route('home')
+           
+
+    
+            //$id é atual
+       
+
+            for ($i = 0; $i <= count($classificacoes); $i++) {
+
+                if($id >= count($classificacoes)) {
+                    return redirect()->route('home');
+                }
+
+                if ($id != $i) {
+                    continue; 
+                }
+
+                $proximo = $classificacoes[$i];
+
+            }           
+            
+            return redirect("/form/$proximo")
                 ->withInput()
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
+            
         } catch (QueryException $e) {
-            return redirect()->route('home')
-                ->withInput()
-                ->with(['err' => 'Este formulário já foi respondido.']);
-
+           // dd($proximo);
+            return redirect()->route('questions.index', $proximo);
+              return redirect()->route('home')
+              ->withInput()
+              ->with(['err' => 'Este formulário já foi respondido.']);
         }
     }
-
 }

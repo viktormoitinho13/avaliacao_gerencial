@@ -6,7 +6,7 @@
             @foreach ($questoes as $key => $questao)
                 <div class="card w-100 mx-auto mb-1 mt-4 ">
                     <div class="form-group row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 text-center">
                             <div class="card-header text-white fs-6"
                                 style="background-color: #6B9DD8; overflow-wrap:break-word;">
                                 {{ $questao->QUESTAO }}
