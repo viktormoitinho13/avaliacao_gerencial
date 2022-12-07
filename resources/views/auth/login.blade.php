@@ -25,13 +25,7 @@
                                                     class="form-control form-control-lg" />
                                     </div>
                                   
-                                    <div class="flex items-center justify-end mt-4">
-                                      <label class="form-check-label" for="form2Example3">
-                                        Não possuí cadastro?   <a class="underline text-sm text-gray-600 hover:text-gray-900 " href="{{ route('register') }}">
-                                            {{ __('Clique aqui!') }}
-                                        </a>
-                                      </label>
-                                    </div>
+                                  
                                     <div class="flex items-center justify-end mt-4 my-4">
                                         <x-button class="btn btn-lg btn-block btn-primary col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     {{ __('Login') }}
