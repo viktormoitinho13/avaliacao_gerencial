@@ -20,18 +20,23 @@
                 <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-6">
                     <div class="card mx-auto mb-4 mt-4 " style="border-color: #b1d5ff; background-color:#e3f0ff1a">
                         <div class="card-body text-primary">
-                            <h3 class="card-title text-center text-dark mt-4">Termos de uso</h3>
+                            <h1 class="card-title text-center text-dark mt-4">Avaliação gerencial </h1>
+                                 @foreach ($gerenteNome as $gerenteNome)
+                              <p class="fw-normal  text-center text-capitalize text-dark mt-4 fs-5 ">{{ $gerenteNome->NOME }}  </p>
+                                 @endforeach
                             <div class="container-md mx-auto ">
                                 <div class="d-flex justify-content-center">
+                                   
                                     <p class="card-text text-justify text-dark mt-4 col-8  " style="text-align: justify;">
-                                        Faz parte da cultura da nossa empresa dar suporte ao desenvolvimento dos 
-                                        nossos colaboradores, para isso utilizamos a ferramenta de Feedbacks com a
-                                        finalidade de melhorar os desempenhos dentro da nossa organização. 
-                                        Você está recebendo esse formulário para avaliar o desempenho do seu gerente, 
+                                        Faz parte da <b>cultura da nossa empresa </b> dar suporte ao desenvolvimento dos 
+                                        nossos colaboradores, para isso utilizamos a ferramenta de <b>Feedbacks com a
+                                        finalidade de melhorar os desempenhos</b> dentro da nossa organização. 
+                                        Você está recebendo esse formulário para <b>avaliar o desempenho do seu gerente</b>  , 
                                         para que ele possa receber um feedback e ter a oportunidade de se desenvolver conosco. 
-                                        A avaliação é obrigatória e sigilosa, pedimos que você responda com sinceridade para 
+                                        A avaliação é <b>obrigatória e sigilosa</b>, pedimos que você responda com sinceridade para 
                                         que tenhamos direcionamento para melhorarmos juntos.
                                         Avalie o seu gerente pelas ações ocorridas nos últimos meses. </p>
+                                   
                                 </div>
                             </div>
                             <div class="text-center">
