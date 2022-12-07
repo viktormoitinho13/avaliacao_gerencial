@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAgusuariosTable extends Migration
 {
+
+
     /**
      * Run the migrations.
      *
@@ -18,6 +20,7 @@ class CreateAgusuariosTable extends Migration
             $table->string('name')->unique();
             $table->string('password');
             $table->string('registration')->unique();
+            $table->integer('store');
             $table->rememberToken();
             $table->timestamps();
         });
