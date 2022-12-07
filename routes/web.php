@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassificacoesControllers;
 // use App\Http\Controllers\ClassificacoesControllers;
-use App\Http\Controllers\{QuestionsController, ClassificacoesControllers, RespostasQuestoes};
+
+use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\RespostasQuestoes;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
