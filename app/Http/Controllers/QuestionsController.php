@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AgQuestoes;
-use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class QuestionsController extends Controller
 {
@@ -12,7 +12,7 @@ class QuestionsController extends Controller
      * @param int $id
      * @return View|Factory
      */
-    public function index(int $id): View|Factory
+    public function index(int $id): View | Factory
     {
         $questoes = AgQuestoes::query()
             ->with('respostas')
@@ -20,6 +20,7 @@ class QuestionsController extends Controller
             ->orderBy('ag_questao')
             ->get();
 
+        //  dd($questoes);
         return view('form', [
             'id' => $id,
             'questoes' => $questoes,
@@ -36,5 +37,5 @@ class QuestionsController extends Controller
     /**
      * @return void
      */
-  
+
 }
