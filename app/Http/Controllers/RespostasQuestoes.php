@@ -25,7 +25,7 @@ class RespostasQuestoes extends Controller
         $data_atual = Carbon::now()->format('m/Y');
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
-        
+
         $classificacoes = AgClassificacao::query()
             ->with('agquestoes')
             ->orderBy('ag_classificacao')
@@ -34,9 +34,9 @@ class RespostasQuestoes extends Controller
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
 
-            $proximo = 0;
-                
-          try {
+        $proximo = 0;
+
+        try {
             foreach ($request->input('questao') as $questao => $resposta) {
                 AgFormRespostas::query()->create([
                     'AG_CLASSIFICACAO' => $id,
@@ -48,41 +48,38 @@ class RespostasQuestoes extends Controller
                 ]);
             }
             AgStatus::query()->create([
-                    'AG_CLASSIFICACAO' => $id,
-                    'AG_USUARIO' => $usuarioLogado->id,
-                    'AG_MATRICULA' => $usuarioLogado->registration,
-                    'AG_DATA' => $data_atual,
+                'AG_CLASSIFICACAO' => $id,
+                'AG_USUARIO' => $usuarioLogado->id,
+                'AG_MATRICULA' => $usuarioLogado->registration,
+                'AG_DATA' => $data_atual,
             ]);
-           
 
-    
             //$id é atual
-       
 
             for ($i = 0; $i <= count($classificacoes); $i++) {
 
-                if($id >= count($classificacoes)) {
+                if ($id >= count($classificacoes)) {
                     return redirect()->route('home');
                 }
 
                 if ($id != $i) {
-                    continue; 
+                    continue;
                 }
 
                 $proximo = $classificacoes[$i];
 
-            }           
-            
+            }
+
             return redirect("/form/$proximo")
                 ->withInput()
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
-            
+
         } catch (QueryException $e) {
-           // dd($proximo);
+            // dd($proximo);
             return redirect()->route('questions.index', $proximo);
-              return redirect()->route('home')
-              ->withInput()
-              ->with(['err' => 'Este formulário já foi respondido.']);
+            return redirect()->route('relatorio')
+                ->withInput()
+                ->with(['err' => 'Este formulário já foi respondido.']);
         }
     }
 }
