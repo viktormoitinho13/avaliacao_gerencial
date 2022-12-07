@@ -1,3 +1,5 @@
+
+{{-- 
 <x-guest-layout>
     <section class="vh-75 my-5">
   @if (session()->has('erro'))
@@ -65,3 +67,4 @@
         </div>
     </section>
 </x-guest-layout>
+ --}}
