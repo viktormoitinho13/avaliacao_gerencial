@@ -14,6 +14,6 @@ class AgQuestoes extends Model
 
      public function respostas()
      {
-          return $this->hasMany(AgResposta::class, 'AG_QUESTAO','AG_QUESTAO');
+          return $this->hasMany(AgResposta::class, 'AG_QUESTAO', 'AG_QUESTAO');
      }
 }

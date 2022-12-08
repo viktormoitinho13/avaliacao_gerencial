@@ -24,6 +24,8 @@ class QuestionsController extends Controller
             ->orderBy('ag_questao')
             ->get();
 
+
+
         $classificacao = AgClassificacao::query()
             ->SELECT('CLASSIFICACAO')
             ->where('ag_classificacao', $id)
@@ -38,18 +40,12 @@ class QuestionsController extends Controller
             ->whereNull('AG_RESPOSTAS.AG_QUESTAO')
             ->get()->pluck('AG_RESPOSTA')->toArray();
 
-
-
-        //  dd($dissertativa);
-
-
-
         //dd($classificacao);
         return view('form', [
             'id' => $id,
             'questoes' => $questoes,
-            'classificacao' => $classificacao,
-            'dissertativa' => $dissertativa
+            'classificacao' => $classificacao
+
         ]);
     }
 
