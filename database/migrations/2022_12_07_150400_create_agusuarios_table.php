@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 class CreateAgusuariosTable extends Migration
 {
 
-
     /**
      * Run the migrations.
      *
@@ -15,9 +14,9 @@ class CreateAgusuariosTable extends Migration
      */
     public function up()
     {
-         Schema::create('ag_usuarios', function (Blueprint $table) {
+        Schema::create('ag_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('password');
             $table->string('registration')->unique();
             $table->integer('store');
@@ -33,6 +32,6 @@ class CreateAgusuariosTable extends Migration
      */
     public function down()
     {
-          Schema::dropIfExists('ag_usuarios');
+        Schema::dropIfExists('ag_usuarios');
     }
 }
