@@ -4,11 +4,10 @@
         <form action="{{ route('respostas.store', ['id' => $id]) }}" method="POST">
             @csrf
             @foreach ($questoes as $key => $questao)
-                <div class="card w-100 mx-auto mb-1 mt-4 ">
+                <div class="card w-100 mx-auto mb-1 mt-4 shadow-sm  bg-white rounded " style="border-color: #b1d5ff; background-color:#e3f0ff1a">
                     <div class="form-group row">
                         <div class="col-sm-12 text-center">
-                            <div class="card-header text-white fs-6"
-                                style="background-color: #6B9DD8; overflow-wrap:break-word;">
+                            <div class="card-header text-white fs-6 " style="background-color: #6B9DD8; overflow-wrap:break-word;">
                                 {{ $questao->QUESTAO }}
                             </div>
                         </div>

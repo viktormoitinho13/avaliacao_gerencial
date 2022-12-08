@@ -18,7 +18,7 @@
            
             <div class="d-flex d-flex justify-content-center">
                 <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-6">
-                    <div class="card mx-auto mb-4 mt-4 " style="border-color: #b1d5ff; background-color:#e3f0ff1a">
+                    <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded " style="border-color: #b1d5ff; background-color:#e3f0ff1a">
                         <div class="card-body text-primary">
                             <h1 class="card-title text-center text-dark mt-4">Avaliação gerencial </h1>
                                  @foreach ($gerenteNome as $gerenteNome)
