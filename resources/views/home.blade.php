@@ -54,7 +54,7 @@
                                     @else
                                         <a href="/form/{{ $classificacao->AG_CLASSIFICACAO }}"
                                             class="btn btn-primary px-3 mt-4"
-                                            style="background-color: #6B9DD8; color:white;"><i
+                                            style="background-color: #d86b6b; color:rgb(255, 255, 255);border-color:#ec3f3f;"><i
                                                 class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero continuar! </a>
                                     @endif
 
