@@ -3,7 +3,7 @@
         <div class="container h-50">
             <div class="row d-flex justify-content-center align-items-center ">
                 <div class="col-lg-12 col-xl-11">
-                    <div class="card text-black my-4" style="border-radius: 25px;">
+                    <div class="card text-black my-4 mt-5" style="border-radius: 25px;">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 mx-auto">
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
