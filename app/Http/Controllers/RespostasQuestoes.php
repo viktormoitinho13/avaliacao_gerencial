@@ -59,7 +59,7 @@ class RespostasQuestoes extends Controller
             for ($i = 0; $i <= count($classificacoes); $i++) {
 
                 if ($id >= count($classificacoes)) {
-                    return redirect()->route('home');
+                    return redirect()->route('report');
                 }
 
                 if ($id != $i) {
@@ -67,17 +67,15 @@ class RespostasQuestoes extends Controller
                 }
 
                 $proximo = $classificacoes[$i];
-
             }
 
             return redirect("/form/$proximo")
                 ->withInput()
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
-
         } catch (QueryException $e) {
-            // dd($proximo);
-            return redirect()->route('questions.index', $proximo);
-            return redirect()->route('relatorio')
+            //dd($proximo);
+            return redirect()->route('home')
+                // return redirect()->route('relatorio')
                 ->withInput()
                 ->with(['err' => 'Este formulário já foi respondido.']);
         }
