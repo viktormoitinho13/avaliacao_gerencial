@@ -19,6 +19,7 @@ class CreateAgusuariosTable extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('registration')->unique();
+            $table->string('office');
             $table->integer('store');
             $table->rememberToken();
             $table->timestamps();

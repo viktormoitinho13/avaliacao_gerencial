@@ -10,26 +10,30 @@ use App\Models\AgVendedor;
 use App\Models\AgStatus;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ClassificacoesControllers extends Controller
 {
     public function index()
     {
+
         $usuarioLogado = auth()->user();
-        $data_atual = Carbon::now()->format('m/Y');
+
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
-        $loja = User::query()
-            ->where('registration', '=', $usuarioLogado->registration)
-            ->get()->pluck('store')->toArray();
+        $gerenteRegistration = DB::select(' 
+                                select A.GERENTE_ATUAL  from GERENTES_LOJAS A 
+		                        join (	 
+		            				 select LOJA , max(movimento) AS MOVIMENTO  from GERENTES_LOJAS gl 
+				                     group by LOJA 
+			                        ) B ON A.LOJA = B.LOJA AND A.MOVIMENTO = B.MOVIMENTO
+			                        WHERE A.LOJA = ?', [auth()->user()->store]);
 
-        $gerenteRegistration = AgGerente::query()
-            ->where('LOJA', '=', $loja)
-            ->get()->pluck('GERENTE_ATUAL')->toArray();
 
+        // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
         $gerenteNome = AgVendedor::query()
-            ->where('VENDEDOR', '=', $gerenteRegistration)
+            ->where('VENDEDOR', '=', collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray())
             ->get();
 
         $classificacoes = AgClassificacao::query()
@@ -52,13 +56,14 @@ class ClassificacoesControllers extends Controller
             ->get()->count('AG_CLASSIFICACAO');
 
         // DD($contarQuestoes);
-
+        //  dd(collect($results)->pluck('qtd_respostas')->toArray());
+        //  dd(collect($results));
         return view('home', [
             'classificacoes' => $classificacoes,
             'gerenteNome' => $gerenteNome,
             'contarStatus' => $contarStatus,
             'contarQuestoes'  => $contarQuestoes
-            // 'blockbuttonform' => $blockBotaoForm
+
         ]);
     }
     public function show()

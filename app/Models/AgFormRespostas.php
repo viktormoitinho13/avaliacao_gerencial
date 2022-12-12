@@ -28,12 +28,13 @@ class AgFormRespostas extends Model
           'REG_MASTER_ORIGEM',
           'REG_LOG_INCLUSAO',
           'AG_RESPOSTA',
-          // 'AG_RESPOSTA_DESCRICAO',
+          'AG_RESPOSTA_DESCRICAO',
           'AG_CLASSIFICACAO',
           'AG_QUESTAO',
           'AG_USUARIO',
           'AG_MATRICULA',
-          'DATA_RESPOSTAS'
+          'DATA_RESPOSTAS',
+          'AG_LOJA'
      ];
 
      /**

@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassificacoesControllers;
 
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\ConclusaoController;
 use App\Http\Controllers\RespostasQuestoes;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,10 @@ Route::middleware('guest')->get('/', function () {
 Route::get('/home', [ClassificacoesControllers::class, 'index'])
     ->middleware('auth')
     ->name('home');
+
+Route::get('/conclusion', [ConclusaoController::class, 'index'])
+    ->middleware('auth')
+    ->name('conclusion');
 
 Route::get('/report', [RelatorioController::class, 'index'])
     ->middleware('auth')

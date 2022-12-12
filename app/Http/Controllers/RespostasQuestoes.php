@@ -22,7 +22,7 @@ class RespostasQuestoes extends Controller
     {
 
         $usuarioLogado = auth()->user();
-        $data_atual = Carbon::now()->format('m/Y');
+        $data_atual = Carbon::now()->format('d/m/Y');
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
@@ -41,10 +41,13 @@ class RespostasQuestoes extends Controller
                 AgFormRespostas::query()->create([
                     'AG_CLASSIFICACAO' => $id,
                     'AG_RESPOSTA' => $resposta,
+                    //'AG_RESPOSTA_DESCRICAO' =>  $resposta->AG_RESPOSTA_DESCRICAO,
                     'AG_QUESTAO' => $questao,
                     'AG_USUARIO' => $usuarioLogado->id,
                     'AG_MATRICULA' => $usuarioLogado->registration,
                     'DATA_RESPOSTAS' => $data_atual,
+                    'AG_LOJA' => auth()->user()->store
+
                 ]);
             }
             AgStatus::query()->create([
@@ -59,7 +62,7 @@ class RespostasQuestoes extends Controller
             for ($i = 0; $i <= count($classificacoes); $i++) {
 
                 if ($id >= count($classificacoes)) {
-                    return redirect()->route('report');
+                    return redirect()->route('conclusion');
                 }
 
                 if ($id != $i) {
@@ -73,8 +76,9 @@ class RespostasQuestoes extends Controller
                 ->withInput()
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
         } catch (QueryException $e) {
-            //dd($proximo);
-            return redirect()->route('home')
+            // dd($e);
+
+            return redirect("/home")
                 // return redirect()->route('relatorio')
                 ->withInput()
                 ->with(['err' => 'Este formulário já foi respondido.']);

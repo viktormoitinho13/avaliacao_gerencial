@@ -24,7 +24,7 @@
                     </div>
                     <div class="row bd-highlight">
                         @foreach ($questao->respostas as $resposta)
-                            @if (($length = Str::length($resposta->RESPOSTA) < 15) and $resposta->RESPOSTA != 'dissertativa')
+                            @if (($length = Str::length($resposta->RESPOSTA) < 10) and $resposta->RESPOSTA != 'dissertativa')
                                 <div
                                     class="p-2 col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 bd-highlight d-flex justify-content-center mx-auto">
                                     <div>
@@ -38,7 +38,7 @@
                                     </div>
 
                                 </div>
-                            @elseif (($length = Str::length($resposta->RESPOSTA) > 15) and $resposta->RESPOSTA != 'dissertativa')
+                            @elseif (($length = Str::length($resposta->RESPOSTA) > 10) and $resposta->RESPOSTA != 'dissertativa')
                                 <div class="h-100 d-flex align-items-center justify-content-center">
                                     <div class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
@@ -57,7 +57,7 @@
                                 <div class="h-100 d-flex align-items-center justify-content-center">
                                           <div class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
-                                            <textarea name="" id="" cols="30" rows="6" style="width: 100%;"></textarea>
+                                            <textarea name="questao[{{ $questao->AG_QUESTAO }}]"  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6" style="width: 100%;"></textarea>
                                             
                                         </div>
                                     </div>
