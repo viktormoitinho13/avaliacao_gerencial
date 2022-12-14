@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateAgusuariosTable extends Migration
 {
@@ -18,11 +19,12 @@ class CreateAgusuariosTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('password');
-            $table->string('registration')->unique();
+            $table->string('registration');
             $table->string('office');
             $table->integer('store');
+            $table->string('manager')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps = now();
         });
     }
 

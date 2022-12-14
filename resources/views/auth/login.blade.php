@@ -16,6 +16,8 @@
                                         <input class="form-control form-control-lg" type="text"
                                                     id="login" name="login">
                                     </div>
+
+                                 
                                   
                                     <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
                                         <x-label for="password" :value="__('Sua Senha')" class="form-label" />

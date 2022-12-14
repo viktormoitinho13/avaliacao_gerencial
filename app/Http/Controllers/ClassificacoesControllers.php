@@ -18,6 +18,7 @@ class ClassificacoesControllers extends Controller
     {
 
         $usuarioLogado = auth()->user();
+        //dd($usuarioLogado->manager);
 
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
