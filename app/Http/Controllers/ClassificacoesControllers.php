@@ -56,6 +56,19 @@ class ClassificacoesControllers extends Controller
             ->select('AG_CLASSIFICACAO')
             ->get()->count('AG_CLASSIFICACAO');
 
+        $resultado = DB::select(
+            '
+                     SELECT DISTINCT ag_loja
+                     from AG_FORM_RESPOSTAS afr 
+                     where ag_loja in 
+                     (
+                        select store from ag_usuarios 
+                        where registration = ?)',
+            [auth()->user()->registration]
+        );
+        $contagem = collect($resultado)->pluck('ag_loja')->count();
+        //      dd(collect($results));
+
         // DD($contarQuestoes);
         //  dd(collect($results)->pluck('qtd_respostas')->toArray());
         //  dd(collect($results));
@@ -63,7 +76,9 @@ class ClassificacoesControllers extends Controller
             'classificacoes' => $classificacoes,
             'gerenteNome' => $gerenteNome,
             'contarStatus' => $contarStatus,
-            'contarQuestoes'  => $contarQuestoes
+            'contarQuestoes'  => $contarQuestoes,
+            'contagem' => $contagem,
+            'resultado' => $resultado
 
         ]);
     }

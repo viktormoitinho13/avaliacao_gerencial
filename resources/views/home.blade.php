@@ -81,11 +81,19 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                            <a href="/report"
+                                    @if($contagem == 1)
+                                            <a href="/reportDoc/{{ $resultado[0]->ag_loja }}"
                                                 class="btn btn-primary px-3 mt-4"
                                                 style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
                                                     class="fas fa-hand-point-right" aria-hidden="true"></i>  Visualizar relatório </a>
-                                    </div>
+
+                                    @else 
+                                             <a href="/report"
+                                                class="btn btn-primary px-3 mt-4"
+                                                style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
+                                                    class="fas fa-hand-point-right" aria-hidden="true"></i>  Visualizar relatório </a>
+                                    @endif   
+                                 </div>
                                 </div>
                             </div>
                         </div>
