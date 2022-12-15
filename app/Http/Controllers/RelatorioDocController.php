@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
+use App\Models\AgQuestoes;
+use App\Models\AgClassificacao;
 
 
 class RelatorioDocController extends Controller
@@ -42,13 +44,37 @@ class RelatorioDocController extends Controller
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
 
-        // DD($qtd_respostas);
-        //dd(collect($cabecalho)->sum('MEDIA'));
-        // dd(collect($cabecalho)->count());
+        $classificacoes = AgClassificacao::query()
+            ->get()
+            ->pluck('AG_CLASSIFICACAO')
+            ->toArray();
+
+        $gerentePercepcao = DB::select("
+                                       SELECT 
+                                       A.AG_CLASSIFICACAO,
+                                       A.CLASSIFICACAO,
+                                       STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ') AS ANALISE  
+                                       FROM AG_GERENTE_PERCEPCAO A
+                                        JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
+                                        WHERE AG_LOJA = ?
+                                        GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO
+                                        ORDER BY A.AG_CLASSIFICACAO ASC ", [$id]);
+        //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
+        $gerenteAgrupamento = [];
+        foreach ($gerentePercepcao as $gerentePercepcao) {
+            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = $gerentePercepcao->ANALISE;
+        }
+
+        //    dd($gerenteAgrupamento);
+
+
+
         return view('reportDoc', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
-            'qtd_respostas' => $qtd_respostas
+            'qtd_respostas' => $qtd_respostas,
+            'gerenteAgrupamento' => $gerenteAgrupamento,
+            'classificacoes' => $classificacoes
         ]);
     }
 }

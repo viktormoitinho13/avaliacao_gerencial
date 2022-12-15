@@ -4,10 +4,8 @@
 <div class="container-fluid mx-auto my-auto center-block" >
 <div class="row mt-5">
  @foreach ($results as $results)
-      @if($contagem == 1)
-       relatorio
-      @else 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mx-auto my-auto mt-5">
+
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mx-auto my-auto mt-5">
     <div class="card text-center" style="width: 90%; border-color:#6B9DD8;" >
       <div class="card-body" >
         <h3 class="card-title text-center">Relatório de avaliação gerencial</h3>
@@ -21,7 +19,7 @@
       </div>
     </div>
   </div>
-      @endif 
+     
 @endforeach
 </div>
 </div>
