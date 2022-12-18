@@ -3,7 +3,7 @@
     <div class="container text-center mt-2 mx-auto my-auto">
         <div class="row ">
            
-            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
                 <div class="card" style="border-color:#6b9dd8; height: 75px;">
                     <div class="card-body ">
                         <h5 class="card-title" style="font-size: 9px;">Quantidade de respostas</h5>
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
                 <div class="card " style="border-color:#6b9dd8;height: 75px;">
                     <div class="card-body ">
                         <h5 class="card-title" style="font-size: 9px;">Nota final</h5>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         @foreach ($cabecalho as $cabecalho)
-        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-1 ">
                 <div class="card " style="border-color:#6b9dd8;height: 75px;">
                     <div class="card-body ">
                         <h5 class="card-title" style="font-size: 9px;">{{ $cabecalho->CLASSIFICACAO }}</h5>

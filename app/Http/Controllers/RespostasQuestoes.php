@@ -77,11 +77,15 @@ class RespostasQuestoes extends Controller
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
         } catch (QueryException $e) {
             // dd($e);
-
-            return redirect("/home")
-                // return redirect()->route('relatorio')
-                ->withInput()
-                ->with(['err' => 'Este formulário já foi respondido.']);
+            if ($id < count($classificacoes)) {
+                $id = $id + 1;
+                return redirect("/form/$id");
+            } else {
+                return redirect("/home")
+                    // return redirect()->route('relatorio')
+                    ->withInput()
+                    ->with(['err' => 'Este formulário já foi respondido.']);
+            };
         }
     }
 }
