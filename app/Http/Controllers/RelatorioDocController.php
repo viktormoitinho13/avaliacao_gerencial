@@ -13,20 +13,24 @@ class RelatorioDocController extends Controller
 {
     public function index(int $id)
     {
+        $data_atual = date('m/Y');
         $qtd_respostas = DB::SELECT('
                             
             SELECT 
                     COUNT( DISTINCT AG_USUARIO) AS QTD_TOTAL_RESPOSTAS 
                     FROM AG_FORM_RESPOSTAS 
             WHERE AG_LOJA = ?
-        ', [$id]);
-
+            AND DATA_RESPOSTAS = ? 
+        ', [$id, $data_atual]);
 
         $cabecalho = DB::select('
         SELECT
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  ,
-        CONVERT (DECIMAL(15,2), sum(b.nota) / count(a.AG_RESPOSTA)) as MEDIA 
+        case 
+        	when CONVERT (DECIMAL(15,2), sum(b.nota) / count(a.AG_RESPOSTA)) > 0 then CONVERT (DECIMAL(15,2), sum(b.nota) / count(a.AG_RESPOSTA))
+        	else 0
+        end as MEDIA 
         FROM AG_FORM_RESPOSTAS A
         JOIN(SELECT 
                 CONVERT(VARCHAR(MAX),AG_RESPOSTA ) AS AG_RESPOSTA,
@@ -35,20 +39,23 @@ class RelatorioDocController extends Controller
         ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
         JOIN AG_CLASSIFICACAO C  ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
         WHERE AG_LOJA = ?
+        AND A.DATA_RESPOSTAS = ?
         GROUP BY 
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  
         ORDER BY C.AG_CLASSIFICACAO ASC 
-        ', [$id]);
+        ', [$id, $data_atual]);
 
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
+        // $cabecalho = number_format((float)$cabecalho, 2, '.', '');
 
+        //dd(collect($cabecalho)->toArray());
         $classificacoes = AgClassificacao::query()
             ->get()
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
-        $data_atual = date('m/Y');
+
         $gerentePercepcao = DB::select("
                                        SELECT 
                                        A.AG_CLASSIFICACAO,

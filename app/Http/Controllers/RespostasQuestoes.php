@@ -76,7 +76,7 @@ class RespostasQuestoes extends Controller
                 ->withInput()
                 ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
         } catch (QueryException $e) {
-            // dd($e);
+            //dd($e);
             if ($id < count($classificacoes)) {
                 $id = $id + 1;
                 return redirect("/form/$id");
