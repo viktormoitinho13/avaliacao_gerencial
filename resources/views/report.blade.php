@@ -10,7 +10,7 @@
       <div class="card-body" >
         <h3 class="card-title text-center">Relatório de avaliação gerencial</h3>
         <h6 class="card-text text-center mt-2">Avaliação respondida pelos funcionários da <b> Loja {{ $results->ag_loja }}</b></h6>
-        <p class="card-text mt-1"><small class="text-muted">data da avaliação irá aparecer aqui !!!</small></p>
+        <p class="card-text mt-1"><small class="text-muted">Avaliação de: {{ $data}} </small></p>
       <div class="text-center">
         <a href="/reportDoc/{{ $results->ag_loja }}"   class="btn btn-primary px-3 mt-1"
         style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i

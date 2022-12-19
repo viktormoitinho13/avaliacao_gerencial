@@ -1,15 +1,19 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 
 
+
 class RelatorioController extends Controller
 {
     public function index()
     {
+
+        $data = date('m/Y');
         $results = DB::select(
             '
                      SELECT DISTINCT ag_loja
@@ -25,7 +29,8 @@ class RelatorioController extends Controller
 
         return view('report', [
             'results' => $results,
-            'contagem' => $contagem
+            'contagem' => $contagem,
+            'data' => $data
         ]);
     }
 }

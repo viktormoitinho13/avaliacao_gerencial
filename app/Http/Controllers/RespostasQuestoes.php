@@ -22,7 +22,7 @@ class RespostasQuestoes extends Controller
     {
 
         $usuarioLogado = auth()->user();
-        $data_atual = Carbon::now()->format('d/m/Y');
+        $data_atual = date('m/Y');
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 

@@ -17,6 +17,9 @@ class ClassificacoesControllers extends Controller
     public function index()
     {
 
+        $data = date('m');
+        // dd($data);
+
         $usuarioLogado = auth()->user();
         //dd($usuarioLogado->manager);
 
@@ -78,7 +81,8 @@ class ClassificacoesControllers extends Controller
             'contarStatus' => $contarStatus,
             'contarQuestoes'  => $contarQuestoes,
             'contagem' => $contagem,
-            'resultado' => $resultado
+            'resultado' => $resultado,
+            'data' => $data
 
         ]);
     }

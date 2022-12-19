@@ -48,26 +48,34 @@ class RelatorioDocController extends Controller
             ->get()
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
-
+        $data_atual = date('m/Y');
         $gerentePercepcao = DB::select("
                                        SELECT 
                                        A.AG_CLASSIFICACAO,
                                        A.CLASSIFICACAO,
-                                       STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ') AS ANALISE  
+                                         CASE
+                                       		WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
+                                       		WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', RESPOSTA) 
+                                       		END AS ANALISE 
                                        FROM AG_GERENTE_PERCEPCAO A
                                         JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                         WHERE AG_LOJA = ?
-                                        GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO
-                                        ORDER BY A.AG_CLASSIFICACAO ASC ", [$id]);
+                                        AND A.DATA_RESPOSTAS = ?
+                                        GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA
+                                        ORDER BY A.AG_CLASSIFICACAO ASC 
+                                        
+                                        
+                                          ", [$id,  $data_atual]);
+
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
         $gerenteAgrupamento = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {
-            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = $gerentePercepcao->ANALISE;
+            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [$gerentePercepcao->ANALISE];
         }
 
-        //    dd($gerenteAgrupamento);
 
 
+        // dd($gerenteAgrupamento);
 
         return view('reportDoc', [
             'cabecalho' => $cabecalho,
