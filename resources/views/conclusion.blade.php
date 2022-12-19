@@ -11,7 +11,7 @@
                              <img class="card-img-top img-circle rounded-circle " src="{{ URL::asset('/imgs/trofeu.png') }}" alt="Card image cap" style="width: 40%;">
                                   
                             </div>
-                              <h1 style="color:#daa520; text-shadow: h-shadow v-shadow blur-radius;" class="card-title text-center mt-4">Meus Parabéns! </h1>
+                              <h1 style="color:#daa520; text-shadow: h-shadow v-shadow blur-radius;" class="card-title text-center mt-4">Parabéns! </h1>
      
                             <div class="container-md mx-auto ">
                                 <div class=" d-flex justify-content-center">

@@ -5,7 +5,7 @@
             <div class="d-flex d-flex justify-content-center mt-4">
 
                 <h1
-                    class="text-center fs-3 text-center text-capitalize"style="font-family:serif; color:#6B9DD8; -webkit-text-stroke:  #6B9DD8;">
+                    class="text-center fs-3 text-center text-capitalize"style=" color:#6B9DD8; -webkit-text-stroke:  #6B9DD8;">
                     {{ $classificacao }}</h1>
             </div>
         @endforeach
@@ -57,7 +57,7 @@
                                 <div class="h-100 d-flex align-items-center justify-content-center">
                                           <div class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
-                                            <textarea name="questao[{{ $questao->AG_QUESTAO }}]"  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6" style="width: 100%;"></textarea>
+                                            <textarea name="questao[{{ $questao->AG_QUESTAO }}]"  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6" style="width: 100%;" ></textarea>
                                             
                                         </div>
                                     </div>
