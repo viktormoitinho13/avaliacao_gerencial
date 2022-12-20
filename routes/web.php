@@ -9,6 +9,7 @@ use App\Http\Controllers\RelatorioDocController;
 use App\Http\Controllers\ConclusaoController;
 use App\Http\Controllers\RespostasQuestoes;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RelatorioGerenteController;
 
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
@@ -22,10 +23,9 @@ Route::get('/conclusion', [ConclusaoController::class, 'index'])
     ->middleware('auth')
     ->name('conclusion');
 
-Route::get('/report', [RelatorioController::class, 'index'])
+Route::get('/report', [RelatorioGerenteController::class, 'index'])
     ->middleware('auth')
     ->name('report');
-
 
 Route::middleware('auth')
     ->prefix('reportDoc')
@@ -34,6 +34,16 @@ Route::middleware('auth')
             ->whereNumber('id')
             ->name('reportDoc.index');
     });
+
+
+Route::middleware('auth')
+    ->prefix('reportDocCorporate')
+    ->group(function () {
+        Route::get('/{id}', [RelatorioController::class, 'index'])
+            ->whereNumber('id')
+            ->name('reportDocCorporate.index');
+    });
+
 
 
 Route::middleware('auth')
