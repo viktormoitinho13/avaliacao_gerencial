@@ -6,11 +6,11 @@
                     <div class="card text-black my-4 mt-5" style="border-radius: 25px;">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 mx-auto">
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+                                <h1 class="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-5">Avaliação Gerencial</h1>
                                  <form class="mx-1 mx-md-4 my-auto" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <!-- Name -->
-                                    <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
+                                    <div class="mt-5 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
                                         <label class="form-label" for="login">Nome Completo ou
                                                     Matrícula</label>
                                         <input class="form-control form-control-lg" type="text"
@@ -35,7 +35,8 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-md-9 col-lg-6 col-xl-5 ml-5 d-flex align-items-center order-1 order-lg-2" style="width:500; height=600;">
+                            <div class="col-md-9 col-lg-6 col-xl-5 ml-5 d-flex align-items-center order-1 order-lg-2 mt-5" style="width:500; height=600;">
+                                        
                                      <img src="{{ URL::asset('/imgs/otp-security.png') }}" class="img-fluid"
                                     alt="Sample image">
                             </div>

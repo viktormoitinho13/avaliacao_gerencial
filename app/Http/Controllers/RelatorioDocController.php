@@ -70,20 +70,13 @@ class RelatorioDocController extends Controller
                                         AND A.DATA_RESPOSTAS = ?
                                         GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA
                                         ORDER BY A.AG_CLASSIFICACAO ASC 
-                                        
-                                        
                                           ", [$id,  $data_atual]);
-
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
         $gerenteAgrupamento = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {
             $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [$gerentePercepcao->ANALISE];
         }
-
-
-
         // dd($gerenteAgrupamento);
-
         return view('reportDoc', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,

@@ -1,53 +1,37 @@
 <x-app-layout>
-
-    <div class="container  mx-auto my-auto center-block text-center mt-2">
-        <div class="row ">
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mx-auto my-1 mt-1 center-block" >
-                <div class="card" style="border-color:#6b9dd8; height: 75px;">
-                    <div class="card-body ">
-                        <h5 class="card-title" style="font-size: 13px;">Quantidade de respostas</h5>
-                        <p class="card-text" style="font-size: 12px;">
-                            <B>{{ $qtd_respostas[0]->QTD_TOTAL_RESPOSTAS }}</B>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mx-auto my-1 mt-1 center-block">
-                <div class="card " style="border-color:#6b9dd8;height: 75px;">
-                    <div class="card-body ">
-                        <h5 class="card-title" style="font-size: 13px;">Nota final</h5>
-                        <p class="card-text" style="font-size: 12px;"><B>{{ $notaFinal }}</B></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container text-center mt-0 mx-auto my-auto">
-        <div class="row ">
-            @foreach ($cabecalho as $cabecalho)
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2 ">
-                    <div class="card " style="border-color:#6b9dd8;height: 75px;">
-                        <div class="card-body ">
-                            <h5 class="card-title" style="font-size: 9px;">{{ $cabecalho->CLASSIFICACAO }}</h5>
-                            <p class="card-text" style="font-size: 12px;"><B>{{ $cabecalho->MEDIA }}</B></p>
+    <div class="d-flex d-flex justify-content-center mt-5">
+        <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
+            <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
+                style="border-color: #b1d5ff; background-color:#e3f0ff1a">
+                <div class="card-body text-primary">
+                    <h1 class="title text-center text-dark mt-4" style="font-size: 30px;">Notas da Avaliação gerencial
+                    </h1>
+                    <div class="container-fluid mx-auto my-auto center-block  mt-4">
+                        <div class="col-auto">
+                            <table class="table ">
+                                <tbody>
+                                    <tr>
+                                        <td>QUANTIDADE DE RESPOSTAS</td>
+                                        <td>{{ $qtd_respostas[0]->QTD_TOTAL_RESPOSTAS }}</td>
+                                    </tr>
+                                    @foreach ($cabecalho as $cabecalho)
+                                        <tr>
+                                            <td>{{ $cabecalho->CLASSIFICACAO }}</td>
+                                            <td>{{ $cabecalho->MEDIA }}</td>
+                                        </tr>
+                                    @endforeach
+                                     <tr>
+                                        <td><b>NOTA FINAL</b></td>
+                                        <td><B>{{ $notaFinal }}</B></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-    <div class="container-fluid mx-auto my-auto center-block ">
-        @foreach ($gerenteAgrupamento as $titulo => $gerenteAgrupamento)
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8 col-xxl-8 mx-auto my-3 mt-3">
-                <div class="card " style=" border-color:#6B9DD8;">
-                    <div class="card-body">
-                        <h4 class="card-title ">{{ $titulo }}</h4>
-                        @foreach ($gerenteAgrupamento as $conteudo)
-                            <p class="card-text mt-1"><small class="text-muted"><b>{{ $conteudo[0] }}</b></small></p>
-                        @endforeach
+                    <div class="text-center">
                     </div>
                 </div>
             </div>
-        @endforeach
+        </div>
     </div>
 </x-app-layout>

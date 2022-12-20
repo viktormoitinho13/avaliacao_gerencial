@@ -18,11 +18,9 @@ class ClassificacoesControllers extends Controller
     {
 
         $data = date('m');
-        // dd($data);
+        $dataRespostas = date('m/y');
 
         $usuarioLogado = auth()->user();
-        //dd($usuarioLogado->manager);
-
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
@@ -33,7 +31,6 @@ class ClassificacoesControllers extends Controller
 				                     group by LOJA 
 			                        ) B ON A.LOJA = B.LOJA AND A.MOVIMENTO = B.MOVIMENTO
 			                        WHERE A.LOJA = ?', [auth()->user()->store]);
-
 
         // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
         $gerenteNome = AgVendedor::query()
@@ -46,14 +43,12 @@ class ClassificacoesControllers extends Controller
             ->whereIn('AG_CLASSIFICACAO', $classificacoesQuestoes)
             ->take(1)->get();
 
-
         $contarStatus = AgStatus::query()
             ->distinct()
             ->select('AG_CLASSIFICACAO')
             ->where('AG_MATRICULA', '=', $usuarioLogado->registration)
             ->get()->count('AG_CLASSIFICACAO');
 
-        //  DD($contarStatus);
         $contarQuestoes = AgQuestoes::query()
             ->distinct()
             ->select('AG_CLASSIFICACAO')
@@ -69,20 +64,29 @@ class ClassificacoesControllers extends Controller
                         where registration = ?)',
             [auth()->user()->registration]
         );
-        $contagem = collect($resultado)->pluck('ag_loja')->count();
-        //      dd(collect($results));
 
-        // DD($contarQuestoes);
-        //  dd(collect($results)->pluck('qtd_respostas')->toArray());
-        //  dd(collect($results));
+        $resultadoManager = DB::select(
+            "
+                      SELECT DISTINCT ag_loja
+                     from AG_FORM_RESPOSTAS afr 
+                     where ag_loja in 
+                     (
+                        select store from ag_usuarios 
+                     )",
+
+        );
+        $contagem = collect($resultado)->pluck('ag_loja')->count();
+
         return view('home', [
-            'classificacoes' => $classificacoes,
-            'gerenteNome' => $gerenteNome,
-            'contarStatus' => $contarStatus,
-            'contarQuestoes'  => $contarQuestoes,
-            'contagem' => $contagem,
-            'resultado' => $resultado,
-            'data' => $data
+            'classificacoes'     => $classificacoes,
+            'gerenteNome'        => $gerenteNome,
+            'contarStatus'       => $contarStatus,
+            'contarQuestoes'     => $contarQuestoes,
+            'contagem'           => $contagem,
+            'resultado'          => $resultado,
+            'data'               => $data,
+            'resultadoManager'  => $resultadoManager,
+            'dataRespostas'   => $dataRespostas
 
         ]);
     }
