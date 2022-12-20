@@ -71,10 +71,10 @@
                     </div>
                 @endforeach
             @elseif (auth()->user()->manager == 'S' and auth()->user()->store == '990')
-                <div class="container-fluid mx-auto my-auto ">
+                <div class="container  ">
                     <div class="row mt-1">
                         @foreach ($resultadoManager as $resultadoManager)
-                            <div class="col-12 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mx-auto my-auto mt-5">
+                            <div class="col-12 col-sm-5 col-md-2 col-lg-2 col-xl-2 col-xxl-2  mt-5">
                                 <div class="card text-center" style="width: 90%; border-color:#6B9DD8;">
                                     <div class="card-body">
                                         <h3 class="card-title text-center"> Loja {{ $resultadoManager->ag_loja }}</h3>
