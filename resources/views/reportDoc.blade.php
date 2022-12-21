@@ -20,7 +20,7 @@
                                             <td>{{ $cabecalho->MEDIA }}</td>
                                         </tr>
                                     @endforeach
-                                     <tr>
+                                    <tr>
                                         <td><b>NOTA FINAL</b></td>
                                         <td><B>{{ $notaFinal }}</B></td>
                                     </tr>

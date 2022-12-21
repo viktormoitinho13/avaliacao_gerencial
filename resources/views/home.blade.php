@@ -25,7 +25,8 @@
                                         gerencial </h1>
                                     @foreach ($gerenteNome as $gerenteNome)
                                         <p class="fw-normal  text-center text-capitalize mt-4"
-                                            style="font-size: 25px; color:#268bff;"> {{ $gerenteNome->NOME }} </p>
+                                            style="font-size: 25px; color:#268bff;"> {{ $gerenteNome->NOME }}
+                                        </p>
                                     @endforeach
                                     <div class="container-md mx-auto ">
                                         <div class="d-flex justify-content-center">
@@ -43,7 +44,8 @@
                                                 A avaliação é <b>obrigatória e sigilosa</b>, pedimos que você responda
                                                 com sinceridade para que tenhamos direcionamento para melhorarmos
                                                 juntos.
-                                                Avalie o seu gerente pelas ações ocorridas nos últimos meses. </p>
+                                                Avalie o seu gerente pelas ações ocorridas nos últimos meses.
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="text-center">
@@ -71,26 +73,45 @@
                     </div>
                 @endforeach
             @elseif (auth()->user()->manager == 'S' and auth()->user()->store == '990')
-                <div class="container  ">
-                    <div class="row mt-1">
-                        @foreach ($resultadoManager as $resultadoManager)
-                            <div class="col-12 col-sm-5 col-md-2 col-lg-2 col-xl-2 col-xxl-2  mt-5">
-                                <div class="card text-center" style="width: 90%; border-color:#6B9DD8;">
-                                    <div class="card-body">
-                                        <h3 class="card-title text-center"> Loja {{ $resultadoManager->ag_loja }}</h3>
-                                        
-                                        <p class="card-text mt-1"><small class="text-muted">Avaliação de:
-                                                {{ $dataRespostas }} </small></p>
-                                        <div class="text-center">
-                                            <a href="/reportDocCorporate/{{ $resultadoManager->ag_loja }}"
-                                                class="btn btn-primary px-3 mt-1"
-                                                style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
-                                                    class="fas fa-hand-point-right" aria-hidden="true"></i> Relatório </a>
-                                        </div>
+                <div class="d-flex d-flex justify-content-center mt-5">
+                    <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
+                        <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
+                            style="border-color: #b1d5ff; background-color:#e3f0ff1a">
+                            <div class="card-body text-primary">
+                                <h1 class="title text-center text-dark mt-4" style="font-size: 30px;">Notas da Avaliação
+                                    gerencial
+                                </h1>
+                                <div class="container mx-auto my-auto center-block  mt-4 d-flex justify-content-center">
+                                    <div class="col-auto">
+                                        <table class="table text-center table-bordered table-responsive ">
+                                            <tbody>
+                                                <thead >
+                                                    <tr>
+                                                        <th scope="col">Lojas avaliadas</th>
+                                                        <th scope="col">Data de avaliação</th>
+                                                        <th scope="col">Acesso para o relatório</th>
+                                                    </tr>
+                                                </thead>
+                                                @foreach ($resultadoManager as $resultadoManager)
+                                                    <tr>
+                                                        <td>{{ $resultadoManager->ag_loja }}</td>
+                                                        <td>{{ $dataRespostas }}</td>
+                                                        <td> <a href="/reportDocCorporate/{{ $resultadoManager->ag_loja }}"
+                                                                    
+                                                                class=" btn px-3 mt-1"
+                                                                style="color:#468ddd;border-color:#d5e9ff;"> <i
+                                                class=" 	fas fa-eye" aria-hidden="true"></i> Visualizar
+                                                            </a></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
+                                <div class="text-center">
+                                </div>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
             @else
