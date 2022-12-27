@@ -50,7 +50,15 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > Guarda todas as classificações das perguntas da avaliação gerencial.
 > - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
 > - CLASSIFICACAO (VARCHAR(50)): Nome da classificação.
- 
+
+---
+
+> #### 3 - AG_QUESTOES
+> Guarda todas as perguntas necessários para a avaliação gerencial.
+> - AG_QUESTAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
+> - DATA_HORA (DATETIME): Data e hora da inserção da pergunta no banco de dados.
+> - AG_CLASSIFICACAO (NUMERIC(15,0)) : Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>
+> - QUESTAO (VARCHAR(MAX)) : Campo de texto com a pergunta.
     
  
 
