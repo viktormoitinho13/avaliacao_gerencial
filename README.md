@@ -58,9 +58,29 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > - AG_QUESTAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
 > - DATA_HORA (DATETIME): Data e hora da inserção da pergunta no banco de dados.
 > - AG_CLASSIFICACAO (NUMERIC(15,0)) : Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>
-> - QUESTAO (VARCHAR(MAX)) : Campo de texto com a pergunta.
+> - QUESTAO (VARCHAR(MAX)) : Campo de texto com a pergunta cadastrada no banco.
     
- 
+---
+
+> #### 4 - AG_RESPOSTAS
+> Guarda todas as respostas necessários para a avaliação gerencial.
+> - AG_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>
+> - RESPOSTA (VARCHAR(MAX)) : Campo de texto com a resposta cadastrada no banco, que pode ser fixa ou um campo dissertativo.
+> - NOTA (NUMERIC(5,2)) : Nota fixa que é atribuida a cada resposta
+    
+ ---
+
+> #### 4 - AG_FORM_RESPOSTAS
+> Guarda todas as respostas necessários para a avaliação gerencial.
+> - AG_FORM_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>.
+> - AG_RESPOSTA (VARCHAR(MAX)) : Chave estrangeira da tabela <STRONG>AG_RESPOSTAS</STRONG> ou texto inserido pelo usuário nas questões dissertativas.
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>.
+> - AG_USUARIO (NUMERIC(15,2)) : Usuário logado no sistema (ID da tabela AG_USUARIOS).
+> - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
+> - DATA_RESPOSTAS (VARCHAR(15)) : Mês e ano no horário da resposta.
+> - AG_LOJA (NUMERIC(15,2)) : Loja do usuário logado no sistema (Store da tabela AG_USUARIOS).
 
 
  
