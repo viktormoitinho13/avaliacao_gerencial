@@ -291,7 +291,7 @@ O projeto, além de ser uma aplicação web possuí conexão com o framework Pro
 #### 1 - Formulário de questões será utilizado para que a educação corporativa possa incluir, editar ou excluir questões das avaliações gerenciais <br>
 <img src="public/imgs/AG_QUESTOES.png"/> <br>
 
-#### 1 - Formulário de questões será utilizado para que a educação corporativa possa incluir, editar ou excluir questões das avaliações gerenciais <br>
-<img src="public/imgs/AG_QUESTOES.png"/> <br>
+#### 2 - A consulta das avaliações gerenciais será utilizada para que a educação corporativa possa visualizar as informações utilizando filtros diferentes, como classificação, loja, funcionários entre outros. <br>
+<img src="public/imgs/AVG-1.png"/> <br>
 
 
