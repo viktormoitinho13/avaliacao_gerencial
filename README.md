@@ -5,10 +5,10 @@
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 * Você necessita ter instalado 
-    `PHP 8.1 ou Superior / <br>
-    Composer 2.2.6 ou superior 
-    / Apache2 2.4.52 ou superior 
-    / Laravel 9.0 ou superior>`
+     `PHP 8.1 ou Superior' <br>
+     'Composer 2.2.6 ou superior' <br>
+     'Apache2 2.4.52 ou superior' <br>
+     'Laravel 9.0 ou superior` <br>
 * Compatível com  `<Windows / Linux / Mac>`.
 
 
