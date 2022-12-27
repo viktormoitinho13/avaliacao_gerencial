@@ -9,7 +9,8 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
      `Apache2 2.4.52 ou superior`<br>
      `'Composer 2.2.6 ou superior'`<br>
      `Laravel 9.0 ou superior`<br>
-* Compatível com  `<Windows / Linux / Mac>`.
+* Compatível com <br>
+ `<Windows / Linux / Mac>`.
 
 
 ## Instalando o projeto 
