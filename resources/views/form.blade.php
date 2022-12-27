@@ -3,7 +3,6 @@
         class="container-fluid col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 offset-md-3 my-4 mx-auto mt-4">
         @foreach ($classificacao as $classificacao)
             <div class="d-flex d-flex justify-content-center mt-4">
-
                 <h1
                     class="text-center fs-3 text-center text-capitalize"style=" color:#6B9DD8; -webkit-text-stroke:  #6B9DD8;">
                     {{ $classificacao }}</h1>
@@ -36,11 +35,11 @@
                                             {{ $resposta->RESPOSTA }}
                                         </label>
                                     </div>
-
                                 </div>
                             @elseif (($length = Str::length($resposta->RESPOSTA) > 10) and $resposta->RESPOSTA != 'dissertativa')
                                 <div class="h-100 d-flex align-items-center justify-content-center">
-                                    <div class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
+                                    <div
+                                        class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
                                             <input type="radio" name="questao[{{ $questao->AG_QUESTAO }}]"
                                                 id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA }}"
@@ -55,10 +54,12 @@
                                 </div>
                             @elseif ($resposta->RESPOSTA === 'dissertativa')
                                 <div class="h-100 d-flex align-items-center justify-content-center">
-                                          <div class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
+                                    <div
+                                        class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
-                                            <textarea name="questao[{{ $questao->AG_QUESTAO }}]"  id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6" style="width: 100%;" ></textarea>
-                                            
+                                            <textarea name="questao[{{ $questao->AG_QUESTAO }}]"
+                                                id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6"
+                                                style="width: 100%;"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -71,13 +72,11 @@
                 <div class="row">
                     <div class="col text-center">
                         <button class="btn btn-lg btn-block col-4 offset-md-3 my-4 mx-auto text-center"
-                            style="background-color:#6b9dd8; color:white;"><i class="fas fa-share" aria-hidden="true">
-                                Enviar</i></button>
+                            style="background-color:#6b9dd8; color:white;"><i class="fas fa-share"
+                                aria-hidden="true">Enviar</i></button>
                     </div>
                 </div>
             </div>
-
         </form>
-
     </div>
 </x-app-layout>

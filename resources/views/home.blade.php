@@ -16,7 +16,7 @@
             @endif
             @if (auth()->user()->manager != 'S')
                 @foreach ($classificacoes as $classificacao)
-                    <div class="d-flex d-flex justify-content-center mt-5">
+                    <div class="d-flex d-flex justify-content-center mt-4">
                         <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
                             <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
                                 style="border-color: #b1d5ff; background-color:#e3f0ff1a">
@@ -50,18 +50,18 @@
                                     </div>
                                     <div class="text-center">
                                         @if ($contarStatus == $contarQuestoes)
-                                            <a class="btn btn-primary px-3 mt-4"
+                                            <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-handshake" aria-hidden="true"></i> Avaliação já
                                                 realizada! </a>
                                         @elseif ($contarStatus != $contarQuestoes and $data != '12' or ($data = !'8'))
-                                            <a class="btn btn-primary px-3 mt-4"
+                                            <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não
                                                 disponível </a>
                                         @else
                                             <a href="/form/{{ $classificacao->AG_CLASSIFICACAO }}"
-                                                class="btn btn-primary px-3 mt-4"
+                                                class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255);border-color:#ff0000;"><i
                                                     class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero
                                                 continuar! </a>
@@ -73,7 +73,7 @@
                     </div>
                 @endforeach
             @elseif (auth()->user()->manager == 'S' and auth()->user()->store == '990')
-                <div class="d-flex d-flex justify-content-center mt-5">
+                <div class="d-flex d-flex justify-content-center mt-4">
                     <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
                         <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
                             style="border-color: #b1d5ff; background-color:#e3f0ff1a">
@@ -85,7 +85,7 @@
                                     <div class="col-auto">
                                         <table class="table text-center table-bordered table-responsive ">
                                             <tbody>
-                                                <thead >
+                                                <thead>
                                                     <tr>
                                                         <th scope="col">Lojas avaliadas</th>
                                                         <th scope="col">Data de avaliação</th>
@@ -94,13 +94,13 @@
                                                 </thead>
                                                 @foreach ($resultadoManager as $resultadoManager)
                                                     <tr>
-                                                        <td>{{ $resultadoManager->ag_loja }}</td>
-                                                        <td>{{ $dataRespostas }}</td>
+                                                        <td style="font-size: 25px;">{{ $resultadoManager->ag_loja }}</td>
+                                                        <td style="font-size: 25px;">{{ $dataRespostas }}</td>
                                                         <td> <a href="/reportDocCorporate/{{ $resultadoManager->ag_loja }}"
-                                                                    
-                                                                class=" btn px-3 mt-1"
+                                                                class=" btn px-2 mt-auto"
                                                                 style="color:#468ddd;border-color:#d5e9ff;"> <i
-                                                class=" 	fas fa-eye" aria-hidden="true"></i> Visualizar
+                                                                    class=" 	fas fa-eye" aria-hidden="true"></i>
+                                                                Visualizar
                                                             </a></td>
                                                     </tr>
                                                 @endforeach
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             @else
-                <div class="d-flex d-flex justify-content-center mt-5">
+                <div class="d-flex d-flex justify-content-center mt-4">
                     <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
                         <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
                             style="border-color: #b1d5ff; background-color:#e3f0ff1a">
@@ -139,19 +139,19 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    @if ($contagem == 1 and $data == '12' or $data == '8')
+                                    @if ($contagem == 1 and $data == '2' or $data == '8')
                                         <a href="/reportDoc/{{ $resultado[0]->ag_loja }}"
-                                            class="btn btn-primary px-3 mt-4"
+                                            class="btn btn-primary px-3 mt-4 mb-4"
                                             style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
                                                 class="fas fa-hand-point-right" aria-hidden="true"></i> Visualizar
                                             relatório </a>
-                                    @elseif ($contagem > 1 and $data == '12' or $data == '8')
-                                        <a href="/report" class="btn btn-primary px-3 mt-4"
+                                    @elseif ($contagem > 1 and $data == '2' or $data == '8')
+                                        <a href="/report" class="btn btn-primary px-3 mt-4 mb-4"
                                             style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
                                                 class="fas fa-hand-point-right" aria-hidden="true"></i> Visualizar
                                             relatório </a>
                                     @else
-                                        <a class="btn btn-primary px-3 mt-4"
+                                        <a class="btn btn-primary px-3 mt-4 mb-4"
                                             style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i
                                                 class="fas fa-ban" aria-hidden="true"></i> Não existem relatórios
                                             disponíveis </a>

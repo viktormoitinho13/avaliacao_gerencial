@@ -8,8 +8,7 @@ use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 use App\Models\AgQuestoes;
 use App\Models\AgClassificacao;
-
-
+use PhpParser\Node\Stmt\Foreach_;
 
 class RelatorioController extends Controller
 {
@@ -59,26 +58,34 @@ class RelatorioController extends Controller
             ->toArray();
 
         $gerentePercepcao = DB::select("
-                                       SELECT 
-                                       A.AG_CLASSIFICACAO,
-                                       A.CLASSIFICACAO,
-                                         CASE
-                                       		WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
-                                       		WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', RESPOSTA) 
-                                       		END AS ANALISE 
-                                       FROM AG_GERENTE_PERCEPCAO A
-                                        JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
-                                        WHERE AG_LOJA = ?
-                                        AND A.DATA_RESPOSTAS = ?
-                                        GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA
-                                        ORDER BY A.AG_CLASSIFICACAO ASC 
+                                     SELECT 
+                                    CONCAT (UPPER(LEFT(A.CLASSIFICACAO,1))+LOWER(SUBSTRING(A.CLASSIFICACAO,2,LEN(A.CLASSIFICACAO))),' : ' ,B.QUESTAO) AS QUESTAO,
+                                     A.AG_CLASSIFICACAO,
+                                    
+                                     CASE
+                                     WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
+                                     WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', RESPOSTA) END AS ANALISE 
+                                     FROM AG_GERENTE_PERCEPCAO A
+                                     JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
+                                     WHERE AG_LOJA = ?
+                                     AND A.DATA_RESPOSTAS = ?
+                                     GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO
+                                     ORDER BY A.AG_CLASSIFICACAO ASC 
                                           ", [$id,  $data_atual]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
         $gerenteAgrupamento = [];
+        $gerenteAgrupamentoDetalhado = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {
-            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [$gerentePercepcao->ANALISE];
+            $gerenteAgrupamento[$gerentePercepcao->QUESTAO][] = [ $gerentePercepcao->ANALISE];
         }
-        // dd($gerenteAgrupamento);
+        
+          //    dd($gerenteAgrupamento);
+        
+    
+   
+           
+      
+        
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,

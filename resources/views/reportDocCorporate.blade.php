@@ -41,9 +41,9 @@
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8 col-xxl-8 mx-auto my-3 mt-3">
                 <div class="card " style=" border-color:#6B9DD8;">
                     <div class="card-body">
-                        <h4 class="card-title ">{{ $titulo }}</h4>
+                        <h4 class="card-title " style="font-size: 15px;">{{ $titulo }}</h4>
                         @foreach ($gerenteAgrupamento as $conteudo)
-                            <p class="card-text mt-1"><small class="text-muted"><b>{{ $conteudo[0] }}</b></small></p>
+                            <p class="card-text mt-1"><small class="text-muted" ><b>{{ $conteudo[0] }}</b></small></p>
                         @endforeach
                     </div>
                 </div>
