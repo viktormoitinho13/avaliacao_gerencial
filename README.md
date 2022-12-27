@@ -44,7 +44,10 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > - Store (INT): Loja onde o usuário trabalha.
 > - Manager (NVARCHAR(255)): Confirmação se o usuário é ou não um gerente.
 
-
+> #### AG_CLASSIFICACAO
+> Guarda todas as classificações das perguntas da avaliação gerencial.
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
+> - CLASSIFICACAO (VARCHAR(50)): Nome da classificação.
  
     
  
