@@ -33,12 +33,9 @@ Windows:
 
 Para a utilização do projeto é necessário alguns dependências, configurações e recursos do nosso banco de dados, elas são:
 
-### Tabelas 
+#### Tabelas 
 
-|  | Description |
-| --- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+
 
 Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
  
