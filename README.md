@@ -213,13 +213,13 @@ AND A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
  
 
 
-````
+``
 
 ### Atualização de dados 
 O projeto consta com duas triggers no banco de dados. 
 #####	1 - AG_RESPOSTA_DISSERTATIVA 
 		Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
-		````
+		
 			CREATE TRIGGER AG_RESPOSTA_DISSERTATIVA
 			ON AG_QUESTOES 
 			AFTER INSERT 
@@ -232,7 +232,7 @@ O projeto consta com duas triggers no banco de dados.
 					AND AQ.QUESTAO IS NOT NULL 
 				END
 			
-		````
+		
 ### Atualização de dados 
 O projeto consta com duas triggers no banco de dados. 
 #####	1 - AG_RESPOSTA_DISSERTATIVA 
