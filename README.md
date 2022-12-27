@@ -293,5 +293,8 @@ O projeto, além de ser uma aplicação web possuí conexão com o framework Pro
 
 #### 2 - A consulta das avaliações gerenciais será utilizada para que a educação corporativa possa visualizar as informações utilizando filtros diferentes, como classificação, loja, funcionários entre outros. <br>
 <img src="public/imgs/AVG-1.png"/> <br>
+<img src="public/imgs/AVG-1.1.png"/> <br>
+<img src="public/imgs/AVG-1.2.png"/> <br>
+<img src="public/imgs/AVG-1.3.png"/> <br>
 
 
