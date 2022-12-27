@@ -285,8 +285,12 @@ AS
 
 ````
 
+<<<<<<< HEAD
 ## Procfit  
 
 
 
 	
+=======
+## Procfit  
+>>>>>>> 8273e43 (Update README)
