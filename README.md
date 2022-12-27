@@ -146,7 +146,7 @@ INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)
 #### Visualização de dados 
 A view *AG_GERENTE_PERCEPCAO* traz os dados necessários para que o gerente visualize as respostas dados pelos funcionários
 
-``
+````
 									
 create view AG_GERENTE_PERCEPCAO
 AS 
@@ -213,12 +213,11 @@ AND A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
  
 
 
-``
+````
 
 ### Atualização de dados 
 O projeto consta com duas triggers no banco de dados. 
-#####	1 - AG_RESPOSTA_DISSERTATIVA 
-		Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
+#####	1 - AG_RESPOSTA_DISSERTATIVA :Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
 		
 			CREATE TRIGGER AG_RESPOSTA_DISSERTATIVA
 			ON AG_QUESTOES 
@@ -231,10 +230,10 @@ O projeto consta com duas triggers no banco de dados.
 					WHERE AR.AG_QUESTAO  IS NULL
 					AND AQ.QUESTAO IS NOT NULL 
 				END
-			
+			````
 		
 ### Atualização de dados 
 O projeto consta com duas triggers no banco de dados. 
-#####	1 - AG_RESPOSTA_DISSERTATIVA 
-		Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
+#####	1 - AG_RESPOSTA_DISSERTATIVA : Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
+
 	
