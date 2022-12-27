@@ -9,6 +9,8 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
      'Composer 2.2.6 ou superior' <br>
      'Apache2 2.4.52 ou superior' <br>
      'Laravel 9.0 ou superior` <br>
+     <p>This is the first line.<br>
+        And this is the second line.</p>
 * Compatível com  `<Windows / Linux / Mac>`.
 
 
