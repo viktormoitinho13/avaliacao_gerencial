@@ -5,12 +5,12 @@
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 * Você necessita ter instalado 
-     `PHP 8.1 ou Superior' <br>
+     `' <br>
      'Composer 2.2.6 ou superior' <br>
      'Apache2 2.4.52 ou superior' <br>
      'Laravel 9.0 ou superior` <br>
-     <p>This is the first line.<br>
-        And this is the second line.</p>
+     'PHP 8.1 ou Superior'<br>
+     And this is the second line.
 * Compatível com  `<Windows / Linux / Mac>`.
 
 
@@ -78,7 +78,7 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
  ---
 
 > #### 4 - AG_FORM_RESPOSTAS
-> Guarda todas as respostas necessários para a avaliação gerencial.
+> Guarda todas as perguntas e respostas dados pelos usuários.
 > - AG_FORM_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
 > - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>.
 > - AG_RESPOSTA (VARCHAR(MAX)) : Chave estrangeira da tabela <STRONG>AG_RESPOSTAS</STRONG> ou texto inserido pelo usuário nas questões dissertativas.
@@ -88,5 +88,14 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > - DATA_RESPOSTAS (VARCHAR(15)) : Mês e ano no horário da resposta.
 > - AG_LOJA (NUMERIC(15,2)) : Loja do usuário logado no sistema (Store da tabela AG_USUARIOS).
 
+ ---
+
+> #### 4 - AG_STATUS
+> Guarda a informação de quais usuários e quais formulários ele já respondeu.
+> - AG_STATUS (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>.
+> - AG_USUARIO (NUMERIC(15,2)) : Usuário logado no sistema (ID da tabela AG_USUARIOS).
+> - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
+> - AG_DATA (VARCHAR(15)) : Mês e ano no horário da resposta.
 
  
