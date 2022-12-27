@@ -98,4 +98,6 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
 > - AG_DATA (VARCHAR(15)) : Mês e ano no horário da resposta.
 
- 
+ ### Inserção de dados 
+  
+Para o cadastro de usuários é feito um select dentro de algumas tabelas no banco. A regra do usuário e senha são o nome ou a matrícula do usuários e a senha é o CPF sem pontuação. 
