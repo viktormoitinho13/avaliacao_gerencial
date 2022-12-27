@@ -1,6 +1,6 @@
 # Avaliação Gerencial 
 
-## 💻 Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
@@ -8,7 +8,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 * Compatível com  `<Windows / Linux / Mac>`.
 
 
-## 🚀 Instalando o projeto 
+## Instalando o projeto 
 
 Para instalação, siga estas etapas:
 
@@ -29,15 +29,13 @@ Windows:
 4 - Crie o arquivo .Env com base no .Env.example
 ```
 
-## ☕ Dependências do projeto
+## Dependências do projeto
 
 Para a utilização do projeto é necessário alguns dependências, configurações e recursos do nosso banco de dados, elas são:
 
-```
-<exemplo_de_uso>
-```
+### Tabelas 
 
-| Syntax | Description |
+|  | Description |
 | --- | ----------- |
 | Header | Title |
 | Paragraph | Text |
