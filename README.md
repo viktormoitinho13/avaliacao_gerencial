@@ -33,9 +33,21 @@ Windows:
 
 Para a utilização do projeto é necessário alguns dependências, configurações e recursos do nosso banco de dados, elas são:
 
-#### Tabelas 
+### Tabelas 
+
+> #### AG_USUARIOS
+> Guarda todos os dados **necessários** para o login dos usuários.
+> - ID (BIGINT): Chave primária da tabela auto incrementada. 
+> - Name (VARCHAR(255)): Nome do usuário.
+> - Password (NVARCHAR(255)): Senha do usuário criptografa com MD5.
+> - Registration (NVARCHAR(255)): Matrícula do usuário.
+> - Store (INT): Loja onde o usuário trabalha.
+> - Manager (NVARCHAR(255)): Confirmação se o usuário é ou não um gerente.
 
 
+ 
+    
+ 
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
+
  
