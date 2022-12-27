@@ -77,7 +77,7 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
     
  ---
 
-> #### 4 - AG_FORM_RESPOSTAS
+> #### 5 - AG_FORM_RESPOSTAS
 > Guarda todas as perguntas e respostas dados pelos usuários.
 > - AG_FORM_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
 > - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>.
@@ -90,7 +90,7 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 
  ---
 
-> #### 4 - AG_STATUS
+> #### 6 - AG_STATUS
 > Guarda a informação de quais usuários e quais formulários ele já respondeu.
 > - AG_STATUS (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
 > - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>.
