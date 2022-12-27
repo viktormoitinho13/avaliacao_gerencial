@@ -4,7 +4,7 @@
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-* Você necessita ter instalado 
+* Você necessita ter instalado <br>
      `'PHP 8.1 ou Superior'`<br>
      `Apache2 2.4.52 ou superior`<br>
      `'Composer 2.2.6 ou superior'`<br>
