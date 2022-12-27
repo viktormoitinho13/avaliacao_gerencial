@@ -23,19 +23,24 @@ Linux :
 
 Windows:
 ```
-
 1 - Faça a clonagem do repositório dentro da pasta htdocs.
 2 - Após a clonagem do projeto, abra o mesmo em seu editor de texto. 
 3 - Utilize o comando composer update para a atualização do projeto.
 4 - Crie o arquivo .Env com base no .Env.example
 ```
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Dependências do projeto
 
-Para usar <nome_do_projeto>, siga estas etapas:
+Para a utilização do projeto é necessário alguns dependências, configurações e recursos do nosso banco de dados, elas são:
 
 ```
 <exemplo_de_uso>
 ```
 
+| Syntax | Description |
+| --- | ----------- |
+| Header | Title |
+| Paragraph | Text |
+
 Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
+ 
