@@ -146,7 +146,7 @@ INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)
 #### Visualização de dados 
 A view *AG_GERENTE_PERCEPCAO* traz os dados necessários para que o gerente visualize as respostas dados pelos funcionários
 
-````
+``
 									
 create view AG_GERENTE_PERCEPCAO
 AS 
