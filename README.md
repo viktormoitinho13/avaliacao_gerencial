@@ -283,8 +283,10 @@ AS
 		WHERE A.PERFIL_USUARIO IN (1546) AND USUARIO = 324
 	END
 
+````
 
-	
+## Imagens 
+
 
 
 	
