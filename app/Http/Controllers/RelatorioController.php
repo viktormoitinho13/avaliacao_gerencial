@@ -63,8 +63,9 @@ class RelatorioController extends Controller
                                      A.AG_CLASSIFICACAO,
                                     
                                      CASE
-                                     WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
-                                     WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', RESPOSTA) END AS ANALISE 
+                                     WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', LOWER(RESPOSTA)), ', ')
+
+                                     WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', LOWER(RESPOSTA)) END AS ANALISE 
                                      FROM AG_GERENTE_PERCEPCAO A
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?

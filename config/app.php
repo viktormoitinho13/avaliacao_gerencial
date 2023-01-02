@@ -16,8 +16,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
-    |--------------------------------------------------------------------------
-    | Application Environment
+    |--------------------------------------------------------------------------   | Application Environment
     |--------------------------------------------------------------------------
     |
     | This value determines the "environment" your application is currently
@@ -52,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'prod.promofarma.int/avaliacoes-gerenciais/public'),
 
     'asset_url' => env('ASSET_URL', null),
 
