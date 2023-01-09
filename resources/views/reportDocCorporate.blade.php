@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    <div class="container  mx-auto my-auto center-block text-center mt-2">
+    <div class="container  mx-auto my-auto center-block text-center mt-5">
         <div class="row ">
             <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mx-auto my-1 mt-1 center-block" >
                 <div class="card" style="border-color:#6b9dd8; height: 75px;">
                     <div class="card-body ">
-                        <h5 class="card-title" style="font-size: 13px;">Quantidade de respostas</h5>
-                        <p class="card-text" style="font-size: 12px;">
+                        <h5 class="card-title" style="font-size: 15px;">Quantidade de respostas</h5>
+                        <p class="card-text" style="font-size: 15px;">
                             <B>{{ $qtd_respostas[0]->QTD_TOTAL_RESPOSTAS }}</B>
                         </p>
                     </div>
@@ -15,8 +15,8 @@
             <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mx-auto my-1 mt-1 center-block">
                 <div class="card " style="border-color:#6b9dd8;height: 75px;">
                     <div class="card-body ">
-                        <h5 class="card-title" style="font-size: 13px;">Nota final</h5>
-                        <p class="card-text" style="font-size: 12px;"><B>{{ $notaFinal }}</B></p>
+                        <h5 class="card-title" style="font-size: 15px;">Nota final da avaliação</h5>
+                        <p class="card-text" style="font-size: 15px;"><B>{{ $notaFinal }}</B></p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             @endforeach
         </div>
     </div>
-    <div class="container-fluid mx-auto my-auto center-block ">
+    <div class="container-fluid mx-auto my-auto center-block mt-5 ">
         @foreach ($gerenteAgrupamento as $titulo => $gerenteAgrupamento)
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8 col-xxl-8 mx-auto my-3 mt-3">
                 <div class="card " style=" border-color:#6B9DD8;">

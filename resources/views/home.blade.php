@@ -129,7 +129,7 @@
                                             <tbody>
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Lojas avaliadas</th>
+                                                        <th scope="col">Loja avaliada</th>
                                                         <th scope="col">Data de avaliação</th>
                                                         <th scope="col">Acesso para o relatório</th>
                                                     </tr>
