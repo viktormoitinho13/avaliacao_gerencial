@@ -22,8 +22,9 @@ class CreateAgusuariosTable extends Migration
             $table->string('registration');
             $table->integer('store');
             $table->string('manager')->nullable();
+            $table->string('supervisor')->nullable();
             $table->rememberToken();
-            $table->timestamps = now();
+            
         });
     }
 

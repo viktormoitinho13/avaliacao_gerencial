@@ -14,7 +14,7 @@
                     </div>
                 </div>
             @endif
-            @if (auth()->user()->manager != 'S')
+            @if (auth()->user()->manager != 'S' and auth()->user()->supervisor == 'N')
                 @foreach ($classificacoes as $classificacao)
                     <div class="d-flex d-flex justify-content-center mt-4">
                         <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
@@ -114,6 +114,50 @@
                         </div>
                     </div>
                 </div>
+                @elseif (auth()->user()->supervisor == 'S')
+                <div class="d-flex d-flex justify-content-center mt-4">
+                    <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
+                        <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
+                            style="border-color: #b1d5ff; background-color:#e3f0ff1a">
+                            <div class="card-body text-primary">
+                                <h1 class="title text-center text-dark mt-4" style="font-size: 30px;">Notas da Avaliação
+                                    gerencial
+                                </h1>
+                                <div class="container mx-auto my-auto center-block  mt-4 d-flex justify-content-center">
+                                    <div class="col-auto">
+                                        <table class="table text-center table-bordered table-responsive ">
+                                            <tbody>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Lojas avaliadas</th>
+                                                        <th scope="col">Data de avaliação</th>
+                                                        <th scope="col">Acesso para o relatório</th>
+                                                    </tr>
+                                                </thead>
+                                                @foreach ($resultadoSupervisor as $resultadoSupervisor)
+                                                    <tr>
+                                                        <td style="font-size: 25px;">{{ $resultadoSupervisor->ag_loja }}</td>
+                                                        <td style="font-size: 25px;">{{ $dataRespostas }}</td>
+                                                        <td> <a href="/reportDocCorporate/{{ $resultadoSupervisor->ag_loja }}"
+                                                                class=" btn px-2 mt-auto"
+                                                                style="color:#468ddd;border-color:#d5e9ff;"> <i
+                                                                    class=" 	fas fa-eye" aria-hidden="true"></i>
+                                                                Visualizar
+                                                            </a></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
             @else
                 <div class="d-flex d-flex justify-content-center mt-4">
                     <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">

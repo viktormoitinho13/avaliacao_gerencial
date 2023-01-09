@@ -18,6 +18,7 @@ class ClassificacoesControllers extends Controller
         $dataRespostas = date('m/y');
 
         $usuarioLogado = auth()->user();
+      
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
@@ -73,8 +74,20 @@ class ClassificacoesControllers extends Controller
                      (
                         select store from ag_usuarios
                      )",
-
         );
+        
+         $resultadoSupervisor = DB::select(
+            "
+                        SELECT DISTINCT ag_loja
+                     from AG_FORM_RESPOSTAS afr
+                     where ag_loja in
+                     (
+                   		select store from ag_usuarios au 
+                   		where au.registration = ?
+                     )
+           ", [$usuarioLogado->registration]);
+        
+        
         $contagem = collect($resultado)->pluck('ag_loja')->count();
 
         return view('home', [
@@ -87,6 +100,7 @@ class ClassificacoesControllers extends Controller
             'data' => $data,
             'resultadoManager' => $resultadoManager,
             'dataRespostas' => $dataRespostas,
+            'resultadoSupervisor' => $resultadoSupervisor
 
         ]);
     }
