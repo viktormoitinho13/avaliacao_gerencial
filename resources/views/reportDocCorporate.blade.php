@@ -48,10 +48,7 @@
                                     <ul>
                                           <li> <p class="card-text mt-3"style="font-size: 17px;"><small
                                             class="text-muted"><b>{{ $conteudo[0] }}</b></small></p></li>
-                                            <ul>
-                                              <li> <p class="card-text mt-3"style="font-size: 16px;"><small
-                                            class="text-muted">{{ $conteudo[1] }}</small></p></li>
-                                            </ul>
+                                          
                                         
                                         </ul>
                         @endforeach

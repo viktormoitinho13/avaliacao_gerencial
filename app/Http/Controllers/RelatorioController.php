@@ -76,10 +76,17 @@ class RelatorioController extends Controller
                                      ORDER BY A.AG_CLASSIFICACAO ASC 
                                           ", [$id,  $data_atual]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
+        
+        
         $gerenteAgrupamento = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {
-            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [ $gerentePercepcao->QUESTAO , $gerentePercepcao->ANALISE];
+            $gerenteAgrupamento[$gerentePercepcao->QUESTAO][] = [ $gerentePercepcao->ANALISE];
         }
+        
+        
+        
+      //   dd($gerenteAgrupamento);
+
         
        //dd($id);
        $contagem = DB::select("
@@ -89,8 +96,9 @@ class RelatorioController extends Controller
         			and year(data_movimento) = year(GETDATE())
        
        ", [$id]);
+        
         $contagemObservacao = collect($contagem)->pluck('loja')->count();
-          
+        
           
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
