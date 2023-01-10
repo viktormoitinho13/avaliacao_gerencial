@@ -15,6 +15,7 @@ class RelatorioController extends Controller
     public function index(int $id)
     {
         $data_atual = date('m/Y');
+        $data = date('m');
         $qtd_respostas = DB::SELECT('
                             
             SELECT 
@@ -59,13 +60,14 @@ class RelatorioController extends Controller
 
         $gerentePercepcao = DB::select("
                                      SELECT 
-                                    CONCAT (UPPER(LEFT(A.CLASSIFICACAO,1))+LOWER(SUBSTRING(A.CLASSIFICACAO,2,LEN(A.CLASSIFICACAO))),' : ' ,B.QUESTAO) AS QUESTAO,
+                                     CONCAT(UPPER(SUBSTRING(A.CLASSIFICACAO, 1,1)), LOWER(SUBSTRING(A.CLASSIFICACAO, 2,LEN (A.CLASSIFICACAO)))) AS CLASSIFICACAO,
+  									 B.QUESTAO AS QUESTAO,
                                      A.AG_CLASSIFICACAO,
                                     
                                      CASE
                                      WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', LOWER(RESPOSTA)), ', ')
 
-                                     WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', LOWER(RESPOSTA)) END AS ANALISE 
+                                     WHEN COMENTARIO = 'S' THEN LOWER(RESPOSTA) END AS ANALISE 
                                      FROM AG_GERENTE_PERCEPCAO A
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?
@@ -75,24 +77,30 @@ class RelatorioController extends Controller
                                           ", [$id,  $data_atual]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
         $gerenteAgrupamento = [];
-        $gerenteAgrupamentoDetalhado = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {
-            $gerenteAgrupamento[$gerentePercepcao->QUESTAO][] = [ $gerentePercepcao->ANALISE];
+            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [ $gerentePercepcao->QUESTAO , $gerentePercepcao->ANALISE];
         }
         
-          //    dd($gerenteAgrupamento);
-        
-    
-   
-           
-      
-        
+       //dd($id);
+       $contagem = DB::select("
+            		select loja from AG_SUPERVISORES_OBSERVACOES 
+        			where loja = ?
+        			and month(data_movimento) = month(GETDATE())
+        			and year(data_movimento) = year(GETDATE())
+       
+       ", [$id]);
+        $contagemObservacao = collect($contagem)->pluck('loja')->count();
+          
+          
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
             'gerenteAgrupamento' => $gerenteAgrupamento,
-            'classificacoes' => $classificacoes
+            'classificacoes' => $classificacoes,
+            'contagemObservacao' => $contagemObservacao,           
+            'id' => $id,
+            'data' => $data
         ]);
     }
 }
