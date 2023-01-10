@@ -42,5 +42,31 @@
         </main>
     </div>
 </body>
+<section class="">
+  <!-- Footer -->
+  <footer class="bg-white text-white text-center text-md-start">
+    <!-- Grid container -->
+    <div class="container p-5">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+         
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgb(255, 255, 255);">
+     
+      <a class="text-white" href="https://mdbootstrap.com/"></a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
 
 </html>

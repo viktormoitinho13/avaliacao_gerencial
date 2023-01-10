@@ -2,9 +2,11 @@
     <div class="container-fluid">
         <div class="row mt-5">
             @if (session()->has('err'))
-                <div class="container-md mx-auto text-center">
-                    <div class=" alert alert-danger">
-                        {{ session('err') }}
+                <div class="d-flex d-flex justify-content-center mt-4">
+                    <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
+                        <div class=" alert alert-danger text-center">
+                            {{ session('err') }}
+                        </div>
                     </div>
                 </div>
             @elseif (session()->has('sucess'))
@@ -60,7 +62,7 @@
                                                     class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não
                                                 disponível </a>
                                         @else
-                                            <a href="{{ route('questions.index' ,$classificacao->AG_CLASSIFICACAO)}}"
+                                            <a href="{{ route('questions.index', $classificacao->AG_CLASSIFICACAO) }}"
                                                 class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255);border-color:#ff0000;"><i
                                                     class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero
@@ -94,7 +96,8 @@
                                                 </thead>
                                                 @foreach ($resultadoManager as $resultadoManager)
                                                     <tr>
-                                                        <td style="font-size: 25px;">{{ $resultadoManager->ag_loja }}</td>
+                                                        <td style="font-size: 25px;">{{ $resultadoManager->ag_loja }}
+                                                        </td>
                                                         <td style="font-size: 25px;">{{ $dataRespostas }}</td>
                                                         <td> <a href="/reportDocCorporate/{{ $resultadoManager->ag_loja }}"
                                                                 class=" btn px-2 mt-auto"
@@ -114,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                @elseif (auth()->user()->supervisor == 'S')
+            @elseif (auth()->user()->supervisor == 'S')
                 <div class="d-flex d-flex justify-content-center mt-4">
                     <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
                         <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
@@ -136,7 +139,8 @@
                                                 </thead>
                                                 @foreach ($resultadoSupervisor as $resultadoSupervisor)
                                                     <tr>
-                                                        <td style="font-size: 25px;">{{ $resultadoSupervisor->ag_loja }}</td>
+                                                        <td style="font-size: 25px;">{{ $resultadoSupervisor->ag_loja }}
+                                                        </td>
                                                         <td style="font-size: 25px;">{{ $dataRespostas }}</td>
                                                         <td> <a href="/reportDocCorporate/{{ $resultadoSupervisor->ag_loja }}"
                                                                 class=" btn px-2 mt-auto"
@@ -156,8 +160,6 @@
                         </div>
                     </div>
                 </div>
-                
-                
             @else
                 <div class="d-flex d-flex justify-content-center mt-4">
                     <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">

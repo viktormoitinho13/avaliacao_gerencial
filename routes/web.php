@@ -10,6 +10,7 @@ use App\Http\Controllers\ConclusaoController;
 use App\Http\Controllers\RespostasQuestoes;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RelatorioGerenteController;
+use App\Http\Controllers\SupervisorObservacaoController;
 
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
@@ -42,6 +43,9 @@ Route::middleware('auth')
         Route::get('/{id}', [RelatorioController::class, 'index'])
             ->whereNumber('id')
             ->name('reportDocCorporate.index');
+               Route::post('/create/{id}', [SupervisorObservacaoController::class, 'store'])
+            ->whereNumber('id')
+            ->name('observacao.store');
     });
 
 

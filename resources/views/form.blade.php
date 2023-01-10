@@ -54,8 +54,7 @@
                                 </div>
                             @elseif ($resposta->RESPOSTA === 'dissertativa')
                                 <div class="h-100 d-flex align-items-center justify-content-center">
-                                    <div
-                                        class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
+                                    <div  class=" p-2 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  ">
                                         <div>
                                             <textarea name="questao[{{ $questao->AG_QUESTAO }}]"
                                                 id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6"
@@ -72,8 +71,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <button class="btn btn-lg btn-block col-4 offset-md-3 my-4 mx-auto text-center"
-                            style="background-color:#6b9dd8; color:white;"><i class="fas fa-share"
-                                aria-hidden="true">Enviar</i></button>
+                            style="background-color:#6b9dd8; color:white;"><i class="fas fa-paper-plane" aria-hidden="true"> Enviar </i></button>
                     </div>
                 </div>
             </div>
