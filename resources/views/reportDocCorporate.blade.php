@@ -62,17 +62,18 @@
      <div class="container-fluid mx-auto my-auto center-block mt-3 ">
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8 col-xxl-8 mx-auto my-3 mt-3">
               
+   @if(auth()->user()->manager == 'N' and auth()->user()->supervisor == 'S')
 
     <form action="{{ route('observacao.store', ['id' => $id]) }}" method="POST">
             @csrf
-            <div class="card  mx-auto mb-1 mt-4 shadow-sm  bg-white rounded " style="border-color: #b1d5ff; background-color:#e3f0ff1a">
+            <div class="card  mx-auto mb-1 mt-4 shadow-sm  bg-white rounded " style="border-color: #268bff; background-color:#e3f0ff1a">
                    <div class="card-header text-white " style="background-color: #6B9DD8; overflow-wrap:break-word; font-size: 16px;"> Observações com o supervisor </div>
                 <div class=" d-flex align-items-center justify-content-center">
                     <div style="width: 100%;">
-                     @if($contagemObservacao < 1 and $data == 1 or $data == 8)
+                     @if($contagemObservacao < 1 and $data == 2 or $data == 8)
                         <textarea name="observacao" id="observacao" cols="11" rows="6" style="width: 100%;" required></textarea>
                     @else 
-                        <textarea disabled name="observacao" id="observacao" cols="11" rows="6" style="width: 100%;">..... Já foi realizada uma observação neste relatório! </textarea>
+                        <textarea disabled name="observacao" id="observacao" cols="11" rows="6" style="width: 100%;"> Este relatório já possuí observações. </textarea>
                     @endif 
                     </div>
                 </div>
@@ -81,13 +82,13 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                @if($contagemObservacao < 1 and $data == 1 or $data == 8)
-                <button class="btn btn-lg btn-block col-4 offset-md-3 my-4 mx-auto text-center"
+                @if($contagemObservacao < 1 and $data == 2 or $data == 8)
+                <button class="btn btn-lg btn-block col-3 offset-md-3 my-4 mx-auto text-center"
                     style="background-color:#6b9dd8; color:white;"><i class="fas fa-paper-plane"
                         aria-hidden="true">  Enviar </i></button>
                 @else 
                 
-                      <a class="btn btn-lg btn-block col-4 offset-md-3 my-4 mx-auto text-center"
+                      <a class="btn btn-lg btn-block col-3 offset-md-3 my-4 mx-auto text-center"
                        style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i
                        class="fas fa-thumbs-up" aria-hidden="true"></i> Observações já realizadas! </a>
                 @endif
@@ -95,6 +96,7 @@
         </div>
     </div>
     </form>
+@endif
    </div>
     </div>
 

@@ -56,7 +56,7 @@
                                                 style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-handshake" aria-hidden="true"></i> Avaliação já
                                                 realizada! </a>
-                                        @elseif ($contarStatus != $contarQuestoes and $data != '1' or ($data = !'8'))
+                                        @elseif ($contarStatus != $contarQuestoes and $data != '2' or ($data = !'8'))
                                             <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não
