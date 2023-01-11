@@ -1,64 +1,300 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Avaliação Gerencial 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Pré-requisitos
 
-## About Laravel
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* Você necessita ter instalado <br>
+     `'PHP 8.1 ou Superior'`<br>
+     `Apache2 2.4.52 ou superior`<br>
+     `'Composer 2.2.6 ou superior'`<br>
+     `Laravel 9.0 ou superior`<br>
+* Compatível com <br>
+ `<Windows / Linux / Mac>`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instalando o projeto 
 
-## Learning Laravel
+Para instalação, siga estas etapas:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Linux :
+```
+1 - Faça a clonagem do repositório dentro da pasta /var/www/hmtl.
+    1.1 - Sugestão: Dê permissão 755 de forma recursiva para a pasta /var e adicione o seu usuário ao grupo de donos da pasta. 
+2 - Após a clonagem do projeto, abra o mesmo em seu editor de texto. 
+3 - Utilize o comando composer update para a atualização do projeto.
+4 - Crie o arquivo .Env com base no .Env.example
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Windows:
+```
+1 - Faça a clonagem do repositório dentro da pasta htdocs.
+2 - Após a clonagem do projeto, abra o mesmo em seu editor de texto. 
+3 - Utilize o comando composer update para a atualização do projeto.
+4 - Crie o arquivo .Env com base no .Env.example
+```
 
-## Laravel Sponsors
+## Dependências do projeto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Para a utilização do projeto é necessário alguns dependências, configurações e recursos do nosso banco de dados, elas são:
 
-### Premium Partners
+### Tabelas 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+> #### 1 - AG_USUARIOS
+> Guarda todos os dados **necessários** para o login dos usuários.
+> - ID (BIGINT): Chave primária da tabela auto incrementada. 
+> - Name (VARCHAR(255)): Nome do usuário.
+> - Password (NVARCHAR(255)): Senha do usuário criptografa com MD5.
+> - Registration (NVARCHAR(255)): Matrícula do usuário.
+> - Store (INT): Loja onde o usuário trabalha.
+> - Manager (NVARCHAR(255)): Confirmação se o usuário é ou não um gerente.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> #### 2 - AG_CLASSIFICACAO
+> Guarda todas as classificações das perguntas da avaliação gerencial.
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
+> - CLASSIFICACAO (VARCHAR(50)): Nome da classificação.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> #### 3 - AG_QUESTOES
+> Guarda todas as perguntas necessários para a avaliação gerencial.
+> - AG_QUESTAO (NUMERIC(15,2)): Chave primária da tabela auto incrementada. 
+> - DATA_HORA (DATETIME): Data e hora da inserção da pergunta no banco de dados.
+> - AG_CLASSIFICACAO (NUMERIC(15,0)) : Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>
+> - QUESTAO (VARCHAR(MAX)) : Campo de texto com a pergunta cadastrada no banco.
+    
+---
 
-## Security Vulnerabilities
+> #### 4 - AG_RESPOSTAS
+> Guarda todas as respostas necessários para a avaliação gerencial.
+> - AG_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>
+> - RESPOSTA (VARCHAR(MAX)) : Campo de texto com a resposta cadastrada no banco, que pode ser fixa ou um campo dissertativo.
+> - NOTA (NUMERIC(5,2)) : Nota fixa que é atribuida a cada resposta
+    
+ ---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> #### 5 - AG_FORM_RESPOSTAS
+> Guarda todas as perguntas e respostas dados pelos usuários.
+> - AG_FORM_RESPOSTA (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_QUESTAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_QUESTOES</STRONG>.
+> - AG_RESPOSTA (VARCHAR(MAX)) : Chave estrangeira da tabela <STRONG>AG_RESPOSTAS</STRONG> ou texto inserido pelo usuário nas questões dissertativas.
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>.
+> - AG_USUARIO (NUMERIC(15,2)) : Usuário logado no sistema (ID da tabela AG_USUARIOS).
+> - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
+> - DATA_RESPOSTAS (VARCHAR(15)) : Mês e ano no horário da resposta.
+> - AG_LOJA (NUMERIC(15,2)) : Loja do usuário logado no sistema (Store da tabela AG_USUARIOS).
 
-## License
+ ---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> #### 6 - AG_STATUS
+> Guarda a informação de quais usuários e quais formulários ele já respondeu.
+> - AG_STATUS (NUMERIC(15,0)): Chave primária da tabela auto incrementada. 
+> - AG_CLASSIFICACAO (NUMERIC(15,2)): Chave estrangeira da tabela <STRONG>AG_CLASSIFICACAO</STRONG>.
+> - AG_USUARIO (NUMERIC(15,2)) : Usuário logado no sistema (ID da tabela AG_USUARIOS).
+> - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
+> - AG_DATA (VARCHAR(15)) : Mês e ano no horário da resposta.
+
+ ### Inserção de dados 
+  
+Para o cadastro de usuários é feito um select dentro de algumas tabelas no banco. A regra do usuário e senha são o nome ou a matrícula do usuários e a senha é o CPF sem pontuação. 
+
+````
+INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)	
+	SELECT 
+		A.NOME,
+		CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
+		--(REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
+		F.VENDEDOR,
+		F.EMPRESA_USUARIA,
+		CASE 
+			WHEN G.DEPARTAMENTO_FOLHA_NIVEL = 12 THEN 'S'
+			ELSE 'N'
+		END AS GERENTE
+	FROM 
+		FUNCIONARIOS A WITH(NOLOCK)
+		INNER JOIN DBO.FUNCIONARIOS_PARAMETROS B WITH(NOLOCK) ON B.ENTIDADE = A.ENTIDADE
+		INNER JOIN DBO.SITUACOES_CONTRATUAIS C WITH(NOLOCK) ON C.SITUACAO_CONTRATUAL = B.SITUACAO_CONTRATUAL
+		INNER JOIN DBO.TIPOS_SITUACOES_CONTRATUAIS D WITH(NOLOCK) ON D.TIPO_SITUACAO_CONTRATUAL = C.TIPO_SITUACAO_CONTRATUAL
+		INNER JOIN DBO.CARGOS_FOLHA E WITH(NOLOCK) ON E.CARGO_FOLHA = B.CARGO
+		INNER JOIN DBO.VENDEDORES F WITH(NOLOCK) ON F.ENTIDADE = A.ENTIDADE AND A.REGISTRO = F.CODIGO_DP     
+		INNER JOIN DBO.DEPARTAMENTOS_FOLHA G WITH(NOLOCK) ON G.DEPARTAMENTO_FOLHA = B.DEPARTAMENTO
+	WHERE
+		--G.DEPARTAMENTO_FOLHA_NIVEL=2
+		--AND G.DEPARTAMENTO_FOLHA_NIVEL = 12
+		--AND E.CARGO_FOLHA IN (60,64,155,156,157)
+		  F.EMPRESA_USUARIA <= (SELECT MAX(LOJA) FROM GERENTES_LOJAS)
+		  AND F.CADASTRO_ATIVO = 'S'
+	UNION ALL 
+
+	SELECT 
+		A.NOME,  
+		CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
+		--	(REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
+		B.VENDEDOR ,
+		B.EMPRESA_USUARIA AS LOJA, 
+		'S' AS MANAGER
+		FROM USUARIOS A   
+		JOIN VENDEDORES B ON A.ENTIDADE = B.ENTIDADE 
+		JOIN ENTIDADES C ON A.ENTIDADE = C.ENTIDADE 
+		WHERE A.PERFIL_USUARIO IN (1546) AND USUARIO = 324
+
+````
+
+#### Visualização de dados 
+A view *AG_GERENTE_PERCEPCAO* traz os dados necessários para que o gerente visualize as respostas dados pelos funcionários
+
+````
+									
+create view AG_GERENTE_PERCEPCAO
+AS 
+SELECT 
+A.AG_LOJA,
+A.AG_QUESTAO,
+A.AG_CLASSIFICACAO,
+C.CLASSIFICACAO  ,
+A.AG_RESPOSTA,
+A.RESPOSTA,
+CASE 
+	WHEN A.AG_RESPOSTA = A.RESPOSTA THEN 0
+	ELSE ((CONVERT(DECIMAL(15,2),A.QTD_RESPOSTA) / CONVERT(DECIMAL(15,2),B.QTD_RESPOSTAS_POR_QUESTAO)) * 100)
+END AS PORCENTAGEM,
+CASE 
+	WHEN A.AG_RESPOSTA = A.RESPOSTA THEN 'S'
+	ELSE 'N'
+END AS COMENTARIO ,
+A.DATA_RESPOSTAS
+FROM 
+(	 
+	SELECT
+	AG_LOJA,
+	 A.AG_QUESTAO,
+	 A.AG_RESPOSTA,
+	 A.AG_CLASSIFICACAO,
+	 A.DATA_RESPOSTAS,
+    CASE
+        WHEN LTRIM(RTRIM( A.AG_RESPOSTA)) NOT LIKE '%[0-9]%' AND B.RESPOSTA IS NULL 
+           
+          THEN A.AG_RESPOSTA
+          ELSE B.RESPOSTA
+    END AS RESPOSTA,
+	 
+	 COUNT(A.AG_RESPOSTA) AS QTD_RESPOSTA
+	 FROM AG_FORM_RESPOSTAS A
+	 left  JOIN(
+	 	 SELECT 
+	 	 	CONVERT(VARCHAR(MAX),AG_RESPOSTA ) AS AG_RESPOSTA,
+	 	 	RESPOSTA,
+	 	 	NOTA FROM AG_RESPOSTAS
+	 	 	WHERE RESPOSTA NOT IN ('0','1','2','3','4','5')
+	 	 	
+	  ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
+	 WHERE A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
+	  GROUP BY AG_LOJA,
+	 A.AG_QUESTAO,
+	 A.AG_RESPOSTA,
+	 A.AG_CLASSIFICACAO,
+	 A.DATA_RESPOSTAS,A.AG_RESPOSTA, B.RESPOSTA
+) A
+	  left JOIN ( 
+			SELECT 
+			AG_LOJA,	
+			AG_QUESTAO , 
+			COUNT(AG_RESPOSTA) AS QTD_RESPOSTAS_POR_QUESTAO 
+			FROM AG_FORM_RESPOSTAS A
+			WHERE A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
+	 		GROUP BY AG_QUESTAO , AG_LOJA
+) B ON A.AG_QUESTAO = B.AG_QUESTAO AND  A.AG_LOJA = B.AG_LOJA
+JOIN AG_CLASSIFICACAO  C ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
+WHERE A.RESPOSTA IS NOT NULL 
+AND A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
+ 
+
+
+````
+
+### Atualização de dados 
+O projeto consta com duas triggers no banco de dados. 
+#####	1 - AG_RESPOSTA_DISSERTATIVA :Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
+		
+			CREATE TRIGGER AG_RESPOSTA_DISSERTATIVA
+			ON AG_QUESTOES 
+			AFTER INSERT 
+			AS 
+				BEGIN 
+					INSERT INTO AG_RESPOSTAS (AG_QUESTAO, RESPOSTA, NOTA)
+					SELECT AQ.AG_QUESTAO , 'dissertativa' , 999 FROM AG_QUESTOES AQ 
+					LEFT JOIN AG_RESPOSTAS AR  ON AQ.AG_QUESTAO = AR.AG_QUESTAO 
+					WHERE AR.AG_QUESTAO  IS NULL
+					AND AQ.QUESTAO IS NOT NULL 
+				END
+			
+#####	2 - AG_LOGIN_USUARIOS : Após alteração, inserção e exclusão de dados da tabela vendedores, é feita uma atualização da tabela AG_USUARIOS
+ 		
+		
+````								
+CREATE TRIGGER AG_LOGIN_USUARIOS ON VENDEDORES
+AFTER INSERT, DELETE, UPDATE 
+AS 
+	BEGIN 
+		DELETE FROM ag_usuarios
+	END 
+
+	BEGIN
+		INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)	
+			SELECT 
+			A.NOME,
+			CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
+			--(REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
+			F.VENDEDOR,
+			F.EMPRESA_USUARIA,
+			CASE 
+				WHEN G.DEPARTAMENTO_FOLHA_NIVEL = 12 THEN 'S'
+				ELSE 'N'
+			END AS GERENTE
+		FROM 
+			FUNCIONARIOS A WITH(NOLOCK)
+			INNER JOIN dbo.FUNCIONARIOS_PARAMETROS B WITH(NOLOCK) ON B.ENTIDADE = A.ENTIDADE
+			INNER JOIN dbo.SITUACOES_CONTRATUAIS C WITH(NOLOCK) ON C.SITUACAO_CONTRATUAL = B.SITUACAO_CONTRATUAL
+			INNER JOIN dbo.TIPOS_SITUACOES_CONTRATUAIS D WITH(NOLOCK) ON D.TIPO_SITUACAO_CONTRATUAL = C.TIPO_SITUACAO_CONTRATUAL
+			INNER JOIN dbo.CARGOS_FOLHA E WITH(NOLOCK) ON E.CARGO_FOLHA = B.CARGO
+			INNER JOIN dbo.VENDEDORES F WITH(NOLOCK) ON F.ENTIDADE = A.ENTIDADE AND A.REGISTRO = F.CODIGO_DP     
+			INNER JOIN dbo.DEPARTAMENTOS_FOLHA G WITH(NOLOCK) ON G.DEPARTAMENTO_FOLHA = B.DEPARTAMENTO
+		WHERE
+		--G.DEPARTAMENTO_FOLHA_NIVEL=2
+		--AND G.DEPARTAMENTO_FOLHA_NIVEL = 12
+		--and E.CARGO_FOLHA IN (60,64,155,156,157)
+		  F.EMPRESA_USUARIA <= (select MAX(LOJA) FROM GERENTES_LOJAS)
+		  AND F.CADASTRO_ATIVO = 'S'
+		
+		UNION ALL 
+		
+		SELECT 
+			A.NOME,  
+			CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
+			B.VENDEDOR ,
+			B.EMPRESA_USUARIA AS LOJA, 
+			'S' AS MANAGER
+		FROM USUARIOS A   
+			JOIN VENDEDORES B ON A.ENTIDADE = B.ENTIDADE 
+			JOIN ENTIDADES C ON A.ENTIDADE = C.ENTIDADE 
+		WHERE A.PERFIL_USUARIO IN (1546) AND USUARIO = 324
+	END
+
+````
+
+### Procfit 
+
+O projeto, além de ser uma aplicação web possuí conexão com o framework Procfit. Essa conexão se dá devido aS consultas e formulários criados para a educação corporativa. <br>
+#### 1 - Formulário de questões será utilizado para que a educação corporativa possa incluir, editar ou excluir questões das avaliações gerenciais <br>
+<img src="public/imgs/AG_QUESTOES.png"/> <br>
+
+#### 2 - A consulta das avaliações gerenciais será utilizada para que a educação corporativa possa visualizar as informações utilizando filtros diferentes, como classificação, loja, funcionários entre outros. <br>
+<img src="public/imgs/AVG-1.png"/> <br>
+<img src="public/imgs/AVG-1.1.png"/> <br>
+<img src="public/imgs/AVG-1.2.png"/> <br>
+<img src="public/imgs/AVG-1.3.png"/> <br>
+
+

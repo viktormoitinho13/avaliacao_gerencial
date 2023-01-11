@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="d-flex d-flex justify-content-center mt-5">
+    <div class="d-flex d-flex justify-content-center mt-4">
         <div class="col align-self-start col-12 col-sm-12 col-md-8	col-lg-6 col-xl-6 col-xxl-4">
             <div class="card mx-auto mb-4 mt-4 shadow  bg-white rounded "
                 style="border-color: #b1d5ff; background-color:#e3f0ff1a">
@@ -20,7 +20,7 @@
                                             <td>{{ $cabecalho->MEDIA }}</td>
                                         </tr>
                                     @endforeach
-                                     <tr>
+                                    <tr>
                                         <td><b>NOTA FINAL</b></td>
                                         <td><B>{{ $notaFinal }}</B></td>
                                     </tr>

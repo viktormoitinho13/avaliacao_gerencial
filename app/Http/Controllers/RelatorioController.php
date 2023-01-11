@@ -8,14 +8,14 @@ use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 use App\Models\AgQuestoes;
 use App\Models\AgClassificacao;
-
-
+use PhpParser\Node\Stmt\Foreach_;
 
 class RelatorioController extends Controller
 {
     public function index(int $id)
     {
         $data_atual = date('m/Y');
+        $data = date('m');
         $qtd_respostas = DB::SELECT('
                             
             SELECT 
@@ -81,18 +81,27 @@ class RelatorioController extends Controller
             $gerenteAgrupamentos[$gerentePercepcao->CLASSIFICACAO][$gerentePercepcao->QUESTAO][] = $gerentePercepcao->ANALISE;
         }
 
+        //dd($id);
+        $contagem = DB::select("
+            		select loja from AG_SUPERVISORES_OBSERVACOES 
+        			where loja = ?
+        			and month(data_movimento) = month(GETDATE())
+        			and year(data_movimento) = year(GETDATE())
+       
+       ", [$id]);
 
-
-        //dd($gerenteAgrupamentos);
-
+        $contagemObservacao = collect($contagem)->pluck('loja')->count();
 
 
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
-            'gerenteAgrupamentos' => $gerenteAgrupamentos,
-            'classificacoes' => $classificacoes
+            'gerenteAgrupamento' => $gerenteAgrupamentos,
+            'classificacoes' => $classificacoes,
+            'contagemObservacao' => $contagemObservacao,
+            'id' => $id,
+            'data' => $data
         ]);
     }
 }

@@ -41,7 +41,6 @@ class RespostasQuestoes extends Controller
                 AgFormRespostas::query()->create([
                     'AG_CLASSIFICACAO' => $id,
                     'AG_RESPOSTA' => $resposta,
-                    //'AG_RESPOSTA_DESCRICAO' =>  $resposta->AG_RESPOSTA_DESCRICAO,
                     'AG_QUESTAO' => $questao,
                     'AG_USUARIO' => $usuarioLogado->id,
                     'AG_MATRICULA' => $usuarioLogado->registration,

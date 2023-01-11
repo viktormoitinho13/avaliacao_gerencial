@@ -38,7 +38,7 @@ class QuestionsController extends Controller
             ->whereNull('AG_RESPOSTAS.AG_QUESTAO')
             ->get()->pluck('AG_RESPOSTA')->toArray();
 
-        //dd($classificacao);
+     //  dd($dissertativa);
 
         return view('form', [
             'id' => $id,
