@@ -62,9 +62,10 @@ class RelatorioController extends Controller
                                        SELECT 
                                        A.AG_CLASSIFICACAO,
                                        A.CLASSIFICACAO,
+                                        B.QUESTAO,
                                          CASE
                                        		WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
-                                       		WHEN COMENTARIO = 'S' THEN CONCAT('Comentário: ', RESPOSTA) 
+                                       		WHEN COMENTARIO = 'S' THEN RESPOSTA
                                        		END AS ANALISE 
                                        FROM AG_GERENTE_PERCEPCAO A
                                         JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
@@ -74,16 +75,23 @@ class RelatorioController extends Controller
                                         ORDER BY A.AG_CLASSIFICACAO ASC 
                                           ", [$id,  $data_atual]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
-        $gerenteAgrupamento = [];
+        $gerenteAgrupamentos = [];
+
         foreach ($gerentePercepcao as $gerentePercepcao) {
-            $gerenteAgrupamento[$gerentePercepcao->CLASSIFICACAO][] = [$gerentePercepcao->ANALISE];
+            $gerenteAgrupamentos[$gerentePercepcao->CLASSIFICACAO][$gerentePercepcao->QUESTAO][] = $gerentePercepcao->ANALISE;
         }
-        // dd($gerenteAgrupamento);
+
+
+
+        //dd($gerenteAgrupamentos);
+
+
+
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
-            'gerenteAgrupamento' => $gerenteAgrupamento,
+            'gerenteAgrupamentos' => $gerenteAgrupamentos,
             'classificacoes' => $classificacoes
         ]);
     }
