@@ -44,7 +44,7 @@
 </body>
 <section class="">
   <!-- Footer -->
-  <footer class="bg-white text-white text-center text-md-start">
+  <footer class="text-white text-center text-md-start">
     <!-- Grid container -->
     <div class="container p-5">
       <!--Grid row-->
@@ -60,7 +60,7 @@
     <!-- Grid container -->
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgb(255, 255, 255);">
+    <div class="text-center p-3" >
      
       <a class="text-white" href="https://mdbootstrap.com/"></a>
     </div>

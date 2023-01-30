@@ -23,15 +23,18 @@ class ClassificacoesControllers extends Controller
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
         $gerenteRegistration = DB::select('
-                                select A.GERENTE_ATUAL  from GERENTES_LOJAS A
+                               
+	 select A.GERENTE_ATUAL from GERENTES_LOJAS A
 		                        join 
                                 (
 		            			select LOJA , max(movimento) AS MOVIMENTO  from GERENTES_LOJAS gl
+		            			WHERE LOJA = ?
 				                group by LOJA
 			                    ) B ON A.LOJA = B.LOJA AND A.MOVIMENTO = B.MOVIMENTO
-			                    WHERE A.LOJA = ?', [auth()->user()->store]);
+                            ', [auth()->user()->store]);
 
-        // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
+        // dd($usuarioLogado);
+         // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
         $gerenteNome = AgVendedor::query()
             ->where('VENDEDOR', '=', collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray())
             ->get();
