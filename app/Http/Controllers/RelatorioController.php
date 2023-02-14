@@ -14,6 +14,7 @@ class RelatorioController extends Controller
 {
     public function index(int $id)
     {
+         $usuarioLogado = auth()->user();
         $data_atual = date('m/Y');
         $data = date('m');
         $qtd_respostas = DB::SELECT('
@@ -59,49 +60,71 @@ class RelatorioController extends Controller
             ->toArray();
 
         $gerentePercepcao = DB::select("
-                                       SELECT 
-                                       A.AG_CLASSIFICACAO,
-                                       A.CLASSIFICACAO,
-                                        B.QUESTAO,
-                                         CASE
-                                       		WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', RESPOSTA), ', ')
-                                       		WHEN COMENTARIO = 'S' THEN RESPOSTA
-                                       		END AS ANALISE 
-                                       FROM AG_GERENTE_PERCEPCAO A
-                                        JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
-                                        WHERE AG_LOJA = ?
-                                        AND A.DATA_RESPOSTAS = ?
-                                        GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA
-                                        ORDER BY A.AG_CLASSIFICACAO ASC 
+                                     SELECT 
+                                     CONCAT(UPPER(SUBSTRING(A.CLASSIFICACAO, 1,1)), LOWER(SUBSTRING(A.CLASSIFICACAO, 2,LEN (A.CLASSIFICACAO)))) AS CLASSIFICACAO,
+  									 B.QUESTAO AS QUESTAO,
+                                     A.AG_CLASSIFICACAO,
+                                    
+                                     CASE
+                                     WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', LOWER(RESPOSTA)), ', ')
+
+                                     WHEN COMENTARIO = 'S' THEN LOWER(RESPOSTA) END AS ANALISE 
+                                     FROM AG_GERENTE_PERCEPCAO A
+                                     JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
+                                     WHERE AG_LOJA = ?
+                                     AND A.DATA_RESPOSTAS = ?
+                                     GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO
+                                     ORDER BY A.AG_CLASSIFICACAO ASC 
                                           ", [$id,  $data_atual]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
-        $gerenteAgrupamentos = [];
+        
+        
+           $gerenteAgrupamentos = [];
 
         foreach ($gerentePercepcao as $gerentePercepcao) {
             $gerenteAgrupamentos[$gerentePercepcao->CLASSIFICACAO][$gerentePercepcao->QUESTAO][] = $gerentePercepcao->ANALISE;
         }
 
-        //dd($id);
-        $contagem = DB::select("
+   
+       $contagem = DB::select("
             		select loja from AG_SUPERVISORES_OBSERVACOES 
         			where loja = ?
         			and month(data_movimento) = month(GETDATE())
         			and year(data_movimento) = year(GETDATE())
        
        ", [$id]);
-
+        
         $contagemObservacao = collect($contagem)->pluck('loja')->count();
-
-
+        
+        
+        $gerenteNome = DB::select("
+                
+            	
+	
+	select 
+   	concat(Upper(substring(nome, 1,1)), lower(substring(nome, 2,LEN(nome))), '...') as nome
+	from (
+	select SUBSTRING(name, 1, 20) as nome 
+	from ag_usuarios au 
+	where manager  = 'S'
+	and store = ?
+	) A 
+	
+	", [$id]);
+          
+          
+         // dd($gerenteNome);
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
             'gerenteAgrupamento' => $gerenteAgrupamentos,
             'classificacoes' => $classificacoes,
-            'contagemObservacao' => $contagemObservacao,
+            'contagemObservacao' => $contagemObservacao,           
             'id' => $id,
-            'data' => $data
+            'data' => $data,
+            'usuario' => $usuarioLogado,
+            'gerenteNome' => $gerenteNome
         ]);
     }
 }

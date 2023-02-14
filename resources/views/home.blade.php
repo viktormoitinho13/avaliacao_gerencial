@@ -185,13 +185,13 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    @if ($contagem == 1 and $data == '1' or $data == '8')
+                                    @if ($contagem == 1 and $data == '2' or $data == '8')
                                         <a href="/reportDoc/{{ $resultado[0]->ag_loja }}"
                                             class="btn btn-primary px-3 mt-4 mb-4"
                                             style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
                                                 class="fas fa-hand-point-right" aria-hidden="true"></i> Visualizar
                                             relatório </a>
-                                    @elseif ($contagem > 1 and $data == '1' or $data == '8')
+                                    @elseif ($contagem > 1 and $data == '2' or $data == '8')
                                         <a href="/report" class="btn btn-primary px-3 mt-4 mb-4"
                                             style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
                                                 class="fas fa-hand-point-right" aria-hidden="true"></i> Visualizar
