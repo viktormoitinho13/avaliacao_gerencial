@@ -15,7 +15,7 @@
                                        <div class="container justify-end mt-4 my-4">
                                     <div
                                         class="mt-3 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
-                                        <label class="form-label " for="login">Nome Completo ou Matrícula</label>
+                                        <label class="form-label " for="login">Número da Matrícula</label>
                                         <input class="form-control form-control-lg " type="text" id="login"
                                             name="login">
                                     </div>
@@ -45,7 +45,7 @@
                             <div class="col-md-9 col-lg-6 col-xl-6 ml-5 d-flex align-items-left order-1 order-lg-2  mt-4 my-4"
                                 style="width:700; height=600;">
 
-                                <img src="{{ URL::asset('/imgs/otp-security.png') }}" class="img-fluid"
+                                <img src="{{ URL::asset('/imgs/nova_capa.jpg') }}" class="img-fluid"  height="800" width="950"
                                     alt="Sample image">
                             </div>
                         </div>
