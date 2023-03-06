@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgSupervisorObservacao extends Model
 {
-    use HasFactory;
+     use HasFactory;
      protected $table = 'AG_SUPERVISORES_OBSERVACOES';
      protected $primaryKey = 'AG_SUPERVISOR_OBSERVACAO';
-     
-      protected $fillable = [
-           'FORMULARIO_ORIGEM',
+
+     protected $fillable = [
+          'FORMULARIO_ORIGEM',
           'TAB_MASTER_ORIGEM',
           'REG_MASTER_ORIGEM',
           'REG_LOG_INCLUSAO',
@@ -20,8 +20,8 @@ class AgSupervisorObservacao extends Model
           'DATA_MOVIMENTO',
           'LOJA',
           'OBSERVACAO',
-          'USUARIO'
+          'AVALIACAO_DATA'
      ];
-     
-      public $timestamps = false;
+
+     public $timestamps = false;
 }

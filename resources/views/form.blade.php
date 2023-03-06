@@ -58,7 +58,7 @@
                                         <div>
                                             <textarea name="questao[{{ $questao->AG_QUESTAO }}]"
                                                 id="questao_{{ $key }}_{{ $resposta->AG_RESPOSTA_DESCRICAO }}" cols="30" rows="6"
-                                                style="width: 100%;"></textarea>
+                                                style="width: 100%;" required></textarea>
                                         </div>
                                     </div>
                                 </div>

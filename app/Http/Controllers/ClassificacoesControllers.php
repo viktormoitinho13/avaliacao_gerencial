@@ -18,13 +18,13 @@ class ClassificacoesControllers extends Controller
         $dataRespostas = date('m/y');
 
         $usuarioLogado = auth()->user();
-      
+        //  DD($usuarioLogado);
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
         $gerenteRegistration = DB::select('
                                
-	 select A.GERENTE_ATUAL from GERENTES_LOJAS A
+	                            select A.GERENTE_ATUAL from GERENTES_LOJAS A
 		                        join 
                                 (
 		            			select LOJA , max(movimento) AS MOVIMENTO  from GERENTES_LOJAS gl
@@ -34,18 +34,24 @@ class ClassificacoesControllers extends Controller
                             ', [auth()->user()->store]);
 
         // dd($usuarioLogado);
-         // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
-        $gerenteNome = AgVendedor::query()
-            ->where('VENDEDOR', '=', collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray())
-            ->get();
+        // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
+        $gerenteNome = DB::SELECT("
+            select 
+            name AS NOME
+            from ag_usuarios au 
+            where au.store = ? 
+            and au.manager = 'S'
+         ", [auth()->user()->store]);
 
+
+        // DD($gerenteNome);
         $classificacoes = AgClassificacao::query()
             ->with('agquestoes')
             ->orderBy('ag_classificacao')
             ->whereIn('AG_CLASSIFICACAO', $classificacoesQuestoes)
             ->take(1)->get();
 
-          //  DD($classificacoes);
+        //  DD($classificacoes);
 
         $contarStatus = AgStatus::query()
             ->distinct()
@@ -76,10 +82,12 @@ class ClassificacoesControllers extends Controller
                      where ag_loja in
                      (
                         select store from ag_usuarios
-                     )",
+                     )  order by ag_loja ",
         );
-        
-         $resultadoSupervisor = DB::select(
+
+        // dd($usuarioLogado->registration);
+
+        $resultadoSupervisor = DB::select(
             "
                         SELECT DISTINCT ag_loja
                      from AG_FORM_RESPOSTAS afr
@@ -88,9 +96,11 @@ class ClassificacoesControllers extends Controller
                    		select store from ag_usuarios au 
                    		where au.registration = ?
                      )
-           ", [$usuarioLogado->registration]);
-        
-        
+           ",
+            [$usuarioLogado->registration]
+        );
+
+
         $contagem = collect($resultado)->pluck('ag_loja')->count();
 
         return view('home', [

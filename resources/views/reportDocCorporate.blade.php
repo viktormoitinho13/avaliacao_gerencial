@@ -77,7 +77,7 @@
             </div>
         @endforeach
     </div>
-    @if (auth()->user()->store != '990' and $contagemObservacao < 1 and $data == 1 or $data == 8)
+    @if (auth()->user()->store != '990' and $contagemObservacao < 1 )
         <div class="container-fluid mx-auto my-auto center-block mt-3 ">
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8 col-xxl-6 mx-auto ">
                 <form action="{{ route('observacao.store', ['id' => $id]) }}" method="POST">
@@ -106,12 +106,20 @@
                         <button class="btn btn-lg btn-block col-2 offset-md-3 my-4 mx-auto text-center"
                             style="background-color:#6b9dd8; color:white;"><i class="fas fa-paper-plane"
                                 aria-hidden="true"> Enviar </i></button>
-                    @else
+                    @elseif(auth()->user()->store != '990' and $contagemObservacao > 1)
                         <div class="container mx-auto my-auto center-block mt-3 text-center">
                             <div class="col  mx-auto ">
                                 <a class="btn btn-lg btn-block col-3 offset-md-3 my-4 mx-auto text-center"
                                     style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);">
                                     <i  class="fas fa-thumbs-up" aria-hidden="true"></i> Observações realizadas! </a>
+                            </div>
+                        </div>
+
+
+                     @else
+                        <div class="container mx-auto my-auto center-block mt-3 text-center">
+                            <div class="col  mx-auto ">
+                               
                             </div>
                         </div>
 

@@ -54,19 +54,23 @@
                                         @if ($contarStatus == $contarQuestoes)
                                             <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i
-                                                    class="fas fa-handshake" aria-hidden="true"></i> Avaliação já
-                                                realizada! </a>
+                                                    class="fas fa-handshake" aria-hidden="true"></i> Avaliação já  realizada! </a>
                                         @elseif ($contarStatus != $contarQuestoes and $data != '2' or ($data = !'8'))
                                             <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i
-                                                    class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não
-                                                disponível </a>
+                                                    class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não disponível </a>
+
+                                         @elseif ($gerenteNome == NULL)
+                                            <a class="btn btn-primary px-3 mt-4 mb-4"
+                                                style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);">
+                                                <i class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não disponível </a>
+
                                         @else
                                             <a href="{{ route('questions.index', $classificacao->AG_CLASSIFICACAO) }}"
                                                 class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255);border-color:#ff0000;"><i
-                                                    class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero
-                                                continuar! </a>
+                                                    class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero  continuar! </a>
+                                        
                                         @endif
                                     </div>
                                 </div>
@@ -99,7 +103,9 @@
                                                         <td style="font-size: 25px;">{{ $resultadoManager->ag_loja }}
                                                         </td>
                                                         <td style="font-size: 25px;">{{ $dataRespostas }}</td>
-                                                        <td> <a href="/reportDocCorporate/{{ $resultadoManager->ag_loja }}"
+                                                        <td>  <a href="{{ route('reportDocCorporate.index', $resultadoManager->ag_loja) }}"
+
+
                                                                 class=" btn px-2 mt-auto"
                                                                 style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                     class=" 	fas fa-eye" aria-hidden="true"></i>
@@ -142,7 +148,7 @@
                                                         <td style="font-size: 25px;">{{ $resultadoSupervisor->ag_loja }}
                                                         </td>
                                                         <td style="font-size: 25px;">{{ $dataRespostas }}</td>
-                                                        <td> <a href="/reportDocCorporate/{{ $resultadoSupervisor->ag_loja }}"
+                                                        <td> <a href="{{ route('reportDocCorporate.index', $resultadoSupervisor->ag_loja) }}"
                                                                 class=" btn px-2 mt-auto"
                                                                 style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                     class=" 	fas fa-eye" aria-hidden="true"></i>

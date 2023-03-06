@@ -15,35 +15,33 @@ class SupervisorObservacaoController extends Controller
 {
     public function store(Request $request, int $id)
     {
-         $usuarioLogado = auth()->user();
-         $data_atual = date('d/m/Y');
-         $observacao = $request->input('observacao'); // Usar como teste, necessário tratar os dados
-         
-        // dd( $observacao);
-         
-           
-     try {
+        $usuarioLogado = auth()->user();
+        $data_atual = date('d/m/Y');
+        $observacao = $request->input('observacao'); // Usar como teste, necessário tratar os dados
+        $data_avaliacao = null;
+
+        if (date('m') <= 8) {
+            $data_avaliacao =  '02/' . date('Y');
+        } else $data_avaliacao = '08/' . date('Y');
+
+        $data_avaliacao = strval($data_avaliacao);
+
+        try {
             AgSupervisorObservacao::query()->create([
-            'DATA_MOVIMENTO' => $data_atual, 
-            'LOJA' => $id, 
-            'USUARIO' => $usuarioLogado->registration,
-            'OBSERVACAO' => $observacao
-         
-         ]);
-         
-         return redirect("/home");
-         
-     } catch (\Throwable $th) {
-          return redirect("/home")
-                    // return redirect()->route('relatorio')
-                    ->withInput()
-                    ->with(['err' => 'Este formulário já foi respondido.']);
-     }
-         
-         
-         
-         
+                'DATA_MOVIMENTO' => $data_atual,
+                'LOJA' => $id,
+                'USUARIO' => $usuarioLogado->registration,
+                'OBSERVACAO' => $observacao,
+                'AVALIACAO_DATA' => $data_avaliacao
+
+            ]);
+
+            return redirect("/home");
+        } catch (\Throwable $th) {
+            return redirect("/home")
+                // return redirect()->route('relatorio')
+                ->withInput()
+                ->with(['err' => 'Este formulário já foi respondido.']);
+        }
     }
-    
-    
 }

@@ -8,25 +8,30 @@ use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 use App\Models\AgQuestoes;
 use App\Models\AgClassificacao;
+use PhpParser\Node\Expr\AssignOp\Concat;
 use PhpParser\Node\Stmt\Foreach_;
 
 class RelatorioController extends Controller
 {
     public function index(int $id)
     {
-         $usuarioLogado = auth()->user();
-        $data_atual = date('m/Y');
+        $usuarioLogado = auth()->user();
+
+        //  dd($usuarioLogado);
         $data = date('m');
-        $qtd_respostas = DB::SELECT('
+        $qtd_respostas = DB::SELECT("
                             
             SELECT 
                     COUNT( DISTINCT AG_USUARIO) AS QTD_TOTAL_RESPOSTAS 
                     FROM AG_FORM_RESPOSTAS 
             WHERE AG_LOJA = ?
-            AND DATA_RESPOSTAS = ? 
-        ', [$id, $data_atual]);
+            AND DATA_RESPOSTAS = CASE 
+				WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
+				ELSE CONCAT('08','/',YEAR(GETDATE()))
+	        END		 
+        ", [$id]);
 
-        $cabecalho = DB::select('
+        $cabecalho = DB::select("
         SELECT
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  ,
@@ -42,12 +47,15 @@ class RelatorioController extends Controller
         ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
         JOIN AG_CLASSIFICACAO C  ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
         WHERE AG_LOJA = ?
-        AND A.DATA_RESPOSTAS = ?
+        AND A.DATA_RESPOSTAS = CASE 
+				WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
+				ELSE CONCAT('08','/',YEAR(GETDATE()))
+	        END		 
         GROUP BY 
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  
         ORDER BY C.AG_CLASSIFICACAO ASC 
-        ', [$id, $data_atual]);
+        ", [$id]);
 
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
@@ -72,55 +80,56 @@ class RelatorioController extends Controller
                                      FROM AG_GERENTE_PERCEPCAO A
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?
-                                     AND A.DATA_RESPOSTAS = ?
+                                     AND A.DATA_RESPOSTAS = CASE 
+		                    		WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
+				                    ELSE CONCAT('08','/',YEAR(GETDATE()))
+	                                END		 
                                      GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO
                                      ORDER BY A.AG_CLASSIFICACAO ASC 
-                                          ", [$id,  $data_atual]);
+                                          ", [$id]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
-        
-        
-           $gerenteAgrupamentos = [];
+
+
+        $gerenteAgrupamentos = [];
 
         foreach ($gerentePercepcao as $gerentePercepcao) {
             $gerenteAgrupamentos[$gerentePercepcao->CLASSIFICACAO][$gerentePercepcao->QUESTAO][] = $gerentePercepcao->ANALISE;
         }
 
-   
-       $contagem = DB::select("
+        //dd($gerenteAgrupamentos);
+        $contagem = DB::select("
             		select loja from AG_SUPERVISORES_OBSERVACOES 
         			where loja = ?
-        			and month(data_movimento) = month(GETDATE())
-        			and year(data_movimento) = year(GETDATE())
+        			and AVALIACAO_DATA =  CASE 
+										WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
+										ELSE CONCAT('08','/',YEAR(GETDATE()))
+							        END		 
        
        ", [$id]);
-        
+
         $contagemObservacao = collect($contagem)->pluck('loja')->count();
-        
-        
+
+
         $gerenteNome = DB::select("
-                
-            	
-	
-	select 
-   	concat(Upper(substring(nome, 1,1)), lower(substring(nome, 2,LEN(nome))), '...') as nome
-	from (
-	select SUBSTRING(name, 1, 20) as nome 
-	from ag_usuarios au 
-	where manager  = 'S'
-	and store = ?
+            select 
+            concat(Upper(substring(nome, 1,1)), lower(substring(nome, 2,LEN(nome))), '...') as nome
+            from (
+            select SUBSTRING(name, 1, 20) as nome 
+            from ag_usuarios au 
+            where manager  = 'S'
+            and store = ?
 	) A 
-	
 	", [$id]);
-          
-          
-         // dd($gerenteNome);
+
+
+        // dd($gerenteNome);
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
             'gerenteAgrupamento' => $gerenteAgrupamentos,
             'classificacoes' => $classificacoes,
-            'contagemObservacao' => $contagemObservacao,           
+            'contagemObservacao' => $contagemObservacao,
             'id' => $id,
             'data' => $data,
             'usuario' => $usuarioLogado,
