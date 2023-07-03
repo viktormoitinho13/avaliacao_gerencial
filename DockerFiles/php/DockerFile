@@ -1,0 +1,23 @@
+FROM php:8.0.29-apache
+
+ENV ACCEPT_EULA=Y
+
+RUN a2enmod rewrite
+
+RUN apt-get update \
+    && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    unzip \
+    zip 
+
+RUN apt-get update \
+    && apt-get install -y gnupg2 curl  \
+    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql17 odbcinst=2.3.7 odbcinst1debian2=2.3.7 unixodbc-dev=2.3.7 unixodbc=2.3.7 \
+    && pecl install sqlsrv pdo_sqlsrv \
+    && docker-php-ext-enable sqlsrv pdo_sqlsrv
+
+WORKDIR /var/www
