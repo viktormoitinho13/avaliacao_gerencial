@@ -156,24 +156,24 @@
                             </div>
                         </div>
                         <div class="row row-cols-1 row-cols-md-4 g-4">
-                            @foreach ($resultadoSupervisor as $resultado)
+                            @foreach ($resultadoSupervisor as $resultadoSupervisor)
                                 <div class="col">
                                     <div class="card">
                                         <div class="card-header"
                                             style="background-color:#468ddd; color:white; font-size:20px">
-                                            <b>Loja {{ $resultado->ag_loja }}</b>
+                                            <b>Loja {{ $resultadoSupervisor->ag_loja }}</b>
                                         </div>
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <p class="card-text text-center" style="font-size:2ch"> 
                                                 <b>
-                                                  {{$resultado->name  }}</b>
+                                                  {{$resultadoSupervisor->name  }}</b>
                                                 <br/>
                                                 
                                             </p>
                                             
                                             <div class="d-flex justify-content-center mt-auto">
                                                 @if ($contagem >= 1 and $data == '2' or $data == '8')
-                                                    <a href="{{ route('reportDocCorporate.index', $resultado->ag_loja) }}"
+                                                    <a href="{{ route('reportDocCorporate.index', $resultadoSupervisor->ag_loja) }}"
                                                         class="btn px-2" style=" background-color:#eff6ff; color:#0077ff;border-color:#d5e9ff;">
                                                         <i class="fas fa-eye" aria-hidden="true"></i>
                                                         Visualizar relatório

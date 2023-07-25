@@ -82,12 +82,18 @@ class ClassificacoesControllers extends Controller
 
 
         $resultadoSupervisor = DB::select("
-                    SELECT DISTINCT 
-                     STORE AS ag_loja,
-                     CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
+                 
+		        SELECT 
+		        DISTINCT STORE AS ag_loja,
+		        CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name 
+		        FROM ag_usuarios au 
+		        WHERE AU.store IN (
+                     SELECT DISTINCT 
+                     STORE AS ag_loja
                      FROM ag_usuarios au WITH(NOLOCK)
                      WHERE AU.registration = ?
                      AND AU.supervisor = 'S'
+                     ) and au.manager = 'S'
 
 ", [auth()->user()->registration]);
       
