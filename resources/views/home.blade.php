@@ -237,14 +237,14 @@
                                                             <th scope="col">Acesso para o relatório</th>
                                                         </tr>
                                                     </thead>
-                                                    @foreach ($resultadoSupervisor as $resultadoSupervisor)
+                                                    @foreach ($resultado as $resultado)
                                                         <tr>
                                                             <td style="font-size: 25px;">
-                                                                {{ $resultadoSupervisor->ag_loja }}
+                                                                {{ $resultado->ag_loja }}
                                                             </td>
                                                             <td>
                                                                 @if ($contagem >= 1 and $data == '2' or $data == '8')
-                                                                    <a href="{{ route('reportDoc.index', $resultadoSupervisor->ag_loja) }}"
+                                                                    <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
                                                                         class=" btn px-2 mt-auto"
                                                                         style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                             class="fas fa-eye" aria-hidden="true"></i>
