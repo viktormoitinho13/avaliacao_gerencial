@@ -65,14 +65,11 @@ class ClassificacoesControllers extends Controller
 
         $resultado = DB::select(
             "      
-                    
                      SELECT DISTINCT 
                      STORE AS ag_loja,
                      CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
                      FROM ag_usuarios au WITH(NOLOCK)
                      WHERE AU.registration = ?
-                     AND AU.MANAGER = 'N'
-                     AND AU.supervisor = 'S'
             " ,
             [auth()->user()->registration]
         );
@@ -83,6 +80,17 @@ class ClassificacoesControllers extends Controller
             $resultado = array_filter($resultado, fn($item) => $item->ag_loja == $id);
            }
 
+
+        $resultadoSupervisor = DB::select("
+            SELECT DISTINCT 
+                     STORE AS ag_loja,
+                     CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
+                     FROM ag_usuarios au WITH(NOLOCK)
+                     WHERE AU.registration = ?
+                     AND AU.MANAGER = 'N'
+                     AND AU.supervisor = 'S'
+
+", [auth()->user()->registration]);
       
 
         $resultadoManager = DB::select(
@@ -129,7 +137,7 @@ class ClassificacoesControllers extends Controller
             'data' => $data,
             'resultadoManager' => $resultadoManager,
             'dataRespostas' => $dataRespostas,
-            'resultadoSupervisor' => $resultado,
+            'resultadoSupervisor' => $resultadoSupervisor,
             'contagemLojas' => $contagemLojas,
             'LojasGerentes' => $LojasGerentes
 
