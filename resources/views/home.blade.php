@@ -86,7 +86,7 @@
                             <div class="col align-self-center col-8 col-sm-8 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                 <form class="my-2 my-lg-0 d-flex" id="buscaLoja" method="GET">
                                     <div class="input-group">
-                                        <input class="form-control form-control-sm " type="text" id="lojaCentral" 
+                                        <input class="form-control form-control-sm " type="text" id="loja" 
                                             name="loja" placeholder="Pesquisar por loja" style="border-radius:20cm" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                             <div class="input-group-append mx-2">
                                             <button class="btn px-2" style="color:#468ddd;border-color:#d5e9ff;" type="submit"><i class="fas fa-search" aria-hidden="true"></i> Buscar </button>
@@ -237,14 +237,14 @@
                                                             <th scope="col">Acesso para o relatório</th>
                                                         </tr>
                                                     </thead>
-                                                    @foreach ($resultado as $resultado)
+                                                    @foreach ($resultadoSupervisor as $resultadoSupervisor)
                                                         <tr>
                                                             <td style="font-size: 25px;">
-                                                                {{ $resultado->ag_loja }}
+                                                                {{ $resultadoSupervisor->ag_loja }}
                                                             </td>
                                                             <td>
                                                                 @if ($contagem >= 1 and $data == '2' or $data == '8')
-                                                                    <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
+                                                                    <a href="{{ route('reportDoc.index', $resultadoSupervisor->ag_loja) }}"
                                                                         class=" btn px-2 mt-auto"
                                                                         style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                             class="fas fa-eye" aria-hidden="true"></i>
