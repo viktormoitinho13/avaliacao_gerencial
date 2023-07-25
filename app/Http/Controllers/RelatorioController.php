@@ -19,17 +19,15 @@ class RelatorioController extends Controller
 
         //  dd($usuarioLogado);
         $data = date('m');
+        $dataAv = date('m/Y');
         $qtd_respostas = DB::SELECT("
                             
             SELECT 
                     COUNT( DISTINCT AG_USUARIO) AS QTD_TOTAL_RESPOSTAS 
                     FROM AG_FORM_RESPOSTAS 
             WHERE AG_LOJA = ?
-            AND DATA_RESPOSTAS = CASE 
-				WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
-				ELSE CONCAT('08','/',YEAR(GETDATE()))
-	        END		 
-        ", [$id]);
+            AND DATA_RESPOSTAS = ?	 
+        ", [$id, $dataAv]);
 
         $cabecalho = DB::select("
         SELECT
@@ -47,15 +45,12 @@ class RelatorioController extends Controller
         ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
         JOIN AG_CLASSIFICACAO C  ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
         WHERE AG_LOJA = ?
-        AND A.DATA_RESPOSTAS = CASE 
-				WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
-				ELSE CONCAT('08','/',YEAR(GETDATE()))
-	        END		 
+        AND A.DATA_RESPOSTAS = ? 
         GROUP BY 
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  
         ORDER BY C.AG_CLASSIFICACAO ASC 
-        ", [$id]);
+        ", [$id, $dataAv]);
 
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
@@ -80,13 +75,10 @@ class RelatorioController extends Controller
                                      FROM AG_GERENTE_PERCEPCAO A
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?
-                                     AND A.DATA_RESPOSTAS = CASE 
-		                    		WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
-				                    ELSE CONCAT('08','/',YEAR(GETDATE()))
-	                                END		 
+                                     AND A.DATA_RESPOSTAS = ?
                                      GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO
                                      ORDER BY A.AG_CLASSIFICACAO ASC 
-                                          ", [$id]);
+                                          ",  [$id, $dataAv]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
 
 
@@ -100,12 +92,9 @@ class RelatorioController extends Controller
         $contagem = DB::select("
             		select loja from AG_SUPERVISORES_OBSERVACOES 
         			where loja = ?
-        			and AVALIACAO_DATA =  CASE 
-										WHEN MONTH(GETDATE()) <= 8 THEN CONCAT('02','/',YEAR(GETDATE()))	        	
-										ELSE CONCAT('08','/',YEAR(GETDATE()))
-							        END		 
+        			and AVALIACAO_DATA =  ? 
        
-       ", [$id]);
+       ",  [$id, $dataAv]);
 
         $contagemObservacao = collect($contagem)->pluck('loja')->count();
 

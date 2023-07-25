@@ -27,7 +27,7 @@
                                             <x-label for="password" :value="__('Sua Senha')" class="form-label" />
 
                                             <x-input id="password" class="form-label" type="password" name="password"
-                                                required autocomplete="current-password"  class="form-control form-control-lg" />
+                                                required autocomplete="current-password"  class="form-control form-control-lg" onpaste="return false" ondrop="return false"/>
                                         </div>
                                     </div>
 

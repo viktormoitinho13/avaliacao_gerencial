@@ -13,7 +13,6 @@ class ClassificacoesControllers extends Controller
 {
     public function index()
     {
-
         $data = date('m');
         $dataRespostas = date('m/y');
 
@@ -65,43 +64,59 @@ class ClassificacoesControllers extends Controller
             ->get()->count('AG_CLASSIFICACAO');
 
         $resultado = DB::select(
-            '
-                     SELECT DISTINCT ag_loja
-                     from AG_FORM_RESPOSTAS afr
-                     where ag_loja in
-                     (
-                        select store from ag_usuarios
-                        where registration = ?)',
+            "      
+                    
+                     SELECT DISTINCT 
+                     STORE AS ag_loja,
+                     CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
+                     FROM ag_usuarios au WITH(NOLOCK)
+                     WHERE AU.registration = ?
+                     AND AU.MANAGER = 'S'
+                     AND AU.supervisor = 'N'
+            " ,
             [auth()->user()->registration]
         );
 
+
+          $id = $_GET['loja'] ?? null ;
+          if($id != null){
+            $resultado = array_filter($resultado, fn($item) => $item->ag_loja == $id);
+           }
+
         $resultadoManager = DB::select(
             "
-                      SELECT DISTINCT ag_loja
-                     from AG_FORM_RESPOSTAS afr
-                     where ag_loja in
-                     (
-                        select store from ag_usuarios
-                     )  order by ag_loja ",
+                    
+                        select DISTINCT 
+                     store as ag_loja ,
+                     CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
+                     from ag_usuarios au with(nolock)
+                     join lojas b with(nolock) on au.store = b.LOJA 
+                     where au.manager = 'S'
+                     and au.supervisor = 'N'
+                     and b.LOJA < 100    
+
+            ",
         );
 
-        // dd($usuarioLogado->registration);
+           $id = $_GET['loja'] ?? null ;
+          if($id != null){
+            $resultadoManager = array_filter($resultadoManager, fn($item) => $item->ag_loja == $id);
+           }
+        
+        $LojasGerentes = DB::select( ' 
+                        select DISTINCT store from ag_usuarios au 
+                   		where au.registration = ?', [auth()->user()->registration]);
 
-        $resultadoSupervisor = DB::select(
-            "
-                        SELECT DISTINCT ag_loja
-                     from AG_FORM_RESPOSTAS afr
-                     where ag_loja in
-                     (
-                   		select store from ag_usuarios au 
-                   		where au.registration = ?
-                     )
-           ",
-            [$usuarioLogado->registration]
-        );
+        //dd($LojasGerentes)       ;
 
+        $contagemLojas = DB::select( ' 
+                        select DISTINCT store from ag_usuarios au 
+                   		where au.registration = ?', [auth()->user()->registration]);
 
+        
         $contagem = collect($resultado)->pluck('ag_loja')->count();
+
+        $contagemLojas = collect($contagemLojas)->pluck('store')->count();
 
         return view('home', [
             'classificacoes' => $classificacoes,
@@ -113,11 +128,11 @@ class ClassificacoesControllers extends Controller
             'data' => $data,
             'resultadoManager' => $resultadoManager,
             'dataRespostas' => $dataRespostas,
-            'resultadoSupervisor' => $resultadoSupervisor
+            'resultadoSupervisor' => $resultado,
+            'contagemLojas' => $contagemLojas,
+            'LojasGerentes' => $LojasGerentes
 
         ]);
     }
-    public function show()
-    {
-    }
+  
 }

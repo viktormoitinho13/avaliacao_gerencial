@@ -11,9 +11,10 @@ use App\Models\AgClassificacao;
 
 class RelatorioDocController extends Controller
 {
-    public function index(int $id)
+    public function index(int $id )
     {
-        $data_atual = date('m/Y');
+       
+        $data_atual = date('m/Y'); // NÃO ESQUECER DE ALTERAR 
         $qtd_respostas = DB::SELECT('
                             
             SELECT 
@@ -85,4 +86,7 @@ class RelatorioDocController extends Controller
             'classificacoes' => $classificacoes
         ]);
     }
+
+   
+
 }

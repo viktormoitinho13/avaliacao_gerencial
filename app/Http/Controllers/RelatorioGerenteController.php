@@ -11,7 +11,7 @@ class RelatorioGerenteController extends Controller
     {
 
 
-        $data = date('m/Y');
+        $data = date('m/Y'); // NÃO ESQUECER DE ALTERAR
         $results = DB::select(
             '
                      SELECT DISTINCT ag_loja
