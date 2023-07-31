@@ -113,7 +113,7 @@
                                             </p>
                                             
                                             <div class="d-flex justify-content-center mt-auto">
-                                                @if ($contagem >= 1 and $data == '2' or $data == '8')
+                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
                                                     <a href="{{ route('reportDocCorporate.index', $resultadoManager->ag_loja) }}"
                                                         class="btn px-2" style=" background-color:#eff6ff; color:#0077ff;border-color:#d5e9ff;">
                                                         <i class="fas fa-eye" aria-hidden="true"></i>
@@ -172,7 +172,7 @@
                                             </p>
                                             
                                             <div class="d-flex justify-content-center mt-auto">
-                                                @if ($contagem >= 1 and $data == '2' or $data == '8')
+                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
                                                     <a href="{{ route('reportDocCorporate.index', $resultadoSupervisor->ag_loja) }}"
                                                         class="btn px-2" style=" background-color:#eff6ff; color:#0077ff;border-color:#d5e9ff;">
                                                         <i class="fas fa-eye" aria-hidden="true"></i>
@@ -243,7 +243,7 @@
                                                                 {{ $resultado->ag_loja }}
                                                             </td>
                                                             <td>
-                                                                @if ($contagem >= 1 and $data == '2' or $data == '8')
+                                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
                                                                     <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
                                                                         class=" btn px-2 mt-auto"
                                                                         style="color:#468ddd;border-color:#d5e9ff;"> <i

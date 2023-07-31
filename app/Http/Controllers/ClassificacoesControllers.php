@@ -14,16 +14,28 @@ class ClassificacoesControllers extends Controller
     public function index()
     {
         $data = date('m');
-        $dataRespostas = date('m/y');
+        $dataRespostas = date('m/Y');
 
+        //dd($dataRespostas);
         $usuarioLogado = auth()->user();
-        //  DD($usuarioLogado);
+       
+            $qtd_respostas = DB::SELECT('
+                            
+            SELECT 
+                    COUNT( DISTINCT AG_USUARIO) AS QTD_TOTAL_RESPOSTAS 
+                    FROM AG_FORM_RESPOSTAS 
+            WHERE AG_LOJA = ?
+            AND DATA_RESPOSTAS = ? 
+        ', [auth()->user()->store, $dataRespostas]);
+
+        $qtd_respostas = collect($qtd_respostas)->pluck('QTD_TOTAL_RESPOSTAS')->first();        
+         //dd( $qtd_respostas);
+
         $classificacoesQuestoes = AgQuestoes::query()
             ->get()->pluck('AG_CLASSIFICACAO')->toArray();
 
         $gerenteRegistration = DB::select('
-                               
-	                            select A.GERENTE_ATUAL from GERENTES_LOJAS A
+                                select A.GERENTE_ATUAL from GERENTES_LOJAS A
 		                        join 
                                 (
 		            			select LOJA , max(movimento) AS MOVIMENTO  from GERENTES_LOJAS gl
@@ -32,15 +44,14 @@ class ClassificacoesControllers extends Controller
 			                    ) B ON A.LOJA = B.LOJA AND A.MOVIMENTO = B.MOVIMENTO
                             ', [auth()->user()->store]);
 
-        // dd($usuarioLogado);
-        // dd(collect($gerenteRegistration)->pluck('GERENTE_ATUAL')->toArray());
+       
         $gerenteNome = DB::SELECT("
-            select 
-            name AS NOME
-            from ag_usuarios au 
-            where au.store = ? 
-            and au.manager = 'S'
-         ", [auth()->user()->store]);
+                                select 
+                                name AS NOME
+                                from ag_usuarios au 
+                                where au.store = ? 
+                                and au.manager = 'S'
+                            ", [auth()->user()->store]);
 
 
         // DD($gerenteNome);
@@ -65,13 +76,13 @@ class ClassificacoesControllers extends Controller
 
         $resultado = DB::select(
             "      
-                     SELECT DISTINCT 
-                     STORE AS ag_loja,
-                     CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
-                     FROM ag_usuarios au WITH(NOLOCK)
-                     WHERE AU.registration = ?
-            " ,
-            [auth()->user()->registration]
+                            SELECT DISTINCT 
+                            STORE AS ag_loja,
+                            CONCAT(UPPER(SUBSTRING(au.name, 1, 1)), LOWER(SUBSTRING(au.name, 2, 15)), '.') AS name
+                            FROM ag_usuarios au WITH(NOLOCK)
+                            WHERE AU.registration = ?
+                    " ,
+                    [auth()->user()->registration]
         );
 
 
@@ -150,7 +161,8 @@ class ClassificacoesControllers extends Controller
             'dataRespostas' => $dataRespostas,
             'resultadoSupervisor' => $resultadoSupervisor,
             'contagemLojas' => $contagemLojas,
-            'LojasGerentes' => $LojasGerentes
+            'LojasGerentes' => $LojasGerentes,
+            'qtd_respostas' => $qtd_respostas
 
         ]);
     }
