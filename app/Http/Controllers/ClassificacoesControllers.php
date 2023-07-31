@@ -67,7 +67,9 @@ class ClassificacoesControllers extends Controller
             ->distinct()
             ->select('AG_CLASSIFICACAO')
             ->where('AG_MATRICULA', '=', $usuarioLogado->registration)
+             ->where('AG_DATA', '=', $dataRespostas)
             ->get()->count('AG_CLASSIFICACAO');
+
 
         $contarQuestoes = AgQuestoes::query()
             ->distinct()
