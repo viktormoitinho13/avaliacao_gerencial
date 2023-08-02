@@ -52,9 +52,14 @@ class RelatorioController extends Controller
         ORDER BY C.AG_CLASSIFICACAO ASC 
         ", [$id, $dataAv]);
 
+        if(collect($cabecalho)->count() > 0 ){
+
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
         // $cabecalho = number_format((float)$cabecalho, 2, '.', '');
+
+        }
+       else $notaFinal = 0;
 
         //dd(collect($cabecalho)->toArray());
         $classificacoes = AgClassificacao::query()

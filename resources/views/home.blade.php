@@ -56,7 +56,7 @@
                                                 style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-handshake" aria-hidden="true"></i> Avaliação já
                                                 realizada! </a>
-                                        @elseif ($contarStatus != $contarQuestoes and $data != '2' or ($data = !'7'))
+                                        @elseif ($contarStatus != $contarQuestoes and ($data != '8' or $data = !'2'))
                                             <a class="btn btn-primary px-3 mt-4 mb-4"
                                                 style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i
                                                     class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não
@@ -113,19 +113,13 @@
                                             </p>
                                             
                                             <div class="d-flex justify-content-center mt-auto">
-                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
+                                               
                                                     <a href="{{ route('reportDocCorporate.index', $resultadoManager->ag_loja) }}"
                                                         class="btn px-2" style=" background-color:#eff6ff; color:#0077ff;border-color:#d5e9ff;">
                                                         <i class="fas fa-eye" aria-hidden="true"></i>
                                                         Visualizar relatório
                                                     </a>
-                                                @else
-                                                    <a class="btn px-2 mt-auto"
-                                                        style="background-color: #fab2b2; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);">
-                                                        <i class="fas fa-ban" aria-hidden="true"></i>
-                                                        Não existem relatórios.
-                                                    </a>
-                                                @endif
+                                               
 
                                             </div>
                                         </div>
@@ -172,21 +166,13 @@
                                             </p>
                                             
                                             <div class="d-flex justify-content-center mt-auto">
-                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
+                                               
                                                     <a href="{{ route('reportDocCorporate.index', $resultadoSupervisor->ag_loja) }}"
                                                         class="btn px-2" style=" background-color:#eff6ff; color:#0077ff;border-color:#d5e9ff;">
                                                         <i class="fas fa-eye" aria-hidden="true"></i>
                                                         Visualizar relatório
                                                     </a>
-                                                @else
-                                                    <a class="btn px-2 mt-auto"
-                                                        style="background-color: #fab2b2; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);">
-                                                        <i class="fas fa-ban" aria-hidden="true"></i>
-                                                        Não existem relatórios.
-                                                    </a>
-                                                @endif
-
-                                            </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,19 +229,14 @@
                                                                 {{ $resultado->ag_loja }}
                                                             </td>
                                                             <td>
-                                                                @if ($contagem >= 1 and $qtd_respostas >= 1 and  ($data == '2' or $data == '8'))
+                                               
                                                                     <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
                                                                         class=" btn px-2 mt-auto"
                                                                         style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                             class="fas fa-eye" aria-hidden="true"></i>
                                                                         Visualizar relatório
                                                                     </a>
-                                                                @else
-                                                                    <a class=" btn px-2 mt-auto"
-                                                                        style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);">
-                                                                        <i class="fas fa-ban" aria-hidden="true"></i>
-                                                                        Não existem relatórios. </a>
-                                                                @endif
+                                               
                                                             </td>
                                                         </tr>
                                                     @endforeach

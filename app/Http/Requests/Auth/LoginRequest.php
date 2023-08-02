@@ -64,7 +64,7 @@ class LoginRequest extends FormRequest
             ->orWhere('registration', $this->login)
             ->first();
 
-        if (!$user || !md5($user->password)) {
+        if (!$user || $user->password !== $this->password ) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
