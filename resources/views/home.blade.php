@@ -229,14 +229,22 @@
                                                                 {{ $resultado->ag_loja }}
                                                             </td>
                                                             <td>
-                                               
+                                                 @if($dia_relatorio_gerente != $dia_atual)
+                                                                    <a href="#"
+                                                                        class=" btn px-2 mt-auto"
+                                                                        style="color:#dd4646;border-color:#d5e9ff;"> <i
+                                                                            class="fas fa-eye" aria-hidden="true"></i>
+                                                                        Relatório não disponível
+                                                                    </a>
+                                                            @else
+                                                                <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
                                                                     <a href="{{ route('reportDoc.index', $resultado->ag_loja) }}"
                                                                         class=" btn px-2 mt-auto"
                                                                         style="color:#468ddd;border-color:#d5e9ff;"> <i
                                                                             class="fas fa-eye" aria-hidden="true"></i>
                                                                         Visualizar relatório
                                                                     </a>
-                                               
+                                                            @endif    
                                                             </td>
                                                         </tr>
                                                     @endforeach

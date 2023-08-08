@@ -16,6 +16,12 @@ class ClassificacoesControllers extends Controller
         $data = date('m');
         $dataRespostas = date('m/Y');
 
+        $ultimoDiaMes = date('Y-m-t');
+        $ultimoDia = date('d', strtotime($ultimoDiaMes));
+     
+        $dataAtual = date('d-m-Y');
+        $diaAtual = date('d', strtotime($dataAtual));
+
         //dd($dataRespostas);
         $usuarioLogado = auth()->user();
        
@@ -151,7 +157,7 @@ class ClassificacoesControllers extends Controller
 
         $contagemLojas = collect($contagemLojas)->pluck('store')->count();
 
-        return view('home', [
+         return view('home', [
             'classificacoes' => $classificacoes,
             'gerenteNome' => $gerenteNome,
             'contarStatus' => $contarStatus,
@@ -164,7 +170,9 @@ class ClassificacoesControllers extends Controller
             'resultadoSupervisor' => $resultadoSupervisor,
             'contagemLojas' => $contagemLojas,
             'LojasGerentes' => $LojasGerentes,
-            'qtd_respostas' => $qtd_respostas
+            'qtd_respostas' => $qtd_respostas,
+            'dia_relatorio_gerente' => $ultimoDia,
+            'dia_atual' => $diaAtual
 
         ]);
     }
