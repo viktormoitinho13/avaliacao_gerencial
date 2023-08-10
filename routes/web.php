@@ -43,7 +43,7 @@ Route::middleware('auth')
         Route::get('/{id}', [RelatorioController::class, 'index'])
             ->whereNumber('id')
             ->name('reportDocCorporate.index');
-               Route::post('/create/{id}', [SupervisorObservacaoController::class, 'store'])
+        Route::post('/create/{id}', [SupervisorObservacaoController::class, 'store'])
             ->whereNumber('id')
             ->name('observacao.store');
     });

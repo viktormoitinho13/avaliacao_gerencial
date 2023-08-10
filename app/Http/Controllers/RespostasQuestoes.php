@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\AgClassificacao;
 use App\Models\AgFormRespostas;
-use App\Models\AgQuestoes;
 use App\Models\AgStatus;
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RespostasQuestoes extends Controller
 {
@@ -20,45 +20,25 @@ class RespostasQuestoes extends Controller
      */
     public function store(Request $request, int $id)
     {
-
-        $usuarioLogado = auth()->user();
-        $data_atual = date('m/Y');
-        $classificacoesQuestoes = AgQuestoes::query()
-            ->get()->pluck('AG_CLASSIFICACAO')->toArray();
+        $usuarioLogado = Auth::user();
 
         $classificacoes = AgClassificacao::query()
-            ->with('agquestoes')
-            ->orderBy('ag_classificacao')
-            ->whereIn('AG_CLASSIFICACAO', $classificacoesQuestoes)
             ->get()
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
 
-        $proximo = 0;
+        $controlador = 1;
 
         try {
-            foreach ($request->input('questao') as $questao => $resposta) {
-                AgFormRespostas::query()->create([
-                    'AG_CLASSIFICACAO' => $id,
-                    'AG_RESPOSTA' => $resposta,
-                    'AG_QUESTAO' => $questao,
-                    'AG_USUARIO' => $usuarioLogado->id,
-                    'AG_MATRICULA' => $usuarioLogado->registration,
-                    'DATA_RESPOSTAS' => $data_atual,
-                    'AG_LOJA' => auth()->user()->store
-
-                ]);
+            if (!in_array($id, $classificacoes)) {
+                return redirect()->route('home');
             }
-            AgStatus::query()->create([
-                'AG_CLASSIFICACAO' => $id,
-                'AG_USUARIO' => $usuarioLogado->id,
-                'AG_MATRICULA' => $usuarioLogado->registration,
-                'AG_DATA' => $data_atual,
-            ]);
 
-            //$id é atual
+            $this->salvaFormularioRepostas($request, $usuarioLogado, $id);
 
-            for ($i = 0; $i <= count($classificacoes); $i++) {
+            $this->salvaStatus($usuarioLogado, $id);
+
+            for ($i = 1; $i < count($classificacoes); $i++) {
 
                 if ($id >= count($classificacoes)) {
                     return redirect()->route('conclusion');
@@ -68,23 +48,52 @@ class RespostasQuestoes extends Controller
                     continue;
                 }
 
-                $proximo = $classificacoes[$i];
+                $controlador = $classificacoes[$id];
             }
 
-            return redirect("/form/$proximo")
-                ->withInput()
-                ->with(['sucess' => 'Sua resposta foi computada com sucesso.']);
+            return redirect()->route('questions.index', $controlador);
         } catch (QueryException $e) {
-            //dd($e);
-            if ($id < count($classificacoes)) {
-                $id = $id + 1;
-                return redirect("/form/$id");
-            } else {
-                return redirect("/home")
-                    // return redirect()->route('relatorio')
-                    ->withInput()
-                    ->with(['err' => 'Este formulário já foi respondido.']);
-            };
+            logger('Error', ['message' => $e->getMessage()]);
+
+            return redirect()->route('questions.index', $controlador + 1);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param User $usuarioLogado
+     * @param integer $id
+     * @return void
+     */
+    private function salvaFormularioRepostas(Request $request, User $usuarioLogado, int $id): void
+    {
+        $questoes = $request->input('questao', []);
+
+        foreach ($questoes as $questao => $resposta) {
+            AgFormRespostas::query()->create([
+                'AG_CLASSIFICACAO' => $id,
+                'AG_RESPOSTA' => $resposta,
+                'AG_QUESTAO' => $questao,
+                'AG_USUARIO' => $usuarioLogado->id,
+                'AG_MATRICULA' => $usuarioLogado->registration,
+                'DATA_RESPOSTAS' => date('m/Y'),
+                'AG_LOJA' => $usuarioLogado->store,
+            ]);
+        }
+    }
+
+    /**
+     * @param User $usuarioLogado
+     * @param integer $id
+     * @return void
+     */
+    private function salvaStatus(User $usuarioLogado, int $id): void
+    {
+        AgStatus::query()->create([
+            'AG_CLASSIFICACAO' => $id,
+            'AG_USUARIO' => $usuarioLogado->id,
+            'AG_MATRICULA' => $usuarioLogado->registration,
+            'AG_DATA' => date('m/Y'),
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,8 +24,18 @@ class AgStatus extends Model
 
     ];
 
-       /**
-      * @var bool
-      */
-     public $timestamps = false;
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * @param [type] $builder
+     * @param integer $usuarioId
+     * @return Builder
+     */
+    public function scopeUsuarioId(Builder $builder, int $usuarioId): Builder
+    {
+        return $builder->where('AG_USUARIO', $usuarioId);
+    }
 }

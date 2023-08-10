@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class ConclusaoController extends Controller
 {
-    public function index()
+    /**
+     * @return View|Factory
+     */
+    public function index(): View|Factory
     {
         return view('conclusion');
     }

@@ -23,9 +23,7 @@ class AgFormRespostas extends Model
       * @var array
       */
      protected $fillable = [
-        
-          
-            'FORMULARIO_ORIGEM',
+          'FORMULARIO_ORIGEM',
           'TAB_MASTER_ORIGEM',
           'REG_MASTER_ORIGEM',
           'REG_LOG_INCLUSAO',
