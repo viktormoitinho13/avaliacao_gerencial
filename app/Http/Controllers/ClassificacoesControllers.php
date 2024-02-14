@@ -157,6 +157,18 @@ class ClassificacoesControllers extends Controller
 
         $contagemLojas = collect($contagemLojas)->pluck('store')->count();
 
+
+        if($data == '02' or $data == '08'){
+            $ativo = 'S';
+        }
+        else {
+            $ativo = 'N';
+           }
+
+
+     
+       
+
          return view('home', [
             'classificacoes' => $classificacoes,
             'gerenteNome' => $gerenteNome,
@@ -165,6 +177,7 @@ class ClassificacoesControllers extends Controller
             'contagem' => $contagem,
             'resultado' => $resultado,
             'data' => $data,
+            'ativo' => $ativo,    
             'resultadoManager' => $resultadoManager,
             'dataRespostas' => $dataRespostas,
             'resultadoSupervisor' => $resultadoSupervisor,
