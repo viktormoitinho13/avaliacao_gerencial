@@ -166,9 +166,6 @@ class ClassificacoesControllers extends Controller
            }
 
 
-     
-       
-
          return view('home', [
             'classificacoes' => $classificacoes,
             'gerenteNome' => $gerenteNome,

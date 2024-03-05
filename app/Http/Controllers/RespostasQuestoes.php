@@ -77,6 +77,7 @@ class RespostasQuestoes extends Controller
                 'AG_USUARIO' => $usuarioLogado->id,
                 'AG_MATRICULA' => $usuarioLogado->registration,
                 'DATA_RESPOSTAS' => date('m/Y'),
+                'DATA_RESPOSTA_COMPLETA' => date('d/m/Y')   ,
                 'AG_LOJA' => $usuarioLogado->store,
             ]);
         }
@@ -94,6 +95,7 @@ class RespostasQuestoes extends Controller
             'AG_USUARIO' => $usuarioLogado->id,
             'AG_MATRICULA' => $usuarioLogado->registration,
             'AG_DATA' => date('m/Y'),
+            'DATA_RESPOSTA_COMPLETA' => date('d/m/Y') ,
         ]);
     }
 }
