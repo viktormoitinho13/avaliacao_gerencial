@@ -20,6 +20,15 @@ class RelatorioController extends Controller
         //  dd($usuarioLogado);
         $data = date('m');
         $dataAv = date('m/Y');
+
+	   if(date('m') >= 8 ){
+          $dataAv = date('08/Y');
+        }
+        else {
+            $dataAv = date('02/Y');
+        }
+
+
         $qtd_respostas = DB::SELECT("
                             
             SELECT 
