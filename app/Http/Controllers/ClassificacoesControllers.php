@@ -158,15 +158,15 @@ class ClassificacoesControllers extends Controller
         $contagemLojas = collect($contagemLojas)->pluck('store')->count();
 
 
-        if($data == '02' or $data == '08'){
+        if($data == '02' or $data == '08' or $data == '03'){
             $ativo = 'S';
         }
         else {
             $ativo = 'N';
            }
+dd([$contarStatus], [$contarQuestoes], [$dataRespostas]); 
 
-
-     
+        
        
 
          return view('home', [

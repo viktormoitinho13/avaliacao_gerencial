@@ -34,7 +34,8 @@ class AgFormRespostas extends Model
           'AG_USUARIO',
           'AG_MATRICULA',
           'DATA_RESPOSTAS',
-          'AG_LOJA'
+          'AG_LOJA',
+          'DATA_RESPOSTA_COMPLETA'
      ];
 
      /**
