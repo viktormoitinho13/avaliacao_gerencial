@@ -159,6 +159,7 @@ class ClassificacoesControllers extends Controller
 
 
         if($data == '02' or $data == '08' or $data == '03'){
+       
             $ativo = 'S';
         }
         else {
