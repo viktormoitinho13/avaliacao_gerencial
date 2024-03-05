@@ -164,9 +164,6 @@ class ClassificacoesControllers extends Controller
         else {
             $ativo = 'N';
            }
-dd([$contarStatus], [$contarQuestoes], [$dataRespostas]); 
-
-        
        
 
          return view('home', [

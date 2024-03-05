@@ -13,16 +13,36 @@ class RelatorioDocController extends Controller
 {
     public function index(int $id )
     {
+
+       $data = date('m');
+       $data_atual = date('m/Y'); // NÃO ESQUECER DE ALTERAR 
+
+        if($data <= 6){
+
+        $dt_ini = ('01'.'/'. '01' . '/'. date('Y')); 
+        $dt_fim = ('31'.'/'. '06' . '/'. date('Y')   );
+        
+         } else {
+
+        $dt_ini = ('01'.'/'. '07' . '/'. date('Y')); 
+        $dt_fim = ('31'.'/'. '12' . '/'. date('Y')   );
+
+        }
+                
+        // Convertendo para objetos DateTime
+            $dt_ini_obj = DateTime::createFromFormat('d/m/Y', $dt_ini);
+            $dt_fim_obj = DateTime::createFromFormat('d/m/Y', $dt_fim);
        
-        $data_atual = date('m/Y'); // NÃO ESQUECER DE ALTERAR 
+       
+        
         $qtd_respostas = DB::SELECT('
                             
-            SELECT 
-                    COUNT( DISTINCT AG_USUARIO) AS QTD_TOTAL_RESPOSTAS 
+             SELECT 
+                    COUNT( DISTINCT AG_MATRICULA) AS QTD_TOTAL_RESPOSTAS 
                     FROM AG_FORM_RESPOSTAS 
             WHERE AG_LOJA = ?
-            AND DATA_RESPOSTAS = ? 
-        ', [$id, $data_atual]);
+             AND DATA_RESPOSTA_COMPLETA BETWEEN ? AND ? 
+        ', [$id, $dt_ini_obj, $dt_fim_obj]);
 
         $cabecalho = DB::select('
         SELECT
@@ -40,12 +60,12 @@ class RelatorioDocController extends Controller
         ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
         JOIN AG_CLASSIFICACAO C  ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
         WHERE AG_LOJA = ?
-        AND A.DATA_RESPOSTAS = ?
+        AND A.DATA_RESPOSTA_COMPLETA BETWEEN ? AND ?  
         GROUP BY 
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  
         ORDER BY C.AG_CLASSIFICACAO ASC 
-        ', [$id, $data_atual]);
+        ', [$id, $dt_ini_obj, $dt_fim_obj]);
 
         $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
         $notaFinal = number_format((float)$notaFinal, 2, '.', '');
@@ -68,10 +88,10 @@ class RelatorioDocController extends Controller
                                        FROM AG_GERENTE_PERCEPCAO A
                                         JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                         WHERE AG_LOJA = ?
-                                        AND A.DATA_RESPOSTAS = ?
+                                        AND A.DATA_RESPOSTA_COMPLETA BETWEEN ? AND ?  
                                         GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA
                                         ORDER BY A.AG_CLASSIFICACAO ASC 
-                                          ", [$id,  $data_atual]);
+                                          ", [$id, $dt_ini_obj, $dt_fim_obj]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
         $gerenteAgrupamento = [];
         foreach ($gerentePercepcao as $gerentePercepcao) {

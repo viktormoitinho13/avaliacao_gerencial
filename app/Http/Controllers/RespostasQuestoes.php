@@ -69,6 +69,8 @@ class RespostasQuestoes extends Controller
     {
         $questoes = $request->input('questao', []);
 
+           
+
         foreach ($questoes as $questao => $resposta) {
             AgFormRespostas::query()->create([
                 'AG_CLASSIFICACAO' => $id,
