@@ -8,37 +8,32 @@ use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 use App\Models\AgQuestoes;
 use App\Models\AgClassificacao;
-use PhpParser\Node\Expr\AssignOp\Concat;
-use PhpParser\Node\Stmt\Foreach_;
 use DateTime;
 
 class RelatorioController extends Controller
 {
+
     public function index(int $id)
     {
         $usuarioLogado = auth()->user();
         $data = date('m');
         $dataAv = date('m/Y');
+        $ano = date('Y');
 
-        if($data <= 6){
-
-        $dt_ini = ('01'.'/'. '01' . '/'. date('Y')); 
-        $dt_fim = ('31'.'/'. '06' . '/'. date('Y')   );
-        
-         } else {
-
-        $dt_ini = ('01'.'/'. '07' . '/'. date('Y')); 
-        $dt_fim = ('31'.'/'. '12' . '/'. date('Y')   );
-
+        if ($data <= 6) {
+            $dt_ini = ('01' . '/' . '01' . '/' . date('Y'));
+            $dt_fim = ('31' . '/' . '06' . '/' . date('Y'));
+            $semestre = 1;
+        } else {
+            $dt_ini = ('01' . '/' . '07' . '/' . date('Y'));
+            $dt_fim = ('31' . '/' . '12' . '/' . date('Y'));
+            $semestre = 2;
         }
-                
+
         // Convertendo para objetos DateTime
-            $dt_ini_obj = DateTime::createFromFormat('d/m/Y', $dt_ini);
-            $dt_fim_obj = DateTime::createFromFormat('d/m/Y', $dt_fim);
-       
+        $dt_ini_obj = DateTime::createFromFormat('d/m/Y', $dt_ini);
+        $dt_fim_obj = DateTime::createFromFormat('d/m/Y', $dt_fim);
 
-
-       
         $qtd_respostas = DB::SELECT("
                             
             SELECT 
@@ -71,44 +66,35 @@ class RelatorioController extends Controller
         ORDER BY C.AG_CLASSIFICACAO ASC 
         ", [$id, $dt_ini_obj, $dt_fim_obj]);
 
-      
+        if (collect($cabecalho)->count() > 0) {
 
-        if(collect($cabecalho)->count() > 0 ){
+            $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
+            $notaFinal = number_format((float)$notaFinal, 2, '.', '');
+        } else $notaFinal = 0;
 
-
-
-        $notaFinal = collect($cabecalho)->sum('MEDIA') /  collect($cabecalho)->count();
-        $notaFinal = number_format((float)$notaFinal, 2, '.', '');
-        // $cabecalho = number_format((float)$cabecalho, 2, '.', '');
-
-        }
-       else $notaFinal = 0;
-
-      //  dd(collect($cabecalho)->toArray());
         $classificacoes = AgClassificacao::query()
             ->get()
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
-
         $gerentePercepcao = DB::select("
-                                     SELECT 
+                                    SELECT 
                                      CONCAT(UPPER(SUBSTRING(A.CLASSIFICACAO, 1,1)), LOWER(SUBSTRING(A.CLASSIFICACAO, 2,LEN (A.CLASSIFICACAO)))) AS CLASSIFICACAO,
   									 B.QUESTAO AS QUESTAO,
                                      A.AG_CLASSIFICACAO,
                                     
                                      CASE
                                      WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', LOWER(RESPOSTA)), ', ')
-
+                                      WHEN COMENTARIO = 'X' THEN CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','deram a nota ', LOWER(RESPOSTA),' para o gerente.' )
                                      WHEN COMENTARIO = 'S' THEN LOWER(RESPOSTA) END AS ANALISE 
                                      FROM AG_GERENTE_PERCEPCAO A
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?
-                                     AND A.DATA_RESPOSTA_COMPLETA BETWEEN ? AND ?  
-                                     GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO
+                                     AND A.ANO = ?
+                                     AND A.SEMESTRE = ? 
+                                     GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO,PORCENTAGEM
                                      ORDER BY A.AG_CLASSIFICACAO ASC 
-                                          ",  [$id, $dt_ini_obj, $dt_fim_obj]);
+                                          ",  [$id, $ano, $semestre]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
-
 
         $gerenteAgrupamentos = [];
 
