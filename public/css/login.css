@@ -1,0 +1,36 @@
+ body {
+       background: linear-gradient(to left, #fff2f2 0%, #fdfbfd 90%);
+    }
+
+
+
+#section-login{
+
+border-radius: 25px; 
+border-color: #f2f2f2;
+background: linear-gradient(to left, #fff2f2 0%, #fdfbfd 60%);
+ box-shadow: 0 15px 15px rgba(111, 110, 110, 0.7);
+}
+
+#logo {
+max-height: 40px; 
+margin-right: 10px;
+
+}
+
+h5{
+color:#828282;
+
+}
+
+#label {
+
+color: black;
+font-weight: bolder;
+}
+
+
+.footer{
+
+background-color: white;
+}

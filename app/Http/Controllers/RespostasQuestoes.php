@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AgGerente;
 
 class RespostasQuestoes extends Controller
 {
@@ -26,6 +27,9 @@ class RespostasQuestoes extends Controller
             ->get()
             ->pluck('AG_CLASSIFICACAO')
             ->toArray();
+
+
+
 
         $controlador = 1;
 
@@ -69,7 +73,12 @@ class RespostasQuestoes extends Controller
     {
         $questoes = $request->input('questao', []);
 
-           
+        $gerente = AgGerente::query()
+            ->select('GERENTE_ATUAL', 'NOME')
+            ->whereNull('DATA_SAIDA')
+            ->where('LOJA', '=', $usuarioLogado->store)
+            ->get();
+
 
         foreach ($questoes as $questao => $resposta) {
             AgFormRespostas::query()->create([
@@ -79,8 +88,10 @@ class RespostasQuestoes extends Controller
                 'AG_USUARIO' => $usuarioLogado->id,
                 'AG_MATRICULA' => $usuarioLogado->registration,
                 'DATA_RESPOSTAS' => date('m/Y'),
-                'DATA_RESPOSTA_COMPLETA' => date('d/m/Y')   ,
+                'DATA_RESPOSTA_COMPLETA' => date('d/m/Y'),
                 'AG_LOJA' => $usuarioLogado->store,
+                'GERENTE' => $gerente->first()->GERENTE_ATUAL,
+                'NOME_GERENTE' => $gerente->first()->NOME
             ]);
         }
     }
@@ -97,7 +108,8 @@ class RespostasQuestoes extends Controller
             'AG_USUARIO' => $usuarioLogado->id,
             'AG_MATRICULA' => $usuarioLogado->registration,
             'AG_DATA' => date('m/Y'),
-            'DATA_RESPOSTA_COMPLETA' => date('d/m/Y') ,
+            'DATA_RESPOSTA_COMPLETA' => date('d/m/Y'),
+            'AG_LOJA' => $usuarioLogado->store
         ]);
     }
 }

@@ -1,19 +1,19 @@
 
 <x-app-layout>
 
-<div class="container-fluid mx-auto my-auto center-block" >
-<div class="row mt-5">
+<div class="mx-auto my-auto container-fluid center-block" >
+<div class="mt-5 row">
  @foreach ($results as $results)
 
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mx-auto my-auto mt-5">
-    <div class="card text-center" style="width: 90%; border-color:#6B9DD8;" >
+      <div class="mx-auto my-auto mt-5 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+    <div class="text-center card" style="width: 90%; border-color:#6B9DD8;" >
       <div class="card-body" >
-        <h3 class="card-title text-center">Relatório de avaliação gerencial</h3>
-        <h6 class="card-text text-center mt-2">Avaliação respondida pelos funcionários da </h6>
-        <p class="card-text mt-1"><small class="text-muted">Avaliação de: {{ $data}} </small></p>
+        <h3 class="text-center card-title">Relatório de avaliação gerencial</h3>
+        <h6 class="mt-2 text-center card-text">Avaliação respondida pelos funcionários da </h6>
+        <p class="mt-1 card-text"><small class="text-muted">Avaliação de: {{ $data}} </small></p>
       <div class="text-center">
-        <a href="/reportDoc/{{ $results->ag_loja }}"   class="btn btn-primary px-3 mt-1"
-        style="background-color: #468ddd; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
+        <a href="/reportDoc/{{ $results->ag_loja }}"   class="px-3 mt-1 btn btn-primary"
+        style="background-color: #E2304E; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i
         class="fas fa-hand-point-right" aria-hidden="true"></i> Gerar relatório </a>
     </div>
       </div>

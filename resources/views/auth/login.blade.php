@@ -1,52 +1,45 @@
 <x-guest-layout>
-    <section class="vh-50 my-5">
-        <div class="container h-25">
-            <div class="row d-flex justify-content-center align-items-center   ">
-                <div class="col-lg-10 col-xl-10 ">
-                    <div class="card text-black my-1 mt-5" style="border-radius: 25px;">
-                        <div class="row container mt-4" style="display: flex; flex-direction:row; justify-content:center; align-items:center">
-                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 mx-auto">
-                                <h3 class="text-center h2 fw-bold mb-4 mx-1 mx-md-3 mt-3">Avaliação Gerencial Promofarma
-
-                                </h3>
-                                <form class="mx-1 mx-md-5 my-auto" method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    <!-- Name -->
-                                       <div class="container justify-end mt-4 my-4">
-                                    <div
-                                        class="mt-3 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
-                                        <label class="form-label " for="login">Número da Matrícula</label>
-                                        <input class="form-control form-control-lg " type="text" id="login"
-                                            name="login">
-                                    </div>
-                                    </div>
-
-
-                                    <div class="container justify-end mt-4 my-4">
-                                        <div class="mt-4 col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
-                                            <x-label for="password" :value="__('Sua Senha')" class="form-label" />
-
-                                            <x-input id="password" class="form-label" type="password" name="password"
-                                                required autocomplete="current-password"  class="form-control form-control-lg" onpaste="return false" ondrop="return false"/>
+    <section style="margin-top: 9%;"  >
+        <div class="container h-50" >
+            <div class="row d-flex justify-content-center align-items-center" >
+                <div class="col-lg-5 col-xl-4" id="box-login">
+                    <div class="my-1 mt-3 text-black card"  id="section-login">
+                        <div class="container mt-3 text-center" >
+                            <div class="row">
+                                <div class="align-middle col-12" >
+                                    <div class="mt-5 mb-2 text-center">
+                                         <div class="d-flex justify-content-center align-items-center">
+                                            <img src="{{ URL::asset('/imgs/índice2.png') }}" alt="Logo" id="logo" >
+                                            <h2 class="mt-2"><b>Avaliação Gerencial</b></h2>
                                         </div>
+                                        <h5  class="mt-3">Faça o login aqui para acessar sua conta.</h5>
                                     </div>
-
-                                    <div class="container justify-end mt-4 my-4">
-                                        <div class="col-md-12 text-center">
-                                            <x-button class="btn btn-lg btn-block btn-primary col-md-8 ">
-                                                {{ __('Login') }}
-                                            </x-button>
+                                    <form class="mx-auto mt-5 mb-5" method="POST" action="{{ route('login') }}">
+                                        @csrf
+                                        <!-- Número da Matrícula -->
+                                        <div class="mb-3 d-flex justify-content-center">
+                                            <div class="col-6">
+                                                <label for="login" id="label" class="text-start w-100">Matrícula *</label>
+                                                <input class="mt-1 form-control form-control-lg" type="text" id="login" name="login">
+                                            </div>
                                         </div>
-                                    </div>
-
-
-                                </form>
-                            </div>
-                            <div class="col-md-9 col-lg-6 col-xl-6 ml-5 d-flex align-items-left order-1 order-lg-2  mt-4 my-4"
-                                style="width:700; height=600;">
-
-                                <img src="{{ URL::asset('/imgs/nova_capa.jpg') }}" class="img-fluid"  height="800" width="950"
-                                    alt="Sample image">
+                                        <!-- Senha -->
+                                        <div class="mt-3 mb-3 d-flex justify-content-center">
+                                            <div class="col-6">
+                                                <label for="password" id="label" class="text-start w-100">Senha *</label>
+                                                <x-input id="password" class="mt-1 form-control form-control-lg" type="password" name="password" required autocomplete="current-password" onpaste="return false" ondrop="return false" />
+                                            </div>
+                                        </div>
+                                        <!-- Botão de Login -->
+                                        <div class="mt-5 d-flex justify-content-center">
+                                            <div class="text-center">
+                                                <x-button class="btn btn-lg btn-block btn-danger">
+                                                    {{ __('Login') }}
+                                                </x-button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

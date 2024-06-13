@@ -1,0 +1,77 @@
+a:link, a:visited {
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  color: #E2304E;
+    
+}
+
+.card-text {
+    font-size: 12px;
+
+}
+
+.card-title {
+font-size: 15px;
+
+}
+
+#categorias{
+    text-align: start;
+
+}
+
+#classificacao{
+    text-align: start;  
+}
+
+#card-semestral {
+    border-color:#E2304E; 
+    height: 75px;
+}
+
+#card-semestral .custom-card-title,
+#card-mensal .custom-card-title {
+    font-size: 9px;
+}
+
+
+#card-mensal{
+    border-color:#3083e2; 
+    height: 75px;
+}
+
+
+#card-agrupamento-semestral{
+border-color:#E2304E;
+}
+
+
+#card-header-semestral{
+    background-color: #E2304E;
+    overflow-wrap:break-word; 
+    font-size: 16px;
+}
+
+
+#card-agrupamento-mensal{
+border-color:#3083e2;
+}
+
+
+#card-header-mensal{
+    background-color: #3083e2;
+    overflow-wrap:break-word; 
+    font-size: 16px;
+}
+
+
+#home-supervisor{
+
+color: aqua;
+
+}

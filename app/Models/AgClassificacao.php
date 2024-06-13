@@ -25,6 +25,9 @@ class AgClassificacao extends Model
       */
      protected $guarded = ['AG_CLASSIFICACAO'];
 
+
+
+
      /**
       * @return HasMany
       */

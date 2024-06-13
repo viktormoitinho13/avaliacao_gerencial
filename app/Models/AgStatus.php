@@ -21,7 +21,8 @@ class AgStatus extends Model
         'AG_USUARIO',
         'AG_MATRICULA',
         'DATA_RESPOSTA_COMPLETA',
-        'AG_DATA'
+        'AG_DATA',
+        'AG_LOJA'
 
     ];
 

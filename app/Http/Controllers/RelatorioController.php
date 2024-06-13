@@ -8,40 +8,30 @@ use App\Models\AgFormRespostas;
 use Illuminate\Support\Facades\DB;
 use App\Models\AgQuestoes;
 use App\Models\AgClassificacao;
-use DateTime;
+use Date;
+use Dflydev\DotAccessData\Data;
 
 class RelatorioController extends Controller
 {
 
-    public function index(int $id)
+    public function index(int $id, Request $request)
     {
         $usuarioLogado = auth()->user();
         $data = date('m');
-        $dataAv = date('m/Y');
         $ano = date('Y');
 
-        if ($data <= 6) {
-            $dt_ini = ('01' . '/' . '01' . '/' . date('Y'));
-            $dt_fim = ('31' . '/' . '06' . '/' . date('Y'));
-            $semestre = 1;
-        } else {
-            $dt_ini = ('01' . '/' . '07' . '/' . date('Y'));
-            $dt_fim = ('31' . '/' . '12' . '/' . date('Y'));
-            $semestre = 2;
-        }
+        $mes = $data < 8 ? 2 : 8;
 
-        // Convertendo para objetos DateTime
-        $dt_ini_obj = DateTime::createFromFormat('d/m/Y', $dt_ini);
-        $dt_fim_obj = DateTime::createFromFormat('d/m/Y', $dt_fim);
 
-        $qtd_respostas = DB::SELECT("
-                            
-            SELECT 
-                    COUNT( DISTINCT AG_MATRICULA) AS QTD_TOTAL_RESPOSTAS 
-                    FROM AG_FORM_RESPOSTAS 
-            WHERE AG_LOJA = ?
-             AND DATA_RESPOSTA_COMPLETA BETWEEN ? AND ?   
-        ", [$id, $dt_ini_obj, $dt_fim_obj]);
+        $qtd_respostas = AgFormRespostas::query()
+            ->where('AG_FORM_RESPOSTAS.AG_LOJA', $id)
+            ->whereYear('AG_FORM_RESPOSTAS.DATA_RESPOSTA_COMPLETA', $ano)
+            ->whereMonth('AG_FORM_RESPOSTAS.DATA_RESPOSTA_COMPLETA', '<=', $mes)
+            ->distinct('AG_FORM_RESPOSTAS.AG_MATRICULA')
+            ->count('AG_FORM_RESPOSTAS.AG_MATRICULA');
+
+
+        // dd($qtd_respostas);
 
         $cabecalho = DB::select("
         SELECT
@@ -59,12 +49,13 @@ class RelatorioController extends Controller
         ) B ON A.AG_RESPOSTA = B.AG_RESPOSTA 
         JOIN AG_CLASSIFICACAO C  ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
         WHERE AG_LOJA = ?
-        AND A.DATA_RESPOSTA_COMPLETA BETWEEN ? AND ?  
+        AND MONTH(DATA_RESPOSTA_COMPLETA) = ?
+        AND YEAR(DATA_RESPOSTA_COMPLETA) = ?
         GROUP BY 
         C.AG_CLASSIFICACAO ,
         C.CLASSIFICACAO  
         ORDER BY C.AG_CLASSIFICACAO ASC 
-        ", [$id, $dt_ini_obj, $dt_fim_obj]);
+        ", [$id, $mes, $ano]);
 
         if (collect($cabecalho)->count() > 0) {
 
@@ -73,15 +64,15 @@ class RelatorioController extends Controller
         } else $notaFinal = 0;
 
         $classificacoes = AgClassificacao::query()
+            ->select('AG_CLASSIFICACAO')
             ->get()
-            ->pluck('AG_CLASSIFICACAO')
             ->toArray();
+
         $gerentePercepcao = DB::select("
                                     SELECT 
                                      CONCAT(UPPER(SUBSTRING(A.CLASSIFICACAO, 1,1)), LOWER(SUBSTRING(A.CLASSIFICACAO, 2,LEN (A.CLASSIFICACAO)))) AS CLASSIFICACAO,
   									 B.QUESTAO AS QUESTAO,
                                      A.AG_CLASSIFICACAO,
-                                    
                                      CASE
                                      WHEN COMENTARIO = 'N' THEN STRING_AGG(CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','dizem que ', LOWER(RESPOSTA)), ', ')
                                       WHEN COMENTARIO = 'X' THEN CONCAT(CONVERT(DECIMAL(15,0),PORCENTAGEM),'% ','deram a nota ', LOWER(RESPOSTA),' para o gerente.' )
@@ -90,10 +81,10 @@ class RelatorioController extends Controller
                                      JOIN AG_QUESTOES B ON A.AG_QUESTAO = B.AG_QUESTAO 
                                      WHERE AG_LOJA = ?
                                      AND A.ANO = ?
-                                     AND A.SEMESTRE = ? 
+                                     AND A.MES = ?
                                      GROUP BY A.AG_QUESTAO, B.QUESTAO, A.AG_CLASSIFICACAO, A.CLASSIFICACAO,COMENTARIO,RESPOSTA,  B.QUESTAO,PORCENTAGEM
                                      ORDER BY A.AG_CLASSIFICACAO ASC 
-                                          ",  [$id, $ano, $semestre]);
+                                          ",  [$id, $ano, $mes]);
         //dd(collect($gerentePercepcao)->pluck('PORCENTAGEM')->toArray());
 
         $gerenteAgrupamentos = [];
@@ -102,37 +93,22 @@ class RelatorioController extends Controller
             $gerenteAgrupamentos[$gerentePercepcao->CLASSIFICACAO][$gerentePercepcao->QUESTAO][] = $gerentePercepcao->ANALISE;
         }
 
-        //dd($gerenteAgrupamentos);
-        $contagem = DB::select("
-            		select loja from AG_SUPERVISORES_OBSERVACOES 
-        			where loja = ?
-        			and DATA_MOVIMENTO BETWEEN ? AND ?  
-       
-       ", [$id, $dt_ini_obj, $dt_fim_obj]);
 
-        $contagemObservacao = collect($contagem)->pluck('loja')->count();
-
-
-        $gerenteNome = DB::select("
-            select 
-            concat(Upper(substring(nome, 1,1)), lower(substring(nome, 2,LEN(nome))), '...') as nome
-            from (
-            select SUBSTRING(name, 1, 20) as nome 
-            from ag_usuarios au 
-            where manager  = 'S'
-            and store = ?
-	) A 
-	", [$id]);
+        $gerenteNome = AgFormRespostas::query()
+            ->select(DB::raw(" concat(Upper(substring(NOME_GERENTE, 1,1)), lower(substring(NOME_GERENTE, 2,LEN(NOME_GERENTE))), '...') as nome"))
+            ->where('AG_FORM_RESPOSTAS.AG_LOJA', $id)
+            ->whereYear('AG_FORM_RESPOSTAS.DATA_RESPOSTA_COMPLETA', $ano)
+            ->whereMonth('AG_FORM_RESPOSTAS.DATA_RESPOSTA_COMPLETA', '<=', $mes)
+            ->distinct()
+            ->get();
 
 
-        // dd($gerenteNome);
         return view('reportDocCorporate', [
             'cabecalho' => $cabecalho,
             'notaFinal' => $notaFinal,
             'qtd_respostas' => $qtd_respostas,
             'gerenteAgrupamento' => $gerenteAgrupamentos,
             'classificacoes' => $classificacoes,
-            'contagemObservacao' => $contagemObservacao,
             'id' => $id,
             'data' => $data,
             'usuario' => $usuarioLogado,
