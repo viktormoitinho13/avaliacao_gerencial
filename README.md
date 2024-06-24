@@ -9,8 +9,8 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
      `Apache2 2.4.52 ou superior`<br>
      `'Composer 2.2.6 ou superior'`<br>
      `Laravel 9.0 ou superior`<br>
-* Compatível com <br>
- `<Windows / Linux / Mac>`.
+ 	* Compatível com <br>
+	 `<Windows / Linux / Mac>`.
 
 
 ## Instalando o projeto 
@@ -97,51 +97,50 @@ Para a utilização do projeto é necessário alguns dependências, configuraç�
 > - AG_MATRICULA (NUMERIC(15,2)) : Matricula do usuário logado no sistema (Registration da tabela AG_USUARIOS).
 > - AG_DATA (VARCHAR(15)) : Mês e ano no horário da resposta.
 
- ### Inserção de dados 
-  
-Para o cadastro de usuários é feito um select dentro de algumas tabelas no banco. A regra do usuário e senha são o nome ou a matrícula do usuários e a senha é o CPF sem pontuação. 
 
-````
-INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)	
-	SELECT 
-		A.NOME,
-		CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
-		--(REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
-		F.VENDEDOR,
-		F.EMPRESA_USUARIA,
-		CASE 
-			WHEN G.DEPARTAMENTO_FOLHA_NIVEL = 12 THEN 'S'
-			ELSE 'N'
-		END AS GERENTE
-	FROM 
-		FUNCIONARIOS A WITH(NOLOCK)
-		INNER JOIN DBO.FUNCIONARIOS_PARAMETROS B WITH(NOLOCK) ON B.ENTIDADE = A.ENTIDADE
-		INNER JOIN DBO.SITUACOES_CONTRATUAIS C WITH(NOLOCK) ON C.SITUACAO_CONTRATUAL = B.SITUACAO_CONTRATUAL
-		INNER JOIN DBO.TIPOS_SITUACOES_CONTRATUAIS D WITH(NOLOCK) ON D.TIPO_SITUACAO_CONTRATUAL = C.TIPO_SITUACAO_CONTRATUAL
-		INNER JOIN DBO.CARGOS_FOLHA E WITH(NOLOCK) ON E.CARGO_FOLHA = B.CARGO
-		INNER JOIN DBO.VENDEDORES F WITH(NOLOCK) ON F.ENTIDADE = A.ENTIDADE AND A.REGISTRO = F.CODIGO_DP     
-		INNER JOIN DBO.DEPARTAMENTOS_FOLHA G WITH(NOLOCK) ON G.DEPARTAMENTO_FOLHA = B.DEPARTAMENTO
-	WHERE
-		--G.DEPARTAMENTO_FOLHA_NIVEL=2
-		--AND G.DEPARTAMENTO_FOLHA_NIVEL = 12
-		--AND E.CARGO_FOLHA IN (60,64,155,156,157)
-		  F.EMPRESA_USUARIA <= (SELECT MAX(LOJA) FROM GERENTES_LOJAS)
-		  AND F.CADASTRO_ATIVO = 'S'
-	UNION ALL 
+> #### 7 - AG_FEEDBACK_SEMESTRAIS_SUPERVISAO
+> Guarda a informação do feedback aplicado pelo supervisor ao gerente
+> -	AG_FEEDBACK_SEMESTRAL_SUPERVISAO numeric(18,0) : Chave primária da tabela auto incrementada,
+> -	LOJA numeric(18,0) : Número da loja,
+> -	GERENTE numeric(18,0) : Matrícula do gerente, 
+> -	DATA_FEEDBACK date : Data de aplicação do feedback
+> -	OBJETIVO varchar(MAX) : Objetivo descrito pelo supervisor
+> -	ANOTACOES varchar(MAX) : Anotações realizadas pelo supervisor
+> -	SUPERVISOR numeric(18,0) : Matrícula do supervisor
 
-	SELECT 
-		A.NOME,  
-		CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
-		--	(REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
-		B.VENDEDOR ,
-		B.EMPRESA_USUARIA AS LOJA, 
-		'S' AS MANAGER
-		FROM USUARIOS A   
-		JOIN VENDEDORES B ON A.ENTIDADE = B.ENTIDADE 
-		JOIN ENTIDADES C ON A.ENTIDADE = C.ENTIDADE 
-		WHERE A.PERFIL_USUARIO IN (1546) AND USUARIO = 324
+ 
+> #### 8 - AG_FEEDBACK_SEMESTRAIS_SUPERVISAO_DETAIL
+> Guarda mais informações do feddback, podente ter mais de uma linha em relação a tabela anterior
+> - AG_FEEDBACK_SEMESTRAL_SUPERVISAO_DETAIL numeric(18,0) : Chave primária da tabela auto incrementada,
+> - AG_FEEDBACK_SEMESTRAL_SUPERVISAO numeric(18,0) : Chave estrangeira da tabela <STRONG>AG_FEEDBACK_SEMESTRAIS_SUPERVISAO</STRONG>.
+> -	HABILIDADES_DESENVOLVER varchar(MAX) : Campo descritivo realizado pelo supervisor,
+> -	HABILIDADES_RECONHECER varchar(MAX)  : Campo descritivo realizado pelo supervisor ,
+> -	DATA_INICIAL_PLANO_ACAO date NULL : Data inicial para realizar as ações,
+> -	DATA_FINAL_PLANO_ACAO date NULL : Data limite para realizar as ações,
+> -	ACAO_PLANO_ACAO varchar(MAX) : Campo descritivo realizado pelo supervisor	,
+> -	ENTREGA_PLANO_ACAO varchar(MAX) : Campo descritivo realizado pelo supervisor,
+> -	RECURSO_PLANO_ACAO varchar(MAX) : Campo descritivo realizado pelo supervisor ,
+> -	STATUS_PLANO_ACAO varchar(MAX) : Campo descritivo realizado pelo supervisor 
 
-````
+
+> #### 9 - AG_LIBERACAO_QUESTOES_MENSAIS
+> Guarda as informações de quais as perguntas que serão liberadas de forma bimestral para as lojas
+> -	AG_LIBERACAO_QUESTAO_MENSAL numeric(18,0)  : Chave primária da tabela auto incrementada,
+> -	SUPERVISOR numeric(18,0) : Matrícula do supervisor,
+> -	LOJA numeric(18,0) 	: loja do gerente	 ,
+> -	DATA_AUTORIZACAO date : data de liberação das questões	 ,
+> -	DATA_LIMITE_RESPOSTA date : data limite para responder as questões,
+> -	GERENTE varchar(200) : matricula do gerente da loja,
+> -	ID_CLASSIFICACAO numeric(18,0) : codigo da classificação liberada
+
+
+> ### 10 - AG_FEEDBACK_AUTO_PERCEPCAO_GERENTES
+> Guarda as informações da visão do gerente sobre ele mesmo dentro do feedback
+> -	AG_FEEDBACK_AUTO_PERCEPCAO_GERENTE numeric(18,0) : Chave primária da tabela auto incrementada,
+> -	AG_FEEDBACK_SEMESTRAL_SUPERVISAO numeric(18,0) : código do feedback,
+> -	AUTO_PERCEPCAO varchar(MAX) : texto descritivo do gerente sobre si mesmo,
+> -	checkfeedback varchar(1) : confirmação do recebimento do feedback pelo genrete
+
 
 #### Visualização de dados 
 A view *AG_GERENTE_PERCEPCAO* traz os dados necessários para que o gerente visualize as respostas dados pelos funcionários
@@ -210,80 +209,21 @@ FROM
 JOIN AG_CLASSIFICACAO  C ON A.AG_CLASSIFICACAO = C.AG_CLASSIFICACAO 
 WHERE A.RESPOSTA IS NOT NULL 
 AND A.DATA_RESPOSTAS = (SELECT CONCAT(MONTH(GETDATE()), '/',YEAR(GETDATE()) ))
- 
-
-
 ````
 
-### Atualização de dados 
-O projeto consta com duas triggers no banco de dados. 
-#####	1 - AG_RESPOSTA_DISSERTATIVA :Toda questão cadastrada que não tiver uma resposta vincula a ela será um questão dissertativa. 
-		
-			CREATE TRIGGER AG_RESPOSTA_DISSERTATIVA
-			ON AG_QUESTOES 
-			AFTER INSERT 
-			AS 
-				BEGIN 
-					INSERT INTO AG_RESPOSTAS (AG_QUESTAO, RESPOSTA, NOTA)
-					SELECT AQ.AG_QUESTAO , 'dissertativa' , 999 FROM AG_QUESTOES AQ 
-					LEFT JOIN AG_RESPOSTAS AR  ON AQ.AG_QUESTAO = AR.AG_QUESTAO 
-					WHERE AR.AG_QUESTAO  IS NULL
-					AND AQ.QUESTAO IS NOT NULL 
-				END
-			
-#####	2 - AG_LOGIN_USUARIOS : Após alteração, inserção e exclusão de dados da tabela vendedores, é feita uma atualização da tabela AG_USUARIOS
- 		
-		
-````								
-CREATE TRIGGER AG_LOGIN_USUARIOS ON VENDEDORES
-AFTER INSERT, DELETE, UPDATE 
-AS 
-	BEGIN 
-		DELETE FROM ag_usuarios
-	END 
+### Aplicação WEB
 
-	BEGIN
-		INSERT INTO AG_USUARIOS (NAME, PASSWORD, REGISTRATION, STORE, MANAGER)	
-			SELECT 
-			A.NOME,
-			CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
-			--(REPLACE(REPLACE(REPLACE(A.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', '')) AS CPF,
-			F.VENDEDOR,
-			F.EMPRESA_USUARIA,
-			CASE 
-				WHEN G.DEPARTAMENTO_FOLHA_NIVEL = 12 THEN 'S'
-				ELSE 'N'
-			END AS GERENTE
-		FROM 
-			FUNCIONARIOS A WITH(NOLOCK)
-			INNER JOIN dbo.FUNCIONARIOS_PARAMETROS B WITH(NOLOCK) ON B.ENTIDADE = A.ENTIDADE
-			INNER JOIN dbo.SITUACOES_CONTRATUAIS C WITH(NOLOCK) ON C.SITUACAO_CONTRATUAL = B.SITUACAO_CONTRATUAL
-			INNER JOIN dbo.TIPOS_SITUACOES_CONTRATUAIS D WITH(NOLOCK) ON D.TIPO_SITUACAO_CONTRATUAL = C.TIPO_SITUACAO_CONTRATUAL
-			INNER JOIN dbo.CARGOS_FOLHA E WITH(NOLOCK) ON E.CARGO_FOLHA = B.CARGO
-			INNER JOIN dbo.VENDEDORES F WITH(NOLOCK) ON F.ENTIDADE = A.ENTIDADE AND A.REGISTRO = F.CODIGO_DP     
-			INNER JOIN dbo.DEPARTAMENTOS_FOLHA G WITH(NOLOCK) ON G.DEPARTAMENTO_FOLHA = B.DEPARTAMENTO
-		WHERE
-		--G.DEPARTAMENTO_FOLHA_NIVEL=2
-		--AND G.DEPARTAMENTO_FOLHA_NIVEL = 12
-		--and E.CARGO_FOLHA IN (60,64,155,156,157)
-		  F.EMPRESA_USUARIA <= (select MAX(LOJA) FROM GERENTES_LOJAS)
-		  AND F.CADASTRO_ATIVO = 'S'
-		
-		UNION ALL 
-		
-		SELECT 
-			A.NOME,  
-			CONVERT(VARCHAR(32), HASHBYTES('MD5', (REPLACE(REPLACE(REPLACE(C.INSCRICAO_FEDERAL,'.', ''),'-', ''),'/', ''))), 2) AS CPF ,
-			B.VENDEDOR ,
-			B.EMPRESA_USUARIA AS LOJA, 
-			'S' AS MANAGER
-		FROM USUARIOS A   
-			JOIN VENDEDORES B ON A.ENTIDADE = B.ENTIDADE 
-			JOIN ENTIDADES C ON A.ENTIDADE = C.ENTIDADE 
-		WHERE A.PERFIL_USUARIO IN (1546) AND USUARIO = 324
-	END
+O projeto é web, ou seja, é executado nos navegadores. Para o desenvolvimento foi utilizado PHP, JS, BootStrap, além de HTML e Css puros. Foi utilizado também o framework laravel.
+Abaixo estarão prints de toda a aplicação.
 
-````
+
+#### Tela de Login 
+
+
+
+
+
+
 
 ### Procfit 
 

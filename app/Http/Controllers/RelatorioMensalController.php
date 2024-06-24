@@ -62,7 +62,7 @@ class RelatorioMensalController extends Controller
             $resultadoManager = $resultadoManager->where('AG_FORM_RESPOSTAS.AG_LOJA', $id);
         }
 
-        $resultadoManager = $resultadoManager->paginate(10);
+        $resultadoManager = $resultadoManager->paginate(12);
 
 
         return view('listReportMonth', [

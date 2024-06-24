@@ -40,22 +40,30 @@
                     </div>
                     <div class="text-center">
 
-                     @if($mes % 2 == 0)
+                        
+                            @if(($mes == 2 or $mes == 8) && $questoesRespondidas->STATUS ?? 'N' == 'S')
+                                 <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);">
+                                     <i class="fas fa-handshake" aria-hidden="true"></i> Avaliação já realizada!
+                                  </a>
+                            @elseif(($mes == 2 or $mes == 8) && $questoesRespondidas->STATUS ?? 'N' == 'N'  ) 
+                                 <a href="{{ route('questions.index', $classificacao->AG_CLASSIFICACAO) }}" class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #6B9DD8; color:rgb(255, 255, 255);border-color:#6B9DD8;">
+                                     <i class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero continuar!
+                                 </a>  
+                            @endif
 
-                        @if (($ativo->STATUS ?? 'N') == 'S' && $questoesMensaisstatus == 'N')
-                            <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);"><i class="fas fa-handshake" aria-hidden="true"></i> Avaliação já realizada!</a>
-                        @elseif (($ativo->STATUS ?? 'N') == 'N' && $questoesMensaisstatus == 'N')
-                            <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não disponível</a>
-                        @elseif (($ativo->STATUS ?? 'N') == 'X')
-                            <a href="{{ route('questions.index', $classificacao->AG_CLASSIFICACAO) }}" class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #6B9DD8; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i class="fas fa-hand-point-right" aria-hidden="true"></i> Li e quero continuar!</a>
-                        @elseif ($questoesMensaisstatus == 'S')
-                            <a href="{{ route('questionsMonth.index', $classificacoesMensais->ID_CLASSIFICACAO ?? 0) }}" class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #6B9DD8; color:rgb(255, 255, 255);border-color:#6B9DD8;"><i class="fas fa-hand-point-right" aria-hidden="true"></i> Responder as questões mensais</a>
-                        @elseif ($gerenteNome == null)
-                            <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não disponível</a>
+                                  @if(in_array($mes, [4,6,10,12]) && $questoesRespondidasMensais->STATUS == 'S')
+                                    <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #F6B618; color:rgb(0, 0, 0); border-color:rgb(255, 255, 255);">
+                                          <i class="fas fa-handshake" aria-hidden="true"></i> Avaliação já realizada!
+                                     </a>   
+                     
+
+                            @elseif(in_array($mes, [4,6,10,12]) && $questoesRespondidasMensais->STATUS == 'N')
+                                            <a href="{{ route('questionsMonth.index', $classificacoesMensais->ID_CLASSIFICACAO ?? 0) }}" 
+                                                class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #6B9DD8; color:rgb(255, 255, 255);border-color:#6B9DD8;">
+                                                <i class="fas fa-hand-point-right" aria-hidden="true"></i> Responder as questões mensais
+                                            </a>
                         @endif
-                        @else
-                        <a class="px-3 mt-4 mb-4 btn btn-primary" style="background-color: #f61818; color:rgb(255, 255, 255); border-color:rgb(255, 255, 255);"><i class="fas fa-thumbs-down" aria-hidden="true"></i> Avaliação não disponível</a>
-                        @endif
+                             
                     </div>
                 </div>
             </div>
@@ -76,11 +84,11 @@
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center"
                                         style="margin-top: 8%;">
-                                        <div class="col-md-8">
+                                        <div class="col-6">
                                             <div class="text-center card" style="width: 100%; border-color: #ffabab;">
                                                 <div
                                                     class="align-middle card-body d-flex flex-column justify-content-center">
-                                                    <h3 class="card-title">Relatórios</h3>
+                                                    <h1 class="card-title fs-4">Relatórios</h1>
                                                     <p class="mt-2 text-center card-text fst-italic">
                                                         Aqui você poderá analisar as avalições gerenciais realizadas
                                                         filtrando por mês e ano.
@@ -201,8 +209,8 @@
                                     <div class="text-center card h-100 d-flex flex-column">
                                         <div
                                             class="border card-body flex-grow-1 d-flex flex-column align-items-center border-danger">
-                                            <h5 class="mt-2 text-center card-title">Relatórios</h5>
-                                            <p class="mt-3 text-center card-text flex-grow-1">
+                                            <h5 class="mt-2 text-center card-title fs-6">Relatórios</h5>
+                                            <p class="mt-3 text-center card-text flex-grow-1 fs-6">
                                                 Aqui você poderá analisar as avalições gerenciais.</p>
                                             <a href="{{ route('managerHomeController.index') }}" class="px-2 mt-2 btn col-6"
                                                 style="background-color:#ffefef; color:#dd4646; border-color:#ffd5d5; border-radius:20cm">
@@ -215,8 +223,8 @@
                                     <div class="text-center card h-100 d-flex flex-column">
                                         <div
                                             class="border card-body flex-grow-1 d-flex flex-column align-items-center border-danger">
-                                            <h5 class="mt-2 card-title">Histórico de feedbacks</h5>
-                                            <p class="mt-3 card-text flex-grow-1">Aqui você pode visualizar todos os seus antigos feedbacks.</p>
+                                            <h5 class="mt-2 card-title fs-6">Histórico de feedbacks</h5>
+                                            <p class="mt-3 card-text flex-grow-1 fs-6">Aqui você pode visualizar todos os seus antigos feedbacks.</p>
                                             <a href="{{ route('managerFeedbackHistory.index') }}"
                                                 class="px-2 mt-2 btn col-6"
                                                 style="background-color:#ffefef; color:#dd4646; border-color:#ffd5d5; border-radius:20cm">

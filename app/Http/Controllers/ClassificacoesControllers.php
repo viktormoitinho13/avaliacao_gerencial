@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AgClassificacao;
+use App\Models\AGquestoesLiberadas;
 use App\Models\AgQuestoes;
 use Illuminate\Support\Facades\DB;
 use DateTime;
@@ -11,6 +12,8 @@ class ClassificacoesControllers extends Controller
 {
     public function index()
     {
+        // dd(date('d/m/Y'));
+
         $usuarioLogado = auth()->user();
         $mesAtual = date('m');
         $ano = date('Y');
@@ -22,7 +25,8 @@ class ClassificacoesControllers extends Controller
         $classificacoes = collect();
         $classificacoesMensais = null;
         $gerenteNome = collect();
-        $ativo = null;
+        $questoesRespondidas = null;
+        $questoesRespondidasMensais = null;
         $questoesMensaisstatus = 'N';
 
         if ($usuarioLogado->manager == 'N' and $usuarioLogado->supervisor == 'N') {
@@ -36,21 +40,37 @@ class ClassificacoesControllers extends Controller
                 and au.manager = 'S'
             ", [auth()->user()->store]);
 
-            $ativo = AgClassificacao::query()
-                ->leftJoin('AG_STATUS', function ($join) {
-                    $join->on('AG_CLASSIFICACAO.AG_CLASSIFICACAO', '=', 'AG_STATUS.AG_CLASSIFICACAO');
+
+            $questoesRespondidas = AgClassificacao::query()
+                ->leftJoin('AG_STATUS', function ($join) use ($usuarioLogado, $mesAtual, $ano) {
+                    $join->on('AG_CLASSIFICACAO.AG_CLASSIFICACAO', '=', 'AG_STATUS.AG_CLASSIFICACAO')
+                        ->where('AG_STATUS.AG_MATRICULA', '=', $usuarioLogado->registration)
+                        ->whereMonth('AG_STATUS.DATA_RESPOSTA_COMPLETA', '=', $mesAtual)
+                        ->whereYear('AG_STATUS.DATA_RESPOSTA_COMPLETA', '=', $ano);
                 })
                 ->select(DB::raw("CASE 
-                    WHEN COUNT(DISTINCT AG_CLASSIFICACAO.AG_CLASSIFICACAO) = 0 OR COUNT(DISTINCT AG_STATUS.AG_CLASSIFICACAO) = 0 
-                    THEN 'X'
-                    WHEN COUNT(DISTINCT AG_STATUS.AG_CLASSIFICACAO) = COUNT(DISTINCT AG_CLASSIFICACAO.AG_CLASSIFICACAO) 
-                    THEN 'S'
-                    ELSE 'N'
-                END AS STATUS"))
-                ->where('AG_STATUS.AG_MATRICULA', $usuarioLogado->registration)
-                ->whereMonth('AG_STATUS.DATA_RESPOSTA_COMPLETA', $mes)
-                ->whereYear('AG_STATUS.DATA_RESPOSTA_COMPLETA', $ano)
-                ->first();
+                        WHEN COUNT(DISTINCT AG_STATUS.AG_CLASSIFICACAO) = COUNT(DISTINCT AG_CLASSIFICACAO.AG_CLASSIFICACAO) 
+                        THEN 'S'
+                        ELSE 'N'
+                    END AS STATUS"))->first();
+
+
+            $questoesRespondidasMensais = AGquestoesLiberadas::query()
+                ->leftJoin('AG_STATUS', function ($join) use ($usuarioLogado, $mesAtual, $ano) {
+                    $join->on('AG_LIBERACAO_QUESTOES_MENSAIS.ID_CLASSIFICACAO', '=', 'AG_STATUS.AG_CLASSIFICACAO')
+                        ->where('AG_STATUS.AG_MATRICULA', '=', $usuarioLogado->registration)
+                        ->whereMonth('AG_STATUS.DATA_RESPOSTA_COMPLETA', '=', $mesAtual)
+                        ->whereYear('AG_STATUS.DATA_RESPOSTA_COMPLETA', '=', $ano);
+                })
+                ->select(DB::raw("CASE 
+                        WHEN COUNT(DISTINCT AG_STATUS.AG_CLASSIFICACAO) 
+                                = COUNT(DISTINCT AG_LIBERACAO_QUESTOES_MENSAIS.ID_CLASSIFICACAO) 
+                                AND COUNT(DISTINCT AG_STATUS.AG_CLASSIFICACAO) > 0 
+                        THEN 'S'
+                        ELSE 'N'
+                    END AS STATUS"))->first();
+
+            // dd($dataPadrao);
 
             $classificacoes = AgClassificacao::query()
                 ->with('agquestoes')
@@ -74,16 +94,24 @@ class ClassificacoesControllers extends Controller
                 })
                 ->first();
 
+            //   DD($classificacoesMensais);
+
             $questoesMensaisstatus = $classificacoesMensais->ID_CLASSIFICACAO !== null ? 'S' : 'N';
         }
+
+
+        //  dd($mesAtual, $questoesRespondidasMensais);
+
+        //  dd($questoesRespondidasMensais, $mesAtual);
 
         return view('home', [
             'classificacoes' => $classificacoes,
             'classificacoesMensais' => $classificacoesMensais,
             'gerenteNome' => $gerenteNome,
-            'ativo' => $ativo,
+            'questoesRespondidas' =>    $questoesRespondidas,
             'questoesMensaisstatus' => $questoesMensaisstatus,
-            'mes' => $mes
+            'questoesRespondidasMensais' =>  $questoesRespondidasMensais,
+            'mes' => $mesAtual
         ]);
     }
 }

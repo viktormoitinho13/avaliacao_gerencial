@@ -3,7 +3,7 @@
         class="mx-auto my-4 mt-5 container-fluid col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 offset-md-3">
         @foreach ($classificacoes as $classificacao)
             <div class="mt-4 d-flex justify-content-center">
-                <h1 class="text-center fs-3 text-capitalize" style="color:#E2304E; -webkit-text-stroke:  #E2304E;">
+                <h1 class="text-center fs-3 text-capitalize" style="color:#3083e2; -webkit-text-stroke:  #3083e2;">
                     {{ $classificacao }}
                 </h1>
             </div>
@@ -12,12 +12,12 @@
             @csrf
             @foreach ($questoes as $key => $questao)
                 <div class="mx-auto mt-5 mb-1 bg-white rounded shadow-sm card w-100 "
-                    style="border-color: #9c001a; background-color:#e3f0ff1a">
+                    style="border-color: #3083e2; background-color:#e3f0ff1a">
                     <div class="form-group row">
                         <div class="text-center col-sm-12">
                             <div class="text-white card-header fs-6 "
-                                style="background-color: #9c001a; overflow-wrap:break-word;">
-                                {{ $questao->QUESTAO }}
+                                style="background-color: #3083e2; overflow-wrap:break-word;">
+                              <strong>{{ $questao->QUESTAO }}</strong>  
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
             <div class="container">
                 <div class="row">
                     <div class="text-center col">
-                        <button class="mx-auto my-4 text-center btn btn-lg btn-block col-4 offset-md-3"
-                            style="background-color:#E2304E; color:white;"> Enviar  <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                        <button class="mx-auto my-4 text-center btn btn-lg btn-block col-2 offset-md-3"
+                            style="background-color:#3083e2; color:white;"> Enviar  <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>

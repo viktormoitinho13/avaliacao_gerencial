@@ -21,7 +21,7 @@ class feedbackCheckController extends Controller
             ->update(['checkfeedback' => 'S']);
 
         // Redirecionando com mensagem de sucesso
-        return Redirect::route('feedbackReportController.index', ['id' => $validatedData['id']])
+        return Redirect::route('home')
             ->with('success', 'Feedback enviado com sucesso!');
     }
 }

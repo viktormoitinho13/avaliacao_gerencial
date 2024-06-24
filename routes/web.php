@@ -24,7 +24,6 @@ use App\Http\Controllers\feedbackCheckController;
 use App\Http\Controllers\feedbackSupervisorController;
 use App\Http\Controllers\managerHomeController;
 use App\Http\Controllers\managerFeedbackHistoryController;
-use App\Http\Controllers\managerFeedbackMonthController;
 use App\Http\Controllers\historyClassificacations;
 
 
@@ -63,8 +62,10 @@ Route::get('/report', [RelatorioGerenteController::class, 'index'])
     ->middleware('auth')
     ->name('report');
 
+// Definição de rota para 'ReportDocMonth' com middleware 'auth'
 Route::get('/{loja}/{mes}/{ano}', [ReportDocMonth::class, 'index'])
     ->middleware('auth')
+    ->where(['loja' => '[0-9]+', 'mes' => '[0-9]+', 'ano' => '[0-9]+'])
     ->name('ReportDocMonth.index');
 
 Route::get('/releaseQuestions', [ReleaseMonthlyQuestions::class, 'index'])
@@ -99,9 +100,7 @@ Route::post('/check', [feedbackCheckController::class, 'store'])
     ->middleware('auth')
     ->name('checkFeedback.store');
 
-Route::get('/feedbackMonth', [managerFeedbackMonthController::class, 'index'])
-    ->middleware('auth')
-    ->name('managerFeedbackMonthController.index');
+
 
 
 Route::get('/classHistory/{id}/{gerente}/{loja}', [historyClassificacations::class, 'index'])
@@ -136,16 +135,16 @@ Route::post('/createSelf', [feedbackManagerSelfPerceptionController::class, 'sto
 Route::middleware('auth')
     ->prefix('form')
     ->group(function () {
-        Route::get('/{id}', [QuestionsController::class, 'index'])
+        Route::get('/questions/{id}', [QuestionsController::class, 'index'])
             ->whereNumber('id')
             ->name('questions.index');
-        Route::get('/{id}', [QuestionsMonthController::class, 'index'])
+        Route::get('/questionsMonth/{id}', [QuestionsMonthController::class, 'index'])
             ->whereNumber('id')
             ->name('questionsMonth.index');
-        Route::post('/create/{id}', [RespostasQuestoes::class, 'store'])
+        Route::post('/create/questions/{id}', [RespostasQuestoes::class, 'store'])
             ->whereNumber('id')
             ->name('respostas.store');
-        Route::post('/create/{id}', [RespostasMonthQuestoes::class, 'store'])
+        Route::post('/create/questionsMonth/{id}', [RespostasMonthQuestoes::class, 'store'])
             ->whereNumber('id')
             ->name('respostasMonth.store');
     });

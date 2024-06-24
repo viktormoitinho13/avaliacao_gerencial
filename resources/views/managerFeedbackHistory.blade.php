@@ -15,7 +15,7 @@
                                             <b>Loja {{ $historyFeedbackManager->LOJA }} </b>
                                         </div>
                                         <div>
-                                            <b> <i class="fa-solid fa-s"></i></b>
+                                            <b> <i class="fa-solid fa-f"></i> <i class="fa-solid fa-b"></i></b>
                                         </div>
                                     </div>
 
@@ -25,7 +25,7 @@
                                             <br />
                                         </p>
                                         <div class="mt-2 mb-2 d-flex justify-content-center">
-                                            <a href="{{route('managerFeedbackMonthController.index', ['loja' =>$historyFeedbackManager->LOJA, 'data_feedback' => $historyFeedbackManager->DATA_FEEDBACK ]) }}"
+                                            <a href="{{route('feedbackReportController.index', ['id' =>$historyFeedbackManager->AG_FEEDBACK_SEMESTRAL_SUPERVISAO ]) }}"
                                                 class="px-1 btn"
                                                 style="background-color:#fffcfc; color:#E2304E; border-color:#ffd5d5;">
                                                 <i class="fas fa-eye" aria-hidden="true"></i>

@@ -9,6 +9,8 @@ class historyClassificacations extends Controller
 {
     public function index($id, $gerente, $loja)
     {
+
+        // dd($id, $gerente, $loja);
         $cabecalhoAnual = DB::select("
         SELECT
             MONTH(A.DATA_RESPOSTA_COMPLETA) AS MES,      
@@ -31,7 +33,7 @@ class historyClassificacations extends Controller
         WHERE 
             A.GERENTE = ?
             AND C.AG_CLASSIFICACAO = ?
-            AND AG_LOJA = ?
+           
         GROUP BY 
             C.AG_CLASSIFICACAO,
             C.CLASSIFICACAO,
@@ -40,7 +42,7 @@ class historyClassificacations extends Controller
         ORDER BY 
             MONTH(A.DATA_RESPOSTA_COMPLETA),      
             YEAR(A.DATA_RESPOSTA_COMPLETA) 
-    ", [$gerente, $id, $loja]);
+    ", [$gerente, $id]);
 
         $mediaAnual = DB::select("
         
@@ -73,7 +75,7 @@ class historyClassificacations extends Controller
         WHERE 
             A.GERENTE = ?
             AND C.AG_CLASSIFICACAO = ?
-            AND AG_LOJA = ?
+          
         GROUP BY 
             C.AG_CLASSIFICACAO,
             C.CLASSIFICACAO,
@@ -85,7 +87,7 @@ class historyClassificacations extends Controller
  		A.ANO,
  		A.AG_CLASSIFICACAO,
  		A.CLASSIFICACAO
-    ", [$gerente, $id, $loja]);
+    ", [$gerente, $id]);
 
 
         // dd($cabecalhoAnual, $mediaAnual);

@@ -17,7 +17,7 @@ class managerFeedbackHistoryController extends Controller
 
         // Iniciar a construção da consulta
         $query = AgFeedbackSupervisao::query()
-            ->select('LOJA', 'GERENTE', DB::raw("FORMAT(DATA_FEEDBACK, 'dd/MM/yyyy') as DATA_FEEDBACK"))
+            ->select('AG_FEEDBACK_SEMESTRAL_SUPERVISAO', 'LOJA', 'GERENTE', DB::raw("FORMAT(DATA_FEEDBACK, 'dd/MM/yyyy') as DATA_FEEDBACK"))
             ->where('AG_FEEDBACK_SEMESTRAIS_SUPERVISAO.GERENTE', $usuarioLogado->registration);
 
 
@@ -37,6 +37,8 @@ class managerFeedbackHistoryController extends Controller
 
         // Usar paginate no construtor da consulta
         $historyFeedbackManagers = $query->paginate(10);
+
+
 
         return view('managerFeedbackHistory', [
             'historyFeedbackManagers' => $historyFeedbackManagers

@@ -7,7 +7,7 @@
                     <div class="text-center row align-items-center">
                         <div class="text-center col-12">
                             @if (!empty($cabecalhoAnual))
-                                <h2 class="mt-4">{{ $cabecalhoAnual[0]->CLASSIFICACAO }}</h2>
+                                <h2 class="mt-4">HISTÓRICO DE {{ $cabecalhoAnual[0]->CLASSIFICACAO }}</h2>
                             @endif
                         </div>
                     </div>

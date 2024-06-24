@@ -1,23 +1,23 @@
 <x-app-layout>
     <div
-        class="mx-auto my-4 mt-4 container-fluid col-md-6 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 offset-md-3">
+        class="mx-auto my-4 mt-5 container-fluid col-md-6 col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 col-xxl-6 offset-md-3">
         @foreach ($classificacoes as $classificacao)
-            <div class="mt-4 d-flex justify-content-center">
+            <div class="mt-5 d-flex justify-content-center">
                 <h1
-                    class="text-center fs-3 text-capitalize"style=" color:#ff0000;; -webkit-text-stroke:  #ff0000;;">
+                    class="text-center fs-3 text-capitalize"style=" color:#E2304E;; -webkit-text-stroke:  #ff0000;;">
                     {{ $classificacao }}</h1>
             </div>
         @endforeach
         <form action="{{ route('respostas.store', ['id' => $id]) }}" method="POST">
             @csrf
             @foreach ($questoes as $key => $questao)
-                <div class="mx-auto mt-4 mb-1 bg-white rounded shadow-sm card w-100 "
+                <div class="mx-auto mt-5 mb-1 bg-white rounded shadow-sm card w-100 "
                     style="border-color: #E2304E; background-color:#e3f0ff1a">
                     <div class="form-group row">
                         <div class="text-center col-sm-12">
                             <div class="text-white card-header fs-6 "
-                                style="background-color: #ff0000;; overflow-wrap:break-word;">
-                                {{ $questao->QUESTAO }}
+                                style="background-color: #E2304E; overflow-wrap:break-word;">
+                                <strong>{{ $questao->QUESTAO }}</strong>
                             </div>
                         </div>
                     </div>
@@ -69,9 +69,9 @@
             @endforeach
             <div class="container">
                 <div class="row">
-                    <div class="text-center col">
-                        <button class="mx-auto my-4 text-center btn btn-lg btn-block col-4 offset-md-3"
-                            style="background-color:#ff0000;; color:white;"> Enviar <i class="fas fa-paper-plane" aria-hidden="true"> </i></button>
+                    <div class="text-center col ">
+                        <button class="mx-auto my-4 text-center btn btn-lg btn-block col-2 offset-md-3"
+                            style="background-color:#E2304E; color:white;"> Enviar <i class="fas fa-paper-plane" aria-hidden="true"> </i></button>
                     </div>
                 </div>
             </div>

@@ -18,6 +18,8 @@ class QuestionsController extends Controller
      */
     public function index(int $id): View|Factory
     {
+
+        //dd(2);
         $questoes = AgQuestoes::query()
             ->with('respostas')
             ->where('ag_classificacao', $id)
@@ -37,7 +39,7 @@ class QuestionsController extends Controller
         return view('form', [
             'id' => $id,
             'questoes' => $questoes,
-            'classificacao' => $classificacao,
+            'classificacoes' => $classificacao,
         ]);
     }
 }
